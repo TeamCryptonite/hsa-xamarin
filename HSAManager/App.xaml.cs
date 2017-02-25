@@ -8,7 +8,7 @@ namespace HSAManager
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new HSAManagerPage1());
+			MainPage = new NavigationPage(new HSAManagerPage());
 		}
 
 		protected override void OnStart()

@@ -1,19 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:HSAManager" x:Class="HSAManager.HSAManagerPage"
-	BackgroundColor="White">
+	BackgroundColor="White" Title="Dashboard">
 	<ContentPage.Content>
 		<ScrollView>
 			<StackLayout Spacing="0" Padding="0">
-				<BoxView HorizontalOptions="FillAndExpand" HeightRequest="20" VerticalOptions="Start"
-						BackgroundColor="Gray" Margin="0,20,0,0"/>
-				<Label Text="Dashboard" HorizontalOptions="FillAndExpand" HeightRequest="20" VerticalOptions="Start"
-						BackgroundColor="Gray" HorizontalTextAlignment="Center" Margin="0,0,0,0"/>
-				<BoxView HorizontalOptions="FillAndExpand" HeightRequest="20" VerticalOptions="Start"
-						BackgroundColor="Gray" Margin="0,0,0,0"/>
-				<Button Text="Receipt Vault" Margin="0,40,0,0" />
-				<Button Text="Charts" />
-				<Button Text="HSA Management" />
-				<Button Text="Products" />
+
+				<Button Text="Receipt Vault" Clicked="Handle_Clicked_Receipt" Margin="0,40,0,0" />
+				<Button Text="Charts" Clicked="Handle_Clicked_Charts" />
+				<Button Text="HSA Management" Clicked="Handle_Clicked_Management" />
+				<Button Text="Products" Clicked="Handle_Clicked_Products" />
 
 			</StackLayout>
 
