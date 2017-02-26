@@ -8,7 +8,12 @@ namespace HSAManager
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new HSAManagerPage());
+			MainPage = new NavigationPage(new HSAManagerPage())
+			{
+				BarBackgroundColor = Color.FromHex("#00cccc"),
+				BarTextColor = Color.White
+			};
+
 		}
 
 		protected override void OnStart()
