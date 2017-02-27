@@ -24,6 +24,11 @@ namespace HSAManager
 			Navigation.PushAsync(new products());
 		}
 
+		void Handle_SL(object sender, System.EventArgs e)
+		{
+			Navigation.PushAsync(new shoppingList());
+		}
+
 		public HSAManagerPage()
 		{
 			InitializeComponent();
