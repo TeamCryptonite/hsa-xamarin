@@ -27,6 +27,9 @@ namespace HSAManager.Droid
 		public static void UpdateIdValues()
 		{
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::HSAManager.Droid.Resource.Attribute.actionBarSize;
+			global::Microsoft.Identity.Client.Resource.Id.agentWebView = global::HSAManager.Droid.Resource.Id.agentWebView;
+			global::Microsoft.Identity.Client.Resource.Layout.WebAuthenticationBroker = global::HSAManager.Droid.Resource.Layout.WebAuthenticationBroker;
+			global::Microsoft.Identity.Client.Resource.String.ApplicationName = global::HSAManager.Droid.Resource.String.ApplicationName;
 		}
 		
 		public partial class Animation
@@ -2820,6 +2823,9 @@ namespace HSAManager.Droid
 			// aapt resource value: 0x7f0c0038
 			public const int add = 2131492920;
 			
+			// aapt resource value: 0x7f0c00b2
+			public const int agentWebView = 2131493042;
+			
 			// aapt resource value: 0x7f0c0058
 			public const int alertTitle = 2131492952;
 			
@@ -2979,8 +2985,8 @@ namespace HSAManager.Droid
 			// aapt resource value: 0x7f0c0048
 			public const int list_item = 2131492936;
 			
-			// aapt resource value: 0x7f0c00b3
-			public const int masked = 2131493043;
+			// aapt resource value: 0x7f0c00b4
+			public const int masked = 2131493044;
 			
 			// aapt resource value: 0x7f0c009f
 			public const int media_actions = 2131493023;
@@ -3285,8 +3291,8 @@ namespace HSAManager.Droid
 			// aapt resource value: 0x7f0c0002
 			public const int view_offset_helper = 2131492866;
 			
-			// aapt resource value: 0x7f0c00b2
-			public const int visible = 2131493042;
+			// aapt resource value: 0x7f0c00b3
+			public const int visible = 2131493043;
 			
 			// aapt resource value: 0x7f0c0091
 			public const int volume_item_container = 2131493009;
@@ -3582,6 +3588,9 @@ namespace HSAManager.Droid
 			// aapt resource value: 0x7f030043
 			public const int Toolbar = 2130903107;
 			
+			// aapt resource value: 0x7f030044
+			public const int WebAuthenticationBroker = 2130903108;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -3594,6 +3603,9 @@ namespace HSAManager.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f07003d
+			public const int ApplicationName = 2131165245;
 			
 			// aapt resource value: 0x7f07001c
 			public const int abc_action_bar_home_description = 2131165212;
