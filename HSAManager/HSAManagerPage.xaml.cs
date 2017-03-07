@@ -49,9 +49,9 @@ namespace HSAManager
 			// let's see if we have a user in our belly already
 			try
 			{
-				AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);
-				//Navigation.PushAsync(new TasksPage());
-				Navigation.PushAsync(new HSAManagerPage());
+				//AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);
+				AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.SignUpSignInpolicy);
+				//Navigation.PushAsync(new HSAManagerPage());
 			}
 			catch
 			{
