@@ -44,7 +44,8 @@ namespace HSAManager
 			//};
 
 			// The root page of your application
-			MainPage = new NavigationPage(new HSAManager.HSAManagerPage());
+			MainPage = new NavigationPage(new HSAManager.StartPage());
+
 		}
 
 		protected override void OnStart()

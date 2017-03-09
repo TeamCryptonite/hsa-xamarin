@@ -7,16 +7,16 @@ using HSAManager;
 using HSAManager.iOS;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(HSAManagerPage), typeof(HSAManagerPageRenderer))]
+[assembly: ExportRenderer(typeof(StartPage), typeof(HSAManagerPageRenderer))]
 namespace HSAManager.iOS
 {
 	class HSAManagerPageRenderer : PageRenderer
 	{
-		HSAManagerPage page;
+		StartPage page;
 		protected override void OnElementChanged(VisualElementChangedEventArgs e)
 		{
 			base.OnElementChanged(e);
-			page = e.NewElement as HSAManagerPage;
+			page = e.NewElement as StartPage;
 		}
 		public override void ViewDidLoad()
 		{
