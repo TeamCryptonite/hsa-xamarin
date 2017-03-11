@@ -23,8 +23,8 @@ namespace HSAManager
 			App.PCApplication.PlatformParameters = platformParameters;
 			try
 			{
-				AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);
-				Navigation.PushAsync(new HSAManager.HSAManagerPage());
+				//AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);
+				//Navigation.PushAsync(new HSAManager.HSAManagerPage());
 			}
 			catch
 			{
@@ -66,7 +66,10 @@ namespace HSAManager
 			try
 			{
 				AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.SignUpSignInpolicy);
-				Navigation.PushAsync(new HSAManager.HSAManagerPage());
+
+				Navigation.PushAsync(new HSAManagerPage());
+
+
 			}
 			catch (MsalException ee)
 			{
