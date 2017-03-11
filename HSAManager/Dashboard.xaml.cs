@@ -2,11 +2,11 @@
 
 namespace HSAManager
 {
-	public partial class HSAManagerPage : ContentPage
+	public partial class Dashboard : ContentPage
 	{
 		void Handle_Clicked_Receipt(object sender, System.EventArgs e)
 		{
-			Navigation.PushAsync(new receiptVault());
+			Navigation.PushAsync(new ReceiptVaultDashboard());
 		}
 
 		void Handle_Clicked_Charts(object sender, System.EventArgs e)
@@ -29,7 +29,7 @@ namespace HSAManager
 			Navigation.PushAsync(new shoppingList());
 		}
 
-		public HSAManagerPage()
+		public Dashboard()
 		{
 			InitializeComponent();
 		}

@@ -11,8 +11,6 @@ namespace HSAManager
 {
 	public partial class App : Application
 	{
-		// the todos (databinded from TasksPage.XAML)
-		public static ObservableCollection<string> Tasks { get; set; }
 		// the app
 		public static PublicClientApplication PCApplication { get; set; }
 
@@ -36,7 +34,7 @@ namespace HSAManager
 			//	BarTextColor = Color.White
 			//};
 
-			Tasks = new ObservableCollection<string>();
+
 
 			PCApplication = new PublicClientApplication(Authority, ClientID);
 			//{
@@ -44,7 +42,12 @@ namespace HSAManager
 			//};
 
 			// The root page of your application
-			MainPage = new NavigationPage(new HSAManager.StartPage());
+
+			//Actual
+			//MainPage = new NavigationPage(new HSAManager.StartScreen());
+
+			//Testing Purposes
+			MainPage = new NavigationPage(new HSAManager.Dashboard());
 
 		}
 

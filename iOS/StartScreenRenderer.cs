@@ -2,21 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
 using HSAManager;
 using HSAManager.iOS;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(StartPage), typeof(HSAManagerPageRenderer))]
+[assembly: ExportRenderer(typeof(StartScreen), typeof(StartScreenRenderer))]
 namespace HSAManager.iOS
 {
-	class HSAManagerPageRenderer : PageRenderer
+	class StartScreenRenderer : PageRenderer
 	{
-		StartPage page;
+		StartScreen page;
 		protected override void OnElementChanged(VisualElementChangedEventArgs e)
 		{
 			base.OnElementChanged(e);
-			page = e.NewElement as StartPage;
+			page = e.NewElement as StartScreen;
 		}
 		public override void ViewDidLoad()
 		{

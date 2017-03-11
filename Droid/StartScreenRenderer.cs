@@ -15,17 +15,17 @@ using HSAManager.Droid;
 using Xamarin.Forms.Platform.Android;
 using Microsoft.Identity.Client;
 
-[assembly: ExportRenderer(typeof(StartPage), typeof(HSAManagerPageRenderer))]
+[assembly: ExportRenderer(typeof(StartScreen), typeof(StartScreenRenderer))]
 namespace HSAManager.Droid
 {
-	class HSAManagerPageRenderer : PageRenderer
+	class StartScreenRenderer : PageRenderer
 	{
-		StartPage page;
+		StartScreen page;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
 		{
 			base.OnElementChanged(e);
-			page = e.NewElement as StartPage;
+			page = e.NewElement as StartScreen;
 			var activity = this.Context as Activity;
 			page.platformParameters = new PlatformParameters(activity);
 		}

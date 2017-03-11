@@ -28,7 +28,6 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="HSAManagerPage.xaml" />
     <EmbeddedResource Include="receiptVault.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -44,16 +43,25 @@
     <EmbeddedResource Include="shoppingList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="StartPage.xaml">
+    <EmbeddedResource Include="StartScreen.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiptEditing.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiptEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiptVaultDashboard.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="HSAManagerPage.xaml.cs">
-      <DependentUpon>HSAManagerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="receiptVault.xaml.cs">
@@ -71,8 +79,20 @@
     <Compile Include="shoppingList.xaml.cs">
       <DependentUpon>shoppingList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartPage.xaml.cs">
-      <DependentUpon>StartPage.xaml</DependentUpon>
+    <Compile Include="StartScreen.xaml.cs">
+      <DependentUpon>StartScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptEditing.xaml.cs">
+      <DependentUpon>ReceiptEditing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptEntry.xaml.cs">
+      <DependentUpon>ReceiptEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptVaultDashboard.xaml.cs">
+      <DependentUpon>ReceiptVaultDashboard.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
