@@ -24,7 +24,7 @@ namespace HSAManager
 
 		void Handle_Manual_Entry(object sender, System.EventArgs e)
 		{
-			//Navigation.PushAsync(new balanceManagement());
+			Navigation.PushAsync(new ReceiptEntry());
 		}
 	}
 }
