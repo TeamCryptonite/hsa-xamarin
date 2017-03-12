@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Microsoft.Identity.Client;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -23,6 +23,12 @@ namespace HSAManager.Droid
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 
 			LoadApplication(new App());
+		}
+
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+			AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
 		}
 	}
 }
