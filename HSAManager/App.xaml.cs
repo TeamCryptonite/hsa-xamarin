@@ -49,7 +49,9 @@ namespace HSAManager
 			//Testing Purposes
 			MainPage = new NavigationPage(new HSAManager.Dashboard());
 
+
 		}
+
 
 		protected override void OnStart()
 		{

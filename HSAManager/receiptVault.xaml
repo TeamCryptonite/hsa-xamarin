@@ -1,20 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HSAManager.receiptVault"
 		Title="Receipts">
-	<ContentPage.Content>
-				<ListView x:Name="listView">
+	
+		<StackLayout>
+			<SearchBar x:Name = "receiptVaultSearch" TextChanged="searchChanged" />
+				<ListView x:Name="listView" >
 					<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
-							<Label Text="{Binding .}"
-									FontSize="25"
+						<StackLayout Orientation="Horizontal">
+							<Label Text="{Binding Store.Name}"
 									TextColor="Navy"
-									Margin="20,10"/>
+									Margin="20,10"
+									HorizontalOptions="StartAndExpand">
+							</Label>
+							<Label Text="{Binding DateTime}"
+									TextColor="Navy"
+									Margin="20,10"
+									HorizontalOptions="EndAndExpand">
+							</Label>
+							</StackLayout>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>
-
 		</ListView>
-	</ContentPage.Content>
+		</StackLayout>
+
 </ContentPage>
-	
+
+<!-- <Label.GestureRecognizers>
+									<TapGestureRecognizer Tapped="Handle_Tapped"/>
+								</Label.GestureRecognizers>
+								-->

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using HsaServiceDtos;
 
 using Xamarin.Forms;
+using HsaServiceDtos;
 
 namespace HSAManager
 {
