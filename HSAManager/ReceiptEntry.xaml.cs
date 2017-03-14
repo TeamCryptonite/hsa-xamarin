@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using HsaServiceDtos;
 
 using Xamarin.Forms;
 
@@ -8,10 +8,10 @@ namespace HSAManager
 {
 	public partial class ReceiptEntry : ContentPage 
 	{
-		ObservableCollection<HsaServiceDtos.LineItemDto> lineItemNames = new ObservableCollection<HsaServiceDtos.LineItemDto>();
+		ObservableCollection<LineItemDto> lineItemNames = new ObservableCollection<LineItemDto>();
 
-		public HsaServiceDtos.ReceiptDto thisReceipt = new HsaServiceDtos.ReceiptDto();
-		public HsaServiceDtos.LineItemDto lineItemDto = new HsaServiceDtos.LineItemDto();
+		ReceiptDto thisReceipt = new ReceiptDto();
+		public LineItemDto lineItemDto = new LineItemDto();
 
 		public ReceiptEntry()
 		{
@@ -26,9 +26,32 @@ namespace HSAManager
 
 		void addItem(object sender, System.EventArgs e)
 		{
-			lineItemDto.Product = new HsaServiceDtos.ProductDto();
-			lineItemDto.Product.Name = item.Text;
-			lineItemDto.Price = Convert.ToDecimal(price.Text);
+			lineItemDto.Product = new ProductDto();
+			if(item.Text != "")
+			{
+				lineItemDto.Product.Name = item.Text;
+			}
+			else
+			{
+				DisplayAlert("Alert", "You must enter a product name", "OK");
+				return;
+			}
+			if (price.Text != "")
+			{
+				try
+				{
+					lineItemDto.Price = Convert.ToDecimal(price.Text);
+				}
+				catch
+				{
+					DisplayAlert("Alert", "You must enter a number for the price", "OK");
+				}
+			}
+			else
+			{
+				DisplayAlert("Alert", "You must enter a number for the price", "OK");
+				return;
+			}
 			item.Text = "";
 			price.Text = "";
 			store.Text = "";
@@ -36,7 +59,7 @@ namespace HSAManager
 			thisReceipt.LineItems.Add(lineItemDto);
 			lineItemNames.Add(lineItemDto);
 			lineItemDto = null;
-			lineItemDto = new HsaServiceDtos.LineItemDto();
+			lineItemDto = new LineItemDto();
 
 			
 			//catch{
@@ -49,7 +72,7 @@ namespace HSAManager
 		void submitReceipt(object sender, System.EventArgs e)
 		{
 			thisReceipt.DateTime = Convert.ToDateTime(date.Text);
-			thisReceipt.Store = new HsaServiceDtos.StoreDto();
+			thisReceipt.Store = new StoreDto();
 			thisReceipt.Store.Name = store.Text;
 			//convert to json and send to db
 
