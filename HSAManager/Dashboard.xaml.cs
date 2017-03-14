@@ -31,6 +31,7 @@ namespace HSAManager
 
 		public Dashboard()
 		{
+			
 			InitializeComponent();
 		}
 	}

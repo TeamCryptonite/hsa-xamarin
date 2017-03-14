@@ -2,38 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HSAManager.receiptVault"
 		Title="Receipts">
 	<ContentPage.Content>
-		<ScrollView>
-			<StackLayout Margin="0" Padding="0">
-				<SearchBar Placeholder="Search" HeightRequest="40"/>
-			<TableView Intent="Settings">
-            <TableRoot>
-                <TableSection Title="Receipts" >
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Walmart Receipt"
-								HorizontalTextAlignment="Start"
-								VerticalTextAlignment="Center"
-								FontSize="15"
-								FontAttributes="Bold"
-                              TextColor="#503026"/>
-									
-							<Label Text="11/23/16"
-								HorizontalOptions="CenterAndExpand"
-								FontSize="10"
-								VerticalTextAlignment="Center"
-								TextColor="#503026"/>
-									
-                            <Label Text="Pending"
-								VerticalTextAlignment="Center"
-								FontSize="10"
-                             	HorizontalOptions="EndAndExpand"
-                              TextColor="#503026" />
-                        </StackLayout>
-                    </ViewCell>
-                </TableSection>
-            </TableRoot>
-		</TableView>
-				</StackLayout>
-		</ScrollView>
+				<ListView x:Name="listView">
+					<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Label Text="{Binding .}"
+									FontSize="25"
+									TextColor="Navy"
+									Margin="20,10"/>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+
+		</ListView>
 	</ContentPage.Content>
 </ContentPage>
+	
