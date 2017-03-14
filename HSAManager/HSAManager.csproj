@@ -94,15 +94,15 @@
     <Compile Include="ReceiptVaultDashboard.xaml.cs">
       <DependentUpon>ReceiptVaultDashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\HsaServiceDtos\CategoryDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\LineItemDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\ProductDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\ReceiptDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\ReceiptPatchDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\ShoppingListDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\ShoppingListItemDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\StoreDto.cs" />
-    <Compile Include="Models\HsaServiceDtos\StoreWithProductsDto.cs" />
+    <Compile Include="HsaServiceDtos\CategoryDto.cs" />
+    <Compile Include="HsaServiceDtos\LineItemDto.cs" />
+    <Compile Include="HsaServiceDtos\ProductDto.cs" />
+    <Compile Include="HsaServiceDtos\ReceiptDto.cs" />
+    <Compile Include="HsaServiceDtos\ReceiptPatchDto.cs" />
+    <Compile Include="HsaServiceDtos\ShoppingListDto.cs" />
+    <Compile Include="HsaServiceDtos\ShoppingListItemDto.cs" />
+    <Compile Include="HsaServiceDtos\StoreDto.cs" />
+    <Compile Include="HsaServiceDtos\StoreWithProductsDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Identity.Client">
@@ -126,9 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.212-pre4\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.212-pre4\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

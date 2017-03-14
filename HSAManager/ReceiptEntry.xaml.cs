@@ -6,30 +6,17 @@ using Xamarin.Forms;
 
 namespace HSAManager
 {
-	public partial class ReceiptEntry : ContentPage
+	public partial class ReceiptEntry : ContentPage 
 	{
-		ObservableCollection<string> receiptItems = new ObservableCollection<string>();
+		ObservableCollection<HsaServiceDtos.LineItemDto> lineItemNames = new ObservableCollection<HsaServiceDtos.LineItemDto>();
 
-		public class lineItem
-		{
-			public lineItem(string store, string date, string name, double price)
-			{
-				this.Store = store;
-				this.Date = date;
-				this.Name = name;
-				this.Price = price;
-			}
-
-			public string Store { private set; get; }
-			public string Date { private set; get;}
-			public string Name { private set; get;}
-			public double Price { private set; get; }
-		}
+		public HsaServiceDtos.ReceiptDto thisReceipt = new HsaServiceDtos.ReceiptDto();
+		public HsaServiceDtos.LineItemDto lineItemDto = new HsaServiceDtos.LineItemDto();
 
 		public ReceiptEntry()
 		{
 			InitializeComponent();
-			addInfo.ItemsSource = receiptItems;
+			addItemInfo.ItemsSource = lineItemNames;
 		}
 
 		void getBlob(object sender, System.EventArgs e)
@@ -37,42 +24,35 @@ namespace HSAManager
 			// get image file type and retrieve blob
 		}
 
-		void addItems(object sender, System.EventArgs e)
+		void addItem(object sender, System.EventArgs e)
 		{
-			try
-			{
-				lineItem lI = new lineItem(store.Text, date.Text, item.Text, Double.Parse(price.Text));
-				item.Text = "";
-				price.Text = "";
-				store.Text = "";
-				date.Text = "";
-				receiptItems.Add(lI.Store + ", " + lI.Date + ", " + lI.Name + ", $" + lI.Price);
-			}
-			catch
-			{
-				DisplayAlert("Alert", "You must enter a number for the price", "OK");
-			}	
-
-			//for (int x = 0; x <= receiptItems.Count-1; x++) 
-			//{
-			//	if (x < 1)
-			//	{
-			//		itemsBox.Text= receiptItems[x].Name + "                                         " + receiptItems[x].Price;
-			//	}
-			//	else
-			//	{
-			//		itemsBox.Text += "\n" + receiptItems[x].Name + "                                         " + receiptItems[x].Price;
-			//	}
-
-			//}
-			//itemsBox.Text(lI.Name, lI.Price);
+			lineItemDto.Product = new HsaServiceDtos.ProductDto();
+			lineItemDto.Product.Name = item.Text;
+			lineItemDto.Price = Convert.ToDecimal(price.Text);
+			item.Text = "";
+			price.Text = "";
+			store.Text = "";
+			date.Text = "";
+			thisReceipt.LineItems.Add(lineItemDto);
+			lineItemNames.Add(lineItemDto);
+			lineItemDto = null;
+			lineItemDto = new HsaServiceDtos.LineItemDto();
 
 			
+			//catch{
+
+			//	DisplayAlert("Alert", "You must enter a number for the price", "OK");
+			//}	
+
 		}
 
 		void submitReceipt(object sender, System.EventArgs e)
 		{
-			
+			thisReceipt.DateTime = Convert.ToDateTime(date.Text);
+			thisReceipt.Store = new HsaServiceDtos.StoreDto();
+			thisReceipt.Store.Name = store.Text;
+			//convert to json and send to db
+
 		}
 	}
 }
