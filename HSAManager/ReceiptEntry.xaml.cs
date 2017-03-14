@@ -8,17 +8,20 @@ namespace HSAManager
 {
 	public partial class ReceiptEntry : ContentPage
 	{
-		//ObservableCollection<lineItem> receiptItems = new ObservableCollection<lineItem>();
 		ObservableCollection<string> receiptItems = new ObservableCollection<string>();
 
 		public class lineItem
 		{
-			public lineItem(string name, double price)
+			public lineItem(string store, string date, string name, double price)
 			{
+				this.Store = store;
+				this.Date = date;
 				this.Name = name;
 				this.Price = price;
 			}
 
+			public string Store { private set; get; }
+			public string Date { private set; get;}
 			public string Name { private set; get;}
 			public double Price { private set; get; }
 		}
@@ -36,11 +39,20 @@ namespace HSAManager
 
 		void addItems(object sender, System.EventArgs e)
 		{
-			lineItem lI = new lineItem(item.Text, Double.Parse(price.Text));
-			item.Text = "";
-			price.Text = "";
-			//System.Diagnostics.Debug.WriteLine(lI.Name + " " + lI.Price);
-			receiptItems.Add(lI.Name + " for " + lI.Price);
+			try
+			{
+				lineItem lI = new lineItem(store.Text, date.Text, item.Text, Double.Parse(price.Text));
+				item.Text = "";
+				price.Text = "";
+				store.Text = "";
+				date.Text = "";
+				receiptItems.Add(lI.Store + ", " + lI.Date + ", " + lI.Name + ", $" + lI.Price);
+			}
+			catch
+			{
+				DisplayAlert("Alert", "You must enter a number for the price", "OK");
+			}	
+
 			//for (int x = 0; x <= receiptItems.Count-1; x++) 
 			//{
 			//	if (x < 1)

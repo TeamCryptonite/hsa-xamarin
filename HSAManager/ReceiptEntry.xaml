@@ -4,9 +4,9 @@
 			<StackLayout>
 				<Button Text="Add image" Clicked="getBlob"></Button>
 					<Label Text="Store" HorizontalTextAlignment="Center"></Label>
-					<Entry Text="Store" Margin="2,0,2,0"/>
+					<Entry x:Name="store" Placeholder="Store" Margin="2,0,2,0"/>
 					<Label Text="Date" Margin="0,5,0,0" HorizontalTextAlignment="Center"></Label>
-					<Entry Text="Date" Margin="2,0,2,0"/>
+					<Entry x:Name="date" Placeholder="Date" Margin="2,0,2,0"/>
 				<StackLayout Orientation="Horizontal">
 					<Label HorizontalOptions="StartAndExpand" Text="Item" Margin="2,10,0,0"></Label>
 					<Label HorizontalOptions="EndAndExpand" Text="Price" Margin="0,10,2,0"></Label>
