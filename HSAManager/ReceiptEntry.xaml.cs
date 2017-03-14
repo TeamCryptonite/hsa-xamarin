@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using Xamarin.Forms;
 
@@ -7,6 +8,8 @@ namespace HSAManager
 {
 	public partial class ReceiptEntry : ContentPage
 	{
+		//ObservableCollection<lineItem> receiptItems = new ObservableCollection<lineItem>();
+		ObservableCollection<string> receiptItems = new ObservableCollection<string>();
 
 		public class lineItem
 		{
@@ -20,13 +23,10 @@ namespace HSAManager
 			public double Price { private set; get; }
 		}
 
-
-		List<lineItem> receiptItems = new List<lineItem>();
-
-
 		public ReceiptEntry()
 		{
 			InitializeComponent();
+			addInfo.ItemsSource = receiptItems;
 		}
 
 		void getBlob(object sender, System.EventArgs e)
@@ -38,21 +38,22 @@ namespace HSAManager
 		{
 			lineItem lI = new lineItem(item.Text, Double.Parse(price.Text));
 
-			System.Diagnostics.Debug.WriteLine(lI.Name + " " + lI.Price);
-			receiptItems.Add(lI);
-			for (int x = 0; x <= receiptItems.Count-1; x++) 
-			{
-				if (x < 1)
-				{
-					itemsBox.Text= receiptItems[x].Name + "                                         " + receiptItems[x].Price;
-				}
-				else
-				{
-					itemsBox.Text += "\n" + receiptItems[x].Name + "                                         " + receiptItems[x].Price;
-				}
+			//System.Diagnostics.Debug.WriteLine(lI.Name + " " + lI.Price);
+			receiptItems.Add(lI.Name + "                                              " + lI.Price);
+			//for (int x = 0; x <= receiptItems.Count-1; x++) 
+			//{
+			//	if (x < 1)
+			//	{
+			//		itemsBox.Text= receiptItems[x].Name + "                                         " + receiptItems[x].Price;
+			//	}
+			//	else
+			//	{
+			//		itemsBox.Text += "\n" + receiptItems[x].Name + "                                         " + receiptItems[x].Price;
+			//	}
 
-			}
+			//}
 			//itemsBox.Text(lI.Name, lI.Price);
+
 			
 		}
 

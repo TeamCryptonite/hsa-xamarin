@@ -11,21 +11,24 @@
 					<Label HorizontalOptions="StartAndExpand" Text="Product" Margin="2,10,0,0"></Label>
 					<Label HorizontalOptions="EndAndExpand" Text="Price" Margin="0,10,2,0"></Label>
 				</StackLayout>
-		      <!--<ListView x:Name="addInfo" HeightRequest="25">
+		      <!--<ListView x:name="addInfo" HeightRequest="25">
 						<ListView.ItemTemplate>
 							<DataTemplate>
-								<
 								<TextCell Text = "Test">									
 										<Entry Text="Product" Margin="2,0,0,0" HorizontalOptions="StartAndExpand"></Entry> 
 										<Entry Text="Price" Margin="0,0,2,0" HorizontalOptions="EndAndExpand"></Entry> 
 								</TextCell>
+								<ViewCell>
+									<Label Text="test"></Label>
+								</ViewCell>
 							</DataTemplate>
 						</ListView.ItemTemplate>
-				</ListView> -->
+				</ListView>-->
 				<StackLayout Orientation="Horizontal">
-					<Entry x:Name="item" Placeholder="Item" HorizontalOptions="StartAndExpand"></Entry>
-					<Entry x:Name="price" Placeholder="Price" HorizontalOptions="EndAndExpand"></Entry>
+					<Entry x:Name="item" Placeholder="Item" HorizontalOptions="StartAndExpand" Margin="2,0,0,0"></Entry>
+					<Entry x:Name="price" Placeholder="Price" HorizontalOptions="EndAndExpand" Margin="0,0,2,0"></Entry>
 				</StackLayout>
+				<ListView x:Name="addInfo"></ListView>
 				<StackLayout Orientation="Horizontal">
 					<Button Text="Add Items" Clicked="addItems" Margin="10,0,0,2" HorizontalOptions="StartAndExpand" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold" WidthRequest="150"></Button>
 					<Button Text="Submit" Clicked="submitReceipt" Margin="0,0,10,2" HorizontalOptions="EndAndExpand" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold" WidthRequest="150"></Button>
