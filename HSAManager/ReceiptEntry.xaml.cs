@@ -37,9 +37,10 @@ namespace HSAManager
 		void addItems(object sender, System.EventArgs e)
 		{
 			lineItem lI = new lineItem(item.Text, Double.Parse(price.Text));
-
+			item.Text = "";
+			price.Text = "";
 			//System.Diagnostics.Debug.WriteLine(lI.Name + " " + lI.Price);
-			receiptItems.Add(lI.Name + "                                              " + lI.Price);
+			receiptItems.Add(lI.Name + " for " + lI.Price);
 			//for (int x = 0; x <= receiptItems.Count-1; x++) 
 			//{
 			//	if (x < 1)
