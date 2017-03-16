@@ -14,11 +14,11 @@
 									Margin="20,10"
 									HorizontalOptions="StartAndExpand">
 							</Label>
-							<Label Text="{Binding DateTime}"
+							<!--<Label Text="{Binding DateTime}"
 									TextColor="Navy"
 									Margin="20,10"
 									HorizontalOptions="EndAndExpand">
-							</Label>
+							</Label>-->
 							</StackLayout>
 					</ViewCell>
 				</DataTemplate>
