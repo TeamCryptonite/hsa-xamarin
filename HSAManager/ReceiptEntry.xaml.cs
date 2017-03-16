@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using HsaServiceDtos;
 
 using Xamarin.Forms;
-using HsaServiceDtos;
 
 namespace HSAManager
 {
@@ -55,26 +54,49 @@ namespace HSAManager
 			}
 			item.Text = "";
 			price.Text = "";
-			store.Text = "";
-			date.Text = "";
 			thisReceipt.LineItems.Add(lineItemDto);
 			lineItemNames.Add(lineItemDto);
 			lineItemDto = null;
 			lineItemDto = new LineItemDto();
-
-			
-			//catch{
-
-			//	DisplayAlert("Alert", "You must enter a number for the price", "OK");
-			//}	
 
 		}
 
 		void submitReceipt(object sender, System.EventArgs e)
 		{
 			thisReceipt.DateTime = Convert.ToDateTime(date.Text);
-			thisReceipt.Store = new StoreDto();
-			thisReceipt.Store.Name = store.Text;
+			//if (date.Text != "")
+			//{
+			//	try
+			//	{
+			//		
+			//	}
+			//	catch
+			//	{
+			//		DisplayAlert("Alert", "You must enter a valid date", "OK");
+			//	}
+			//}
+			//else
+			//{
+			//		DisplayAlert("Alert", "You must enter a date", "OK");
+			//}
+
+			if (store.Text != "")
+			{
+				thisReceipt.Store = new StoreDto();
+				thisReceipt.Store.Name = store.Text;
+				if(Application.Current.Properties.ContainsKey("authKey")){
+					string authKey = Application.Current.Properties["authKey"].ToString();
+					var client = new BizzaroClient(authKey);
+					var tester = client.Receipts.PostNewReceipt(thisReceipt);
+					System.Diagnostics.Debug.WriteLine("receipt posted");
+				}
+			}
+			else
+			{
+				DisplayAlert("Alert", "You must enter a store name", "OK");
+			}
+
+
 			//convert to json and send to db
 
 		}
