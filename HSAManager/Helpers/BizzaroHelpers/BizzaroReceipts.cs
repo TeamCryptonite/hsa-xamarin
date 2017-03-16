@@ -6,14 +6,12 @@ namespace HSAManager
 {
     public class BizzaroReceipts : AbstractBizzaroActions
     {
-        public BizzaroReceipts(string authToken, string baseUrl) : base(authToken, baseUrl)
-        {
-        }
+        public BizzaroReceipts(string authToken, string baseUrl) : base(authToken, baseUrl) { }
 
         public Paginator<ReceiptDto> GetListOfReceipts()
         {
             var request = new RestRequest("receipts", Method.GET);
-            return new Paginator<ReceiptDto>(authToken, baseUrl, request);
+            return new Paginator<ReceiptDto>(this, request);
         }
 
         public ReceiptDto GetOneReceipt(int receiptId)

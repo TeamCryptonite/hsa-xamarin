@@ -9,17 +9,15 @@ namespace HSAManager
     {
         protected readonly string authToken;
         protected readonly RestClient client;
-        protected string baseUrl;
 
         protected AbstractBizzaroActions(string authToken, string baseUrl)
         {
             this.authToken = authToken;
-            this.baseUrl = baseUrl;
             client = new RestClient(baseUrl);
             client.IgnoreResponseStatusCode = true;
         }
 
-        protected T CallBizzaro<T>(IRestRequest request, object bodyData = null)
+        public T CallBizzaro<T>(IRestRequest request, object bodyData = null)
         {
             request.AddParameter("Authorization", "Bearer " + authToken, ParameterType.HttpHeader);
             request.AddHeader("Content-Type", "application/json");

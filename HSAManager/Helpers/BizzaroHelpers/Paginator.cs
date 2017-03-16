@@ -4,51 +4,50 @@ using RestSharp.Portable;
 
 namespace HSAManager
 {
-    public class Paginator<T> : AbstractBizzaroActions
+    public class Paginator<T>
     {
+        private AbstractBizzaroActions BizzaroAction;
         private readonly int PageTake;
         private readonly IRestRequest Request;
         private readonly int SkipBy;
-        private int CurrentSkip;
-        public IEnumerable<T> Data;
+        private int NextSkip;
         private bool ReachedEnd;
 
-        public Paginator(string authToken, string baseUrl, IRestRequest request, int skipBy = 10, int pageTake = 10)
-            : base(authToken, baseUrl)
+        public Paginator(AbstractBizzaroActions bizzaroAction, IRestRequest request, int skipBy = 10, int pageTake = 10)
         {
+            BizzaroAction = bizzaroAction;
             Request = request;
-            CurrentSkip = 0;
+            NextSkip = 0;
             SkipBy = skipBy;
             PageTake = pageTake;
-
-            ResetAndRun();
         }
 
-        public void ResetAndRun()
+        public void Reset()
         {
             // Reset CurrentSkip
-            CurrentSkip = 0;
+            NextSkip = 0;
+            ReachedEnd = false;
 
             // Update Parameters
-            Request.AddOrUpdateQueryParameter("skip", CurrentSkip);
+            Request.AddOrUpdateQueryParameter("skip", NextSkip);
             Request.AddOrUpdateQueryParameter("take", PageTake);
-
-            Data = CallBizzaro<IEnumerable<T>>(Request);
         }
 
-        public void Next()
+        public IEnumerable<T> Next()
         {
             if (ReachedEnd)
-                return;
+                return new List<T>();
 
-            CurrentSkip += SkipBy;
+            Request.AddOrUpdateQueryParameter("skip", NextSkip);
 
-            Request.AddOrUpdateQueryParameter("skip", CurrentSkip);
+            var data = BizzaroAction.CallBizzaro<IEnumerable<T>>(Request).ToList();
 
-            Data = CallBizzaro<IEnumerable<T>>(Request);
-
-            if (!Data.Any())
+            if (!data.Any())
                 ReachedEnd = true;
+
+            NextSkip += SkipBy;
+
+            return data;
         }
 
         public bool HasReachedEnd()

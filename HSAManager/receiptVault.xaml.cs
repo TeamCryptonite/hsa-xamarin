@@ -20,7 +20,7 @@ namespace HSAManager
 				string authKey = Application.Current.Properties["authKey"].ToString();
 				var client = new BizzaroClient(authKey);
 
-				receipts = new ObservableCollection<HsaServiceDtos.ReceiptDto>(client.Receipts.GetListOfReceipts());
+				receipts = new ObservableCollection<HsaServiceDtos.ReceiptDto>(client.Receipts.GetListOfReceipts().Next());
 
 			}
 
