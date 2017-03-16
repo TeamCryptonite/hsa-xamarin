@@ -86,7 +86,7 @@ namespace HSAManager
 				thisReceipt.Store.Name = store.Text;
 				if(Application.Current.Properties.ContainsKey("authKey")){
 					string authKey = Application.Current.Properties["authKey"].ToString();
-					var client = new BizzaroClient(authKey);
+					var client = new BizzaroClient();
 					var tester = client.Receipts.PostNewReceipt(thisReceipt);
 					System.Diagnostics.Debug.WriteLine("receipt posted");
 				}

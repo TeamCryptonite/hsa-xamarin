@@ -2,6 +2,7 @@
 using System.Net;
 using RestSharp.Portable;
 using RestSharp.Portable.HttpClient;
+using Xamarin.Forms;
 
 namespace HSAManager
 {
@@ -10,9 +11,9 @@ namespace HSAManager
         protected readonly string authToken;
         protected readonly RestClient client;
 
-        protected AbstractBizzaroActions(string authToken, string baseUrl)
+        protected AbstractBizzaroActions(string baseUrl)
         {
-            this.authToken = authToken;
+            this.authToken = Application.Current.Properties["authKey"].ToString();
             client = new RestClient(baseUrl);
             client.IgnoreResponseStatusCode = true;
         }

@@ -18,7 +18,7 @@ namespace HSAManager
 			if (Application.Current.Properties.ContainsKey("authKey"))
 			{
 				string authKey = Application.Current.Properties["authKey"].ToString();
-				var client = new BizzaroClient(authKey);
+				var client = new BizzaroClient();
 
 				receipts = new ObservableCollection<HsaServiceDtos.ReceiptDto>(client.Receipts.GetListOfReceipts().Next());
 

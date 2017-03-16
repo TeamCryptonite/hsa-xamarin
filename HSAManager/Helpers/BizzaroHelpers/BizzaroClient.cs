@@ -2,9 +2,9 @@
 {
     public class BizzaroClient
     {
-        public BizzaroClient(string authToken, string baseUrl = "https://bizzaro.azurewebsites.net/api")
+        public BizzaroClient(string baseUrl = "https://bizzaro.azurewebsites.net/api")
         {
-            Receipts = new BizzaroReceipts(authToken, baseUrl);
+            Receipts = new BizzaroReceipts(baseUrl);
         }
 
         public BizzaroReceipts Receipts { get; set; }

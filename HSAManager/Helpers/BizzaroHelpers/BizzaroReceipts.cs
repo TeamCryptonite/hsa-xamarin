@@ -6,7 +6,7 @@ namespace HSAManager
 {
     public class BizzaroReceipts : AbstractBizzaroActions
     {
-        public BizzaroReceipts(string authToken, string baseUrl) : base(authToken, baseUrl) { }
+        public BizzaroReceipts(string baseUrl) : base(baseUrl) { }
 
         public Paginator<ReceiptDto> GetListOfReceipts()
         {
