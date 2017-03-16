@@ -10,17 +10,19 @@ namespace HSAManager
 {
 	public partial class receiptVault : ContentPage
 	{
-		public ObservableCollection<HsaServiceDtos.ReceiptDto> receipts = new ObservableCollection<HsaServiceDtos.ReceiptDto>();
-		public HsaServiceDtos.ReceiptDto receipt = new HsaServiceDtos.ReceiptDto();
-
+		public ObservableCollection<HsaServiceDtos.ReceiptDto> receipts;
 
 		public receiptVault()
 		{
-			receipt.Store = new HsaServiceDtos.StoreDto();
-			receipt.Store.Name = "Walmart";
-			receipt.DateTime = new DateTime(1994,12,05);
-			receipts.Add(receipt);
 			InitializeComponent();
+			if (Application.Current.Properties.ContainsKey("authKey"))
+			{
+				string authKey = Application.Current.Properties["authKey"].ToString();
+				var client = new BizzaroClient(authKey);
+
+				receipts = new ObservableCollection<HsaServiceDtos.ReceiptDto>(client.Receipts.GetListOfReceipts());
+
+			}
 
 			listView.ItemsSource = receipts;
 

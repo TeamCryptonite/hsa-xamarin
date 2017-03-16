@@ -14,7 +14,7 @@
 									Margin="20,10"
 									HorizontalOptions="StartAndExpand">
 							</Label>
-							<Label Text="{Binding DateTime}"
+							<Label Text="{Binding DateTime, StringFormat='{0: MMMM dd, yyyy}'}"
 									TextColor="Navy"
 									Margin="20,10"
 									HorizontalOptions="EndAndExpand">

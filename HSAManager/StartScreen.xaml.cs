@@ -16,6 +16,8 @@ namespace HSAManager
 			InitializeComponent();
 		}
 
+
+
 		protected override async void OnAppearing()
 		{
 			App.PCApplication.PlatformParameters = platformParameters;
@@ -54,6 +56,7 @@ namespace HSAManager
 			try
 			{
 				AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.SignUpSignInpolicy);
+				Application.Current.Properties["authKey"] = ar.Token;
 				Navigation.PushAsync(new Dashboard());
 			}
 			catch (MsalException ee)
