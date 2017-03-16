@@ -10,14 +10,10 @@ namespace HSAManager
 {
 	public partial class receiptVault : ContentPage
 	{
-		public ObservableCollection<HsaServiceDtos.ReceiptDto> receipts; //= new ObservableCollection<HsaServiceDtos.ReceiptDto>();
-		public HsaServiceDtos.ReceiptDto receipt = new HsaServiceDtos.ReceiptDto();
-
+		public ObservableCollection<HsaServiceDtos.ReceiptDto> receipts;
 
 		public receiptVault()
 		{
-			receipt.Store = new HsaServiceDtos.StoreDto();
-
 			InitializeComponent();
 			if (Application.Current.Properties.ContainsKey("authKey"))
 			{
