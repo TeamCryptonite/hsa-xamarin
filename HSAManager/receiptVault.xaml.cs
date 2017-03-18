@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
-
+using HsaServiceDtos;
 using Xamarin.Forms;
 //using HsaServiceDtos;
 
@@ -15,20 +15,27 @@ namespace HSAManager
 		public receiptVault()
 		{
 			InitializeComponent();
-			if (Application.Current.Properties.ContainsKey("authKey"))
-			{
-				string authKey = Application.Current.Properties["authKey"].ToString();
-				var client = new BizzaroClient();
-
-				receipts = new ObservableCollection<HsaServiceDtos.ReceiptDto>(client.Receipts.GetListOfReceipts().Next());
-
-			}
-
-			listView.ItemsSource = receipts;
+			
 
 		}
 
-		void searchChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+	    protected override async void OnAppearing()
+	    {
+            if (Application.Current.Properties.ContainsKey("authKey"))
+            {
+                //string authKey = Application.Current.Properties["authKey"].ToString();
+                var client = new BizzaroClient();
+
+                var receiptCollection = new ObservableCollection<ReceiptDto>();
+                var receiptsPaginator = client.Products.GetListOfProducts();
+
+                var receiptsToAdd = await receiptsPaginator.Next();
+            }
+
+            listView.ItemsSource = receipts;
+        }
+
+	    void searchChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
 		{
 			
 		}

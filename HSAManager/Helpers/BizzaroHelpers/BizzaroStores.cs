@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Web.SessionState;
 using HsaServiceDtos;
 using RestSharp.Portable;
 
