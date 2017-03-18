@@ -61,44 +61,35 @@ namespace HSAManager
 
 		}
 
-		void submitReceipt(object sender, System.EventArgs e)
-		{
-			thisReceipt.DateTime = Convert.ToDateTime(date.Text);
-			//if (date.Text != "")
-			//{
-			//	try
-			//	{
-			//		
-			//	}
-			//	catch
-			//	{
-			//		DisplayAlert("Alert", "You must enter a valid date", "OK");
-			//	}
-			//}
-			//else
-			//{
-			//		DisplayAlert("Alert", "You must enter a date", "OK");
-			//}
+        async void submitReceipt(object sender, System.EventArgs e)
+        {
+            thisReceipt.DateTime = DatePicker.Date;
 
-			if (store.Text != "")
-			{
-				thisReceipt.Store = new StoreDto();
-				thisReceipt.Store.Name = store.Text;
-				if(Application.Current.Properties.ContainsKey("authKey")){
-					string authKey = Application.Current.Properties["authKey"].ToString();
-					var client = new BizzaroClient();
-					var tester = client.Receipts.PostNewReceipt(thisReceipt);
-					System.Diagnostics.Debug.WriteLine("receipt posted");
-				}
-			}
-			else
-			{
-				DisplayAlert("Alert", "You must enter a store name", "OK");
-			}
-
-
-			//convert to json and send to db
-
-		}
-	}
+            if (store.Text != "")
+            {
+                thisReceipt.Store = new StoreDto();
+                thisReceipt.Store.Name = store.Text;
+                if (Application.Current.Properties.ContainsKey("authKey"))
+                {
+                    string authKey = Application.Current.Properties["authKey"].ToString();
+                    var client = new BizzaroClient();
+                    try
+                    {
+                        var tester = await client.Receipts.PostNewReceipt(thisReceipt);
+                        await DisplayAlert("Success", "Receipt has been submitted!", "OK");
+                        await Navigation.PopAsync(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        await DisplayAlert("Alert", ex.Message, "OK");
+                    }
+                    
+                }
+            }
+            else
+            {
+                await DisplayAlert("Alert", "You must enter a store name", "OK");
+            }
+        }
+    }
 }
