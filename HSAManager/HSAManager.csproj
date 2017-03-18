@@ -65,8 +65,13 @@
     </Compile>
     <Compile Include="Helpers\BizzaroHelpers\AbstractBizzaroActions.cs" />
     <Compile Include="Helpers\BizzaroHelpers\BizzaroClient.cs" />
+    <Compile Include="Helpers\BizzaroHelpers\BizzaroProducts.cs" />
     <Compile Include="Helpers\BizzaroHelpers\BizzaroReceipts.cs" />
+    <Compile Include="Helpers\BizzaroHelpers\BizzaroStores.cs" />
     <Compile Include="Helpers\BizzaroHelpers\Paginator.cs" />
+    <Compile Include="HsaServiceDtos\LocationDto.cs" />
+    <Compile Include="HsaServiceDtos\StatusOnlyDto.cs" />
+    <Compile Include="HsaServiceDtos\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="receiptVault.xaml.cs">
       <DependentUpon>receiptVault.xaml</DependentUpon>
@@ -102,11 +107,9 @@
     <Compile Include="HsaServiceDtos\LineItemDto.cs" />
     <Compile Include="HsaServiceDtos\ProductDto.cs" />
     <Compile Include="HsaServiceDtos\ReceiptDto.cs" />
-    <Compile Include="HsaServiceDtos\ReceiptPatchDto.cs" />
     <Compile Include="HsaServiceDtos\ShoppingListDto.cs" />
     <Compile Include="HsaServiceDtos\ShoppingListItemDto.cs" />
     <Compile Include="HsaServiceDtos\StoreDto.cs" />
-    <Compile Include="HsaServiceDtos\StoreWithProductsDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Identity.Client">

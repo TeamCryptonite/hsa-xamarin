@@ -1,12 +1,25 @@
-﻿namespace HSAManager
+﻿using restsharpportabletesting.Helpers.BizzaroHelpers;
+
+namespace HSAManager
 {
     public class BizzaroClient
     {
-        public BizzaroClient(string baseUrl = "https://bizzaro.azurewebsites.net/api")
+        public BizzaroReceipts Receipts { get; set; }
+        public BizzaroStores Stores { get; set; }
+        public BizzaroProducts Products { get; set; }
+
+        public BizzaroClient()
         {
-            Receipts = new BizzaroReceipts(baseUrl);
+            Receipts = new BizzaroReceipts();
+            Stores = new BizzaroStores();
+            Products = new BizzaroProducts();
         }
 
-        public BizzaroReceipts Receipts { get; set; }
+        public BizzaroClient(string baseUrl)
+        {
+            Receipts = new BizzaroReceipts(baseUrl);
+            Stores = new BizzaroStores(baseUrl);
+            Products = new BizzaroProducts(baseUrl);
+        }
     }
 }

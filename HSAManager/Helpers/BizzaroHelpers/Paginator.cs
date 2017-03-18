@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using RestSharp.Portable;
 
 namespace HSAManager
@@ -33,14 +35,15 @@ namespace HSAManager
             Request.AddOrUpdateQueryParameter("take", PageTake);
         }
 
-        public IEnumerable<T> Next()
+        public async Task<IEnumerable<T>> Next()
         {
             if (ReachedEnd)
                 return new List<T>();
 
             Request.AddOrUpdateQueryParameter("skip", NextSkip);
 
-            var data = BizzaroAction.CallBizzaro<IEnumerable<T>>(Request).ToList();
+            var taskWithData = await BizzaroAction.CallBizzaro<IEnumerable<T>>(Request);
+            var data = taskWithData.ToList();
 
             if (!data.Any())
                 ReachedEnd = true;
