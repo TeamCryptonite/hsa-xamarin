@@ -19,7 +19,7 @@ namespace HSAManager
 
 		void Handle_OCR_Entry(object sender, System.EventArgs e)
 		{
-			//Navigation.PushAsync(new data());
+			Navigation.PushAsync(new data());
 		}
 
 		void Handle_Manual_Entry(object sender, System.EventArgs e)
