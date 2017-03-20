@@ -1,6 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using HsaServiceDtos;
 using Xamarin.Forms;
@@ -11,30 +12,43 @@ namespace HSAManager
 {
     public partial class receiptVault : ContentPage
     {
+        private const string DefaultSearchTerm = "RECEIPT";
+        private readonly Dictionary<string, ObservableCollection<ReceiptDto>> cachedSearchResults;
+        private Dictionary<string, Paginator<ReceiptDto>> cachedPaginators;
         private BizzaroClient client;
-        private CancellationTokenSource cts;
-        public ObservableCollection<ReceiptDto> receipts;
-        private Paginator<ReceiptDto> ReceiptsPaginator;
+        //public ObservableCollection<ReceiptDto> receipts;
+        //private Paginator<ReceiptDto> ReceiptsPaginator;
 
         public receiptVault()
         {
             InitializeComponent();
-            receipts = new ObservableCollection<ReceiptDto>();
-            listView.ItemsSource = receipts;
+
+            // Initialize class properties
+            //receipts = new ObservableCollection<ReceiptDto>();
+            cachedSearchResults = new Dictionary<string, ObservableCollection<ReceiptDto>>();
+            cachedSearchResults[DefaultSearchTerm] = new ObservableCollection<ReceiptDto>();
+
+            cachedPaginators = new Dictionary<string, Paginator<ReceiptDto>>();
+            
+            // Set listView settings
+            listView.ItemsSource = cachedSearchResults[DefaultSearchTerm];
 
             listView.ItemAppearing += async (sender, e) =>
             {
-                if (receipts.Count == 0)
+                string searchTerm;
+                if (string.IsNullOrWhiteSpace(receiptVaultSearch.Text))
+                {
+                    searchTerm = DefaultSearchTerm;
+                }
+                else
+                {
+                    searchTerm = receiptVaultSearch.Text;
+                }
+                if (cachedSearchResults[searchTerm].Count == 0)
                     return;
-                cts = new CancellationTokenSource();
-                if (((ReceiptDto) e.Item).ReceiptId == receipts[receipts.Count - 1].ReceiptId)
-                    try
-                    {
-                        await AddNewReceipts(cts.Token);
-                    }
-                    catch
-                    {
-                    }
+                if (((ReceiptDto) e.Item).ReceiptId ==
+                    cachedSearchResults[searchTerm][cachedSearchResults[searchTerm].Count - 1].ReceiptId)
+                    await AddNewReceipts(searchTerm);
             };
         }
 
@@ -44,50 +58,51 @@ namespace HSAManager
             {
                 //string authKey = Application.Current.Properties["authKey"].ToString();
                 client = new BizzaroClient();
-
-                ReceiptsPaginator = client.Receipts.GetListOfReceipts();
-                cts = new CancellationTokenSource();
-                try
-                {
-                    await AddNewReceipts(cts.Token);
-                }
-                catch
-                {
-                }
+                Debug.WriteLine("Test");
+                cachedPaginators[DefaultSearchTerm] = client.Receipts.GetListOfReceipts();
+                Debug.WriteLine("Test");
+                //ReceiptsPaginator = client.Receipts.GetListOfReceipts();
+                await AddNewReceipts(DefaultSearchTerm);
             }
         }
 
         protected async void searchChanged(object sender, TextChangedEventArgs e)
         {
-            cts.Cancel();
-            receipts.Clear();
-            ReceiptsPaginator = client.Receipts.GetListOfReceipts(e.NewTextValue);
-            cts = new CancellationTokenSource();
-            try
+            if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
-                await AddNewReceipts(cts.Token);
+                listView.ItemsSource = cachedSearchResults[DefaultSearchTerm];
+                return;
             }
-            catch
-            {
-            }
+            if (!cachedSearchResults.ContainsKey(e.NewTextValue))
+                cachedSearchResults[e.NewTextValue] = new ObservableCollection<ReceiptDto>();
+            if (!cachedPaginators.ContainsKey(e.NewTextValue))
+                cachedPaginators[e.NewTextValue] = client.Receipts.GetListOfReceipts(e.NewTextValue);
+
+            listView.ItemsSource = cachedSearchResults[e.NewTextValue];
+
+            if (cachedSearchResults[e.NewTextValue].Count < 1)
+                await AddNewReceipts(e.NewTextValue);
         }
 
-        protected async Task AddNewReceipts(CancellationToken cToken)
+        protected async Task AddNewReceipts(string queryString)
         {
             Debug.WriteLine("Addding New Receipts");
-            var receiptsToAdd = await ReceiptsPaginator.Next();
-            cToken.ThrowIfCancellationRequested();
-            foreach (var receipt in receiptsToAdd)
+            try
             {
-                cToken.ThrowIfCancellationRequested();
-                receipts.Add(receipt);
+                var receiptsToAdd = await cachedPaginators[queryString].Next();
+                foreach (var receipt in receiptsToAdd)
+                    cachedSearchResults[queryString].Add(receipt);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Alert", ex.Message, "OK");
             }
         }
 
-        //public async void Handle_Tapped(object sender, System.EventArgs e)
-        //{
-        //	await Navigation.PushAsync(new data());
-
         //}
+        //	await Navigation.PushAsync(new data());
+        //{
+
+        //public async void Handle_Tapped(object sender, System.EventArgs e)
     }
 }
