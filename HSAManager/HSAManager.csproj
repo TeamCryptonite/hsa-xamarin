@@ -58,6 +58,9 @@
     <EmbeddedResource Include="ReceiptVaultDashboard.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="OCREntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -110,6 +113,9 @@
     <Compile Include="HsaServiceDtos\ShoppingListDto.cs" />
     <Compile Include="HsaServiceDtos\ShoppingListItemDto.cs" />
     <Compile Include="HsaServiceDtos\StoreDto.cs" />
+    <Compile Include="OCREntry.xaml.cs">
+      <DependentUpon>OCREntry.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Identity.Client">
