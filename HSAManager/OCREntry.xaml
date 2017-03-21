@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HSAManager.OCREntry">
 	<ContentPage.Content>
-		<StackLayout Orientation="Vertical">
+		<StackLayout x:Name="StackLayout" Orientation="Vertical">
 			<Button Text="Take a Photo"
 					Clicked="TakePhotoButton_OnClicked"/>
 			<Button Text="Pick a Photo"
 					Clicked="PickPhotoButton_OnClicked"/>
 			<Image x:Name="MainImage"/>
 			<Label x:Name="PathLabel"/>
-		</StackLayout>
+            <Label x:Name="OcrStatus"></Label>
+
+            <ListView x:Name="ListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Product.Name}"
+                                   TextColor="Navy"
+                                   Margin="20,10"
+                                   HorizontalOptions="CenterAndExpand" />
+                                <Label Text="{Binding Price}"
+                                   TextColor="Navy"
+                                   Margin="20,10"
+                                   HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
 	</ContentPage.Content>
 </ContentPage>

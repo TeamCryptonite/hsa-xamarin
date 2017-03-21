@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using HsaServiceDtos;
 using Newtonsoft.Json.Linq;
@@ -75,6 +77,40 @@ namespace HSAManager
                 return new StatusOnlyDto {StatusMessage = "Success"};
 
             return new StatusOnlyDto {StatusMessage = "Could Not Upload Receipt Image"};
+        }
+
+        public async Task<string> OcrReceiptImage(int receiptId)
+        {
+            var request = new RestRequest("receipts/{id}/receiptimageocr", Method.POST);
+            request.AddUrlSegment("id", receiptId);
+            return await CallBizzaro<string>(request);
+        }
+
+        public async Task<Tuple<string, ReceiptDto>> CheckOcrResults(string ocrUrl)
+        {
+            string returnString = "";
+            ReceiptDto returnReceipt = null;   
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetStringAsync(ocrUrl);
+            var responseObj = JObject.Parse(response);
+
+            if (responseObj.GetValue("Status") != null)
+                returnString = responseObj.GetValue("Status").Value<string>();
+
+            if (responseObj.GetValue("LineItems") != null)
+            {
+                var lineItems = ((JArray)responseObj.GetValue("LineItems")).ToObject<List<LineItemDto>>();
+                var receipt = new ReceiptDto() {LineItems = new List<LineItemDto>()};
+
+                foreach (var lineItem in lineItems)
+                {
+                    receipt.LineItems.Add(lineItem);
+                }
+
+                returnReceipt = receipt;
+            }
+
+            return new Tuple<string, ReceiptDto>(returnString, returnReceipt);
         }
     }
 }
