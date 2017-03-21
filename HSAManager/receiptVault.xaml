@@ -1,39 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HSAManager.receiptVault"
-		Title="Receipts">
-	<ContentPage.Content>
-		<ScrollView>
-			<StackLayout Margin="0" Padding="0">
-				<SearchBar Placeholder="Search" HeightRequest="40"/>
-			<TableView Intent="Settings">
-            <TableRoot>
-                <TableSection Title="Receipts" >
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSAManager.receiptVault"
+             Title="Receipts">
+
+    <StackLayout>
+        <SearchBar x:Name="receiptVaultSearch" TextChanged="searchChanged" />
+        <ListView x:Name="listView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="Walmart Receipt"
-								HorizontalTextAlignment="Start"
-								VerticalTextAlignment="Center"
-								FontSize="15"
-								FontAttributes="Bold"
-                              TextColor="#503026"/>
-									
-							<Label Text="11/23/16"
-								HorizontalOptions="CenterAndExpand"
-								FontSize="10"
-								VerticalTextAlignment="Center"
-								TextColor="#503026"/>
-									
-                            <Label Text="Pending"
-								VerticalTextAlignment="Center"
-								FontSize="10"
-                             	HorizontalOptions="EndAndExpand"
-                              TextColor="#503026" />
+                            <Label Text="{Binding Store.Name}"
+                                   TextColor="Navy"
+                                   Margin="20,10"
+                                   HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding DateTime, StringFormat='{0: MMMM dd, yyyy}'}"
+                                   TextColor="Navy"
+                                   Margin="20,10"
+                                   HorizontalOptions="EndAndExpand" />
                         </StackLayout>
                     </ViewCell>
-                </TableSection>
-            </TableRoot>
-		</TableView>
-				</StackLayout>
-		</ScrollView>
-	</ContentPage.Content>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
 </ContentPage>
+
+<!-- <Label.GestureRecognizers>
+									<TapGestureRecognizer Tapped="Handle_Tapped"/>
+								</Label.GestureRecognizers>
+								-->

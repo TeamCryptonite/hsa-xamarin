@@ -1,31 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HSAManager.ReceiptEntry">
-	<ContentPage.Content>
-		<ScrollView>
-			<StackLayout>
-				<Button Text="Add image"></Button>
-					<Label Text="Store"></Label>
-					<Entry Text="store"/>
-					<Label Text="Date"></Label>
-					<Entry Text="date"/>
-				<Label HorizontalOptions="StartAndExpand" Text="Product"></Label>
-				<Label HorizontalOptions="EndAndExpand" Text="Price"></Label>
-				<TableView>
-					<TableView.Root>
-						<TableSection>
-							<ViewCell>
-								<StackLayout Orientation = "Horizontal">
-									<Label Text="Product" VerticalTextAlignment="Center"></Label>
-									<Entry Text="test"></Entry>
-									<Label Text= "price" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand"></Label>
-									<Entry Text="test2"></Entry>
-								</StackLayout>
-
-							</ViewCell>
-						</TableSection>
-					</TableView.Root>
-				</TableView>
-			</StackLayout>
-		</ScrollView>
-	</ContentPage.Content>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             x:Class="HSAManager.ReceiptEntry">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Add image" Clicked="getBlob" />
+            <Label Text="Store" HorizontalTextAlignment="Center" />
+            <Entry x:Name="store" Text="" Placeholder="Store" Margin="2,0,2,0" TextChanged="Store_OnTextChanged" Unfocused="Store_OnUnfocused" Focused="Store_OnFocused"/>
+            <ListView x:Name="StoreSuggestionsListView" ItemSelected="StoreSuggestionsListView_OnItemSelected" Unfocused="Store_OnUnfocused">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Name}"
+                                   TextColor="Navy"
+                                   Margin="20,10"
+                                   HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Text="Date" Margin="0,5,0,0" HorizontalTextAlignment="Center" />
+            <DatePicker x:Name="DatePicker" VerticalOptions="CenterAndExpand" Date="{x:Static system:DateTime.Now}">
+                <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
+                <DatePicker.MinimumDate>
+                    <system:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 2000</x:String>
+                        </x:Arguments>
+                    </system:DateTime>
+                </DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>
+                    <system:DateTime x:FactoryMethod="get_Today" />
+                </DatePicker.MaximumDate>
+            </DatePicker>
+            <!--<Entry x:Name="date" Placeholder="Date" Margin="2,0,2,0"/>-->
+            <StackLayout Orientation="Horizontal">
+                <Label HorizontalOptions="StartAndExpand" Text="Item" Margin="2,10,0,0" />
+                <Label HorizontalOptions="EndAndExpand" Text="Price" Margin="0,10,2,0" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="item" Text="" HorizontalOptions="StartAndExpand" Margin="2,0,5,0" WidthRequest="180" />
+                <Entry x:Name="price" Text="" HorizontalOptions="EndAndExpand" Margin="0,0,2,0" WidthRequest="100" />
+            </StackLayout>
+            <ListView x:Name="addItemInfo">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Label Grid.Column="0" Text="{Binding Product.Name}" HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="Center" Margin="15,0,0,0" />
+                                <Label Grid.Column="1" Text="{Binding Price}" HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="Center" Margin="0,0,10,0" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Add Items" Clicked="addItem" Margin="10,0,0,2" HorizontalOptions="StartAndExpand"
+                        BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"
+                        WidthRequest="150" />
+                <Button Text="Submit" Clicked="submitReceipt" Margin="0,0,10,2" HorizontalOptions="EndAndExpand"
+                        BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"
+                        WidthRequest="150" />
+            </StackLayout>
+            <StackLayout>
+                <ScrollView>
+                    <Label x:Name="itemsBox" />
+                </ScrollView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

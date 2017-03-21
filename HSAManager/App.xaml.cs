@@ -44,12 +44,14 @@ namespace HSAManager
 			// The root page of your application
 
 			//Actual
-			//MainPage = new NavigationPage(new HSAManager.StartScreen());
+			MainPage = new NavigationPage(new HSAManager.StartScreen());
 
 			//Testing Purposes
-			MainPage = new NavigationPage(new HSAManager.Dashboard());
+			//MainPage = new NavigationPage(new HSAManager.Dashboard());
+
 
 		}
+
 
 		protected override void OnStart()
 		{
