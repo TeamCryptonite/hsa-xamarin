@@ -20,7 +20,7 @@ namespace HSAManager
 
 
 		public static string SignUpSignInpolicy = "B2C_1_HSA_SignUp_SignIn_Default";
-		public static string ResetPasswordpolicy = "b2c_1_reset";
+		public static string ResetPasswordpolicy = "B2C_1_HsaPasswordResetDefault";
 		public static string Authority = "https://login.microsoftonline.com/cryptonitehsaservice.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_HSA_SignUp_SignIn_Default";
 		public static string APIbaseURL = "https://bizzaro.azurewebsites.net";
 

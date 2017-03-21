@@ -62,15 +62,16 @@ namespace HSAManager
 			}
 			catch (MsalException ee)
 			{
+				
 				if (ee.Message != null && ee.Message.Contains("AADB2C90118"))
 				{
 					OnForgotPassword();
 				}
 
-				if (ee.ErrorCode != "authentication_canceled")
-				{
-					await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
-				}
+				//if (ee.ErrorCode != "authentication_canceled")
+				//{
+				//	await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+				//}
 			}
 		}
 	}
