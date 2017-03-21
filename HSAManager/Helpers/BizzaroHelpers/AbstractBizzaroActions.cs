@@ -37,7 +37,7 @@ namespace HSAManager
             var response = await client.Execute<T>(request);
 
             if (!response.IsSuccess)
-                throw new Exception("Could not process HTTP call. " + response.StatusDescription + ". " + response.Data);
+                throw new Exception("Could not process HTTP call. " + response.StatusDescription + ". " + response.Content);
 
             return response.Data;
         }
