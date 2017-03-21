@@ -4,6 +4,12 @@ namespace HSAManager
 {
 	public partial class Dashboard : ContentPage
 	{
+		public Dashboard()
+		{
+
+			InitializeComponent();
+		}
+
 		void Handle_Clicked_Receipt(object sender, System.EventArgs e)
 		{
 			Navigation.PushAsync(new ReceiptVaultDashboard());
@@ -29,10 +35,14 @@ namespace HSAManager
 			Navigation.PushAsync(new shoppingList());
 		}
 
-		public Dashboard()
+		async void handleLogout(object sender, System.EventArgs e)
 		{
-			
-			InitializeComponent();
+			var answer = await DisplayAlert("Question?", "You will be logged out", "Ok", "Cancel");
+			if (answer == true)
+			{
+				App.PCApplication.UserTokenCache.Clear(App.PCApplication.ClientId);
+				await Navigation.PopToRootAsync();
+			}
 		}
 	}
 }
