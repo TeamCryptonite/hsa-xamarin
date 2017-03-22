@@ -6,7 +6,7 @@
 
     <StackLayout>
         <SearchBar x:Name="receiptVaultSearch" TextChanged="searchChanged" />
-        <ListView x:Name="listView">
+        <ListView x:Name="listView" ItemSelected="ListView_OnItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

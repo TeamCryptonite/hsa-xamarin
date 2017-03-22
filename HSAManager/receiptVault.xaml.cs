@@ -33,7 +33,7 @@ namespace HSAManager
             // Set listView settings
             listView.ItemsSource = cachedSearchResults[DefaultSearchTerm];
 
-            listView.ItemAppearing += async (sender, e) =>
+            listView.ItemAppearing += (sender, e) =>
             {
                 string searchTerm;
                 if (string.IsNullOrWhiteSpace(receiptVaultSearch.Text))
@@ -48,12 +48,9 @@ namespace HSAManager
                     return;
                 if (((ReceiptDto) e.Item).ReceiptId ==
                     cachedSearchResults[searchTerm][cachedSearchResults[searchTerm].Count - 1].ReceiptId)
-                    await AddNewReceipts(searchTerm);
+                    AddNewReceipts(searchTerm);
             };
-        }
 
-        protected override async void OnAppearing()
-        {
             if (Application.Current.Properties.ContainsKey("authKey"))
             {
                 //string authKey = Application.Current.Properties["authKey"].ToString();
@@ -62,7 +59,7 @@ namespace HSAManager
                 cachedPaginators[DefaultSearchTerm] = client.Receipts.GetListOfReceipts();
                 Debug.WriteLine("Test");
                 //ReceiptsPaginator = client.Receipts.GetListOfReceipts();
-                await AddNewReceipts(DefaultSearchTerm);
+                AddNewReceipts(DefaultSearchTerm);
             }
         }
 
@@ -81,10 +78,10 @@ namespace HSAManager
             listView.ItemsSource = cachedSearchResults[e.NewTextValue];
 
             if (cachedSearchResults[e.NewTextValue].Count < 1)
-                await AddNewReceipts(e.NewTextValue);
+                AddNewReceipts(e.NewTextValue);
         }
 
-        protected async Task AddNewReceipts(string queryString)
+        protected async void AddNewReceipts(string queryString)
         {
             Debug.WriteLine("Addding New Receipts");
             try
@@ -104,5 +101,9 @@ namespace HSAManager
         //{
 
         //public async void Handle_Tapped(object sender, System.EventArgs e)
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Navigation.PushAsync(new ReceiptView((ReceiptDto)e.SelectedItem));
+        }
     }
 }
