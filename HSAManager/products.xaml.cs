@@ -77,8 +77,13 @@ namespace HSAManager
             }
         }
 
-		public async void Handle_Tapped(object sender, System.EventArgs e)
+		public void Handle_ItemSelected(object sender, SelectedItemChangedEventArgs e)
 		{
+			//System.Diagnostics.Debug.WriteLine();
+
+			var p = e.SelectedItem as ProductDto;
+			int pid = p.ProductId;
+			Debug.WriteLine(pid);
 		}
 
 	}

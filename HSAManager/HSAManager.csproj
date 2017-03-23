@@ -61,6 +61,9 @@
     <EmbeddedResource Include="OCREntry.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="productsInStores.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -115,6 +118,9 @@
     <Compile Include="HsaServiceDtos\StoreDto.cs" />
     <Compile Include="OCREntry.xaml.cs">
       <DependentUpon>OCREntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="productsInStores.xaml.cs">
+      <DependentUpon>productsInStores.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

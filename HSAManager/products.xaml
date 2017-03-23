@@ -5,15 +5,12 @@
              Title="Products">
     <StackLayout>
         <SearchBar x:Name="product" TextChanged="searchChanged" />
-        <ListView x:Name="listView">
+        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand">
-								<Label.GestureRecognizers>
-									<TapGestureRecognizer Tapped="Handle_Tapped"/>
-								</Label.GestureRecognizers>
 							</Label>
                             <!-- isHSA? -->
                         </StackLayout>
