@@ -37,20 +37,20 @@ namespace HSAManager
 
 
 			PCApplication = new PublicClientApplication(Authority, ClientID);
-			//{
-			//    RedirectUri = redirectURI,
-			//};
+            //{
+            //    RedirectUri = redirectURI,
+            //};
 
-			// The root page of your application
+            // The root page of your application
 
-			//Actual
-			//MainPage = new NavigationPage(new HSAManager.StartScreen());
+            //Actual
+            MainPage = new NavigationPage(new HSAManager.StartScreen());
 
-			//Testing Purposes
-			MainPage = new NavigationPage(new HSAManager.Dashboard());
+            //Testing Purposes
+            //MainPage = new NavigationPage(new HSAManager.Dashboard());
 
 
-		}
+        }
 
 
 		protected override void OnStart()

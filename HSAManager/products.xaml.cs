@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using HsaServiceDtos;
 using System.Threading;
+using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
 
 namespace HSAManager
