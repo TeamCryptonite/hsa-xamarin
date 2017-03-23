@@ -79,11 +79,9 @@ namespace HSAManager
 
 		public void Handle_ItemSelected(object sender, SelectedItemChangedEventArgs e)
 		{
-			//System.Diagnostics.Debug.WriteLine();
-
 			var p = e.SelectedItem as ProductDto;
 			int pid = p.ProductId;
-			Debug.WriteLine(pid);
+			Navigation.PushAsync(new productsInStores(pid));
 		}
 
 	}
