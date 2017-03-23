@@ -1,5 +1,36 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HSAManager.shoppingList" Title="Shopping List">
-    <ContentPage.Content>
-    </ContentPage.Content>
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSAManager.shoppingList"
+             Title="Shopping List">
+    <StackLayout>
+        <ListView x:Name="shoppingListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+						<StackLayout Orientation="Horizontal">
+							<Label Text="Name" HorizontalOptions="StartAndExpand"></Label>
+						</StackLayout>
+
+						<!--<Grid x:Name="horizontalGrid">
+							
+							<Grid x:Name="verticalGrid">
+								<Label Grid.Column="0" Text="Name"></Label>
+								<Label Grid.Row="0" Text="Price"></Label>
+							</Grid>
+						</Grid>-->
+                        <!--<StackLayout Orientation="Horizontal">
+                            <Label Text="Name"
+                                   TextColor="Navy"
+                                   Margin="20,10"
+                                   HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding DateTime, StringFormat='{0: MMMM dd, yyyy}'}"
+                                   TextColor="Navy"
+                                   Margin="20,10"
+                                   HorizontalOptions="EndAndExpand" />
+                        </StackLayout>-->
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

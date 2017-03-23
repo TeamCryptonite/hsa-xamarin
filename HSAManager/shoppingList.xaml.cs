@@ -5,11 +5,11 @@ using Xamarin.Forms;
 
 namespace HSAManager
 {
-    public partial class shoppingList : ContentPage
-    {
-        public shoppingList()
-        {
-            InitializeComponent();
-        }
-    }
+	public partial class shoppingList : ContentPage
+	{
+		public shoppingList()
+		{
+			InitializeComponent();
+		}
+	}
 }
