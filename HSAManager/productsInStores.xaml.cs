@@ -38,35 +38,37 @@ namespace HSAManager
 			returnedStores = new ObservableCollection<store>();
 			listView.ItemsSource = returnedStores;
 
-			listView.ItemAppearing += async (sender, e) =>
+			listView.ItemAppearing += (sender, e) =>
 			{
 				if (returnedStores.Count == 0) return;
 				if (((store)e.Item).StoreId == returnedStores[returnedStores.Count - 1].StoreId)
 					try
 					{
-						await AddNewStores();
+						AddNewStores();
 					}
 					catch
 					{
 
 					}
 			};
-		}
+
+            client = new BizzaroClient();
+            StoresPaginator = client.Stores.GetListOfStores();
+            try
+            {
+                AddNewStores();
+            }
+            catch
+            {
+            }
+        }
 
 		protected override async void OnAppearing()
 		{
-			client = new BizzaroClient();
-			StoresPaginator = client.Stores.GetListOfStores();
-			try
-			{
-				await AddNewStores();
-			}
-			catch
-			{
-			}
+			
 		}
 
-		protected async Task AddNewStores()
+		protected async void AddNewStores()
 		{
 			Debug.WriteLine("Addding New Products");
 			var storesToAddDto = await StoresPaginator.Next();
