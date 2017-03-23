@@ -10,7 +10,7 @@
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"></Label>
-                            <Label Text="{Binding Distance}" HorizontalOptions = "EndAndExpand"></Label>
+                            <Label Text="{Binding DistanceToUser}" HorizontalOptions = "EndAndExpand"></Label>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

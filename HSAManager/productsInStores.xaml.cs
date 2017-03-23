@@ -14,52 +14,47 @@ namespace HSAManager
 	{
 		private BizzaroClient client;
 		private CancellationTokenSource cts;
-		public ObservableCollection<store> returnedStores;
-		private List<StoreDto> storeDtos;
+		public ObservableCollection<StoreDto> StoresCollection;
 		private Paginator<StoreDto> StoresPaginator;
-
-		public class store
-		{
-			public string Name { get; set; }
-			public double Distance { get; set; }
-			public int StoreId { get; set; }
-
-			public store(string name, double distance,int storeId)
-			{
-				Name = name;
-				Distance = distance;
-				StoreId = storeId;
-			}
-		}
+	    private int storeId;
 
 		public productsInStores(int storeId )
 		{
 			InitializeComponent();
-			returnedStores = new ObservableCollection<store>();
-			listView.ItemsSource = returnedStores;
+
+		    this.storeId = storeId;
+			StoresCollection = new ObservableCollection<StoreDto>();
+			listView.ItemsSource = StoresCollection;
 
 			listView.ItemAppearing += (sender, e) =>
 			{
-				if (returnedStores.Count == 0) return;
-				if (((store)e.Item).StoreId == returnedStores[returnedStores.Count - 1].StoreId)
+				if (StoresCollection.Count == 0) return;
+				if (((StoreDto)e.Item).StoreId == StoresCollection[StoresCollection.Count - 1].StoreId)
 					try
 					{
 						AddNewStores();
-					}
-					catch
-					{
-
-					}
-			};
+                    }
+                    catch (Exception ex)
+                    {
+                        DisplayAlert("Exception", ex.Message, "OK");
+                    }
+            };
 
             client = new BizzaroClient();
-            StoresPaginator = client.Stores.GetListOfStores();
+
+            // Using a default location for now. Will need to pull in user location later.
+            StoresPaginator = client.Stores.GetListOfStores(productId:storeId, userLocation:new LocationDto()
+            {
+                Latitude = 61.211805,
+                Longitude = -149.800000
+            });
             try
             {
                 AddNewStores();
             }
-            catch
+            catch (Exception ex)
             {
+                DisplayAlert("Exception", ex.Message, "OK");
             }
         }
 
@@ -74,8 +69,8 @@ namespace HSAManager
 			var storesToAddDto = await StoresPaginator.Next();
 			foreach (var storeDto in storesToAddDto)
 			{
-				var storeCopy = new store(storeDto.Name, 1.1, storeDto.StoreId);
-				returnedStores.Add(storeCopy);
+				//var storeCopy = new store(storeDto.Name, 1.1, storeDto.StoreId);
+				StoresCollection.Add(storeDto);
 			}
 		}
 
