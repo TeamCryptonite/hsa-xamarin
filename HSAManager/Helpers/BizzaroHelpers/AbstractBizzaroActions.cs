@@ -7,7 +7,7 @@ using HsaServiceDtos;
 using Xamarin.Forms;
 
 // ReSharper disable once CheckNamespace
-namespace HSAManager
+namespace HSAManager.Helpers.BizzaroHelpers
 {
     public abstract class AbstractBizzaroActions
     {
