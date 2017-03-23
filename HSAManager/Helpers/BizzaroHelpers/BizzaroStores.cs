@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using HsaServiceDtos;
 using RestSharp.Portable;
 
-namespace HSAManager
+namespace HSAManager.Helpers.BizzaroHelpers
 {
     public class BizzaroStores : AbstractBizzaroActions
     {
