@@ -1,8 +1,6 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HSAManager.productsInStores"
-             Title="Products">
+             x:Class="HSAManager.productsInStores">
     <StackLayout>
         <ListView x:Name="listView" ItemSelected="Handle_ItemSelected">
             <!--<ListView.ItemTemplate>
@@ -10,7 +8,7 @@
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"></Label>
-                            <Label Text="{Binding DistanceToUser}" HorizontalOptions = "EndAndExpand"></Label>
+                            <Label Text="{Binding DistanceToUser, StringFormat = '{0:F0} mi.'}"  HorizontalOptions = "EndAndExpand" Margin="100"></Label>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

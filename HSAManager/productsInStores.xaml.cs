@@ -8,21 +8,21 @@ using Xamarin.Forms;
 
 namespace HSAManager
 {
-    public partial class productsInStores : ContentPage
-    {
-        private readonly BizzaroClient client;
-        private CancellationTokenSource cts;
-        private int storeId;
-        public ObservableCollection<StoreDto> StoresCollection;
-        private readonly Paginator<StoreDto> StoresPaginator;
+	public partial class productsInStores : ContentPage
+	{
+		private BizzaroClient client;
+		private CancellationTokenSource cts;
+		public ObservableCollection<StoreDto> StoresCollection;
+		private Paginator<StoreDto> StoresPaginator;
+	    private int storeId;
 
-        public productsInStores(int storeId)
-        {
-            InitializeComponent();
+		public productsInStores(int storeId )
+		{
+			InitializeComponent();
 
-            this.storeId = storeId;
-            StoresCollection = new ObservableCollection<StoreDto>();
-            listView.ItemsSource = StoresCollection;
+		    this.storeId = storeId;
+			StoresCollection = new ObservableCollection<StoreDto>();
+			listView.ItemsSource = StoresCollection;
 
             listView.ItemAppearing += (sender, e) =>
             {
@@ -41,7 +41,7 @@ namespace HSAManager
             client = new BizzaroClient();
 
             // Using a default location for now. Will need to pull in user location later.
-            StoresPaginator = client.Stores.GetListOfStores(productId: storeId, userLocation: new LocationDto
+            StoresPaginator = client.Stores.GetListOfStores(productId:storeId, userLocation:new LocationDto()
             {
                 Latitude = 61.211805,
                 Longitude = -149.800000
@@ -87,16 +87,19 @@ namespace HSAManager
             listView.ItemTemplate = template;
         }
 
-        protected override void OnAppearing()
-        {
-        }
-
-        protected async void AddNewStores()
-        {
-            Debug.WriteLine("Addding New Products");
-            var storesToAddDto = await StoresPaginator.Next();
-            foreach (var storeDto in storesToAddDto)
-                StoresCollection.Add(storeDto);
+		protected async void AddNewStores()
+		{
+			Debug.WriteLine("Addding New Products");
+			var storesToAddDto = await StoresPaginator.Next();
+			foreach (var storeDto in storesToAddDto)
+			{
+				StoresCollection.Add(storeDto);
+			}
+            if (StoresCollection.Count == 0)
+            {
+                await DisplayAlert("Uh, Oh!", "No Stores with this product were found in your area...", "OK"); //add try increasing your radius when we allow that to be a thing.
+                await Navigation.PopAsync(true);
+            }
         }
 
         public void Handle_ItemSelected(object sender, SelectedItemChangedEventArgs e)
