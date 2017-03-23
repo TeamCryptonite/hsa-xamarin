@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace HsaServiceDtos
 {
@@ -8,11 +7,11 @@ namespace HsaServiceDtos
     {
         public ShoppingListDto()
         {
-            this.ShoppingListItems = new List<ShoppingListItemDto>();
+            ShoppingListItems = new List<ShoppingListItemDto>();
         }
 
         public int ShoppingListId { get; set; }
-        public System.Guid UserObjectId { get; set; }
+        public Guid UserObjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime? DateTime { get; set; }

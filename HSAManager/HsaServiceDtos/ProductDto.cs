@@ -7,6 +7,5 @@
         public string Description { get; set; }
         public bool? AlwaysHsa { get; set; }
         public CategoryDto Category { get; set; }
-
     }
 }

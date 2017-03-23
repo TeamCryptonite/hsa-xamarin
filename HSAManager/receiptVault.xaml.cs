@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
@@ -15,8 +14,8 @@ namespace HSAManager
     {
         private const string DefaultSearchTerm = "RECEIPT";
         private readonly Dictionary<string, ObservableCollection<ReceiptDto>> cachedSearchResults;
-        private Dictionary<string, Paginator<ReceiptDto>> cachedPaginators;
-        private BizzaroClient client;
+        private readonly Dictionary<string, Paginator<ReceiptDto>> cachedPaginators;
+        private readonly BizzaroClient client;
         //public ObservableCollection<ReceiptDto> receipts;
         //private Paginator<ReceiptDto> ReceiptsPaginator;
 
@@ -30,7 +29,7 @@ namespace HSAManager
             cachedSearchResults[DefaultSearchTerm] = new ObservableCollection<ReceiptDto>();
 
             cachedPaginators = new Dictionary<string, Paginator<ReceiptDto>>();
-            
+
             // Set listView settings
             listView.ItemsSource = cachedSearchResults[DefaultSearchTerm];
 
@@ -38,13 +37,9 @@ namespace HSAManager
             {
                 string searchTerm;
                 if (string.IsNullOrWhiteSpace(receiptVaultSearch.Text))
-                {
                     searchTerm = DefaultSearchTerm;
-                }
                 else
-                {
                     searchTerm = receiptVaultSearch.Text;
-                }
                 if (cachedSearchResults[searchTerm].Count == 0)
                     return;
                 if (((ReceiptDto) e.Item).ReceiptId ==
@@ -66,7 +61,6 @@ namespace HSAManager
 
         protected override void OnAppearing()
         {
-           
         }
 
         protected void searchChanged(object sender, TextChangedEventArgs e)
@@ -102,10 +96,10 @@ namespace HSAManager
             }
         }
 
-        //}
-        //	await Navigation.PushAsync(new data());
-        //{
-
         //public async void Handle_Tapped(object sender, System.EventArgs e)
+        //{
+        //	await Navigation.PushAsync(new data());
+
+        //}
     }
 }

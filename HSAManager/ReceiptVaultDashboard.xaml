@@ -1,16 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:HSAManager" x:Class="HSAManager.ReceiptVaultDashboard"
-	BackgroundColor="White" Title="Receipt Vault">
-	<ContentPage.Content>
-		<ScrollView>
-			<StackLayout Spacing="0" Padding="0">
-				<Button Text="Receipt Vault" Clicked="Handle_Receipt_Vault" Margin="40,90,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold"/>
-				<Button Text="OCR Entry" Clicked="Handle_OCR_Entry" Margin="40,90,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold" />
-				<Button Text="Manual Entry" Clicked="Handle_Manual_Entry" Margin="40,90,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold"/>
-			</StackLayout>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
-		</ScrollView>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HSAManager" x:Class="HSAManager.ReceiptVaultDashboard"
+             BackgroundColor="White" Title="Receipt Vault">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="0" Padding="0">
+                <Button Text="Receipt Vault" Clicked="Handle_Receipt_Vault" Margin="40,90,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+                <Button Text="OCR Entry" Clicked="Handle_OCR_Entry" Margin="40,90,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+                <Button Text="Manual Entry" Clicked="Handle_Manual_Entry" Margin="40,90,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+            </StackLayout>
 
-	</ContentPage.Content>
+        </ScrollView>
+
+    </ContentPage.Content>
 
 </ContentPage>

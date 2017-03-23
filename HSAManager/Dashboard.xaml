@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:HSAManager" x:Class="HSAManager.Dashboard"
-	BackgroundColor="White" Title="Dashboard">
-	<ContentPage.ToolbarItems>
-      <ToolbarItem Name="Logout" Clicked="handleLogout"></ToolbarItem>
-	</ContentPage.ToolbarItems>	
-	<ContentPage.Content>
-		<ScrollView>
-			<StackLayout Spacing="0" Padding="0">
-				<Button Text="Receipt Vault" Clicked="Handle_Clicked_Receipt" Margin="40,40,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold"/>
-				<Button Text="Charts" Clicked="Handle_Clicked_Charts" Margin="40,40,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold" />
-				<Button Text="HSA Management" Clicked="Handle_Clicked_Management" Margin="40,40,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold"/>
-				<Button Text="Products" Clicked="Handle_Clicked_Products" Margin="40,40,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold"/>
-				<Button Text="Shopping List" Clicked="Handle_SL" Margin="40,40,40,0" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes = "Bold"/>
-			</StackLayout>
 
-		</ScrollView>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HSAManager" x:Class="HSAManager.Dashboard"
+             BackgroundColor="White" Title="Dashboard">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Logout" Clicked="handleLogout" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="0" Padding="0">
+                <Button Text="Receipt Vault" Clicked="Handle_Clicked_Receipt" Margin="40,40,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+                <Button Text="Charts" Clicked="Handle_Clicked_Charts" Margin="40,40,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+                <Button Text="HSA Management" Clicked="Handle_Clicked_Management" Margin="40,40,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+                <Button Text="Products" Clicked="Handle_Clicked_Products" Margin="40,40,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+                <Button Text="Shopping List" Clicked="Handle_SL" Margin="40,40,40,0" BorderRadius="5"
+                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
+            </StackLayout>
 
-	</ContentPage.Content>
+        </ScrollView>
+
+    </ContentPage.Content>
 
 </ContentPage>

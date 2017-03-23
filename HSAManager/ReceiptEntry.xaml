@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              x:Class="HSAManager.ReceiptEntry">
@@ -6,16 +7,18 @@
         <StackLayout>
             <Button Text="Add image" Clicked="getBlob" />
             <Label Text="Store" HorizontalTextAlignment="Center" />
-            <Entry x:Name="store" Text="" Margin="2,0,2,0" TextChanged="Store_OnTextChanged" Unfocused="Store_OnUnfocused" Focused="Store_OnFocused"/>
-            <ListView x:Name="StoreSuggestionsListView" ItemSelected="StoreSuggestionsListView_OnItemSelected" Unfocused="Store_OnUnfocused">
+            <Entry x:Name="store" Text="" Margin="2,0,2,0" TextChanged="Store_OnTextChanged"
+                   Unfocused="Store_OnUnfocused" Focused="Store_OnFocused" />
+            <ListView x:Name="StoreSuggestionsListView" ItemSelected="StoreSuggestionsListView_OnItemSelected"
+                      Unfocused="Store_OnUnfocused">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Name}"
-                                   TextColor="Navy"
-                                   Margin="20,10"
-                                   HorizontalOptions="CenterAndExpand" />
+                                       TextColor="Navy"
+                                       Margin="20,10"
+                                       HorizontalOptions="CenterAndExpand" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
