@@ -5,7 +5,7 @@
              Title="Products">
     <StackLayout>
         <ListView x:Name="listView" ItemSelected="Handle_ItemSelected">
-            <ListView.ItemTemplate>
+            <!--<ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
@@ -14,7 +14,7 @@
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
+            </ListView.ItemTemplate>-->
         </ListView>
     </StackLayout>
 

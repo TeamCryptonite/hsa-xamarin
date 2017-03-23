@@ -56,7 +56,40 @@ namespace HSAManager
             {
                 DisplayAlert("Exception", ex.Message, "OK");
             }
-        }
+
+            // Set up listview
+            var template = new DataTemplate(() =>
+            {
+                var stackLayout = new StackLayout()
+                {
+                    Orientation = StackOrientation.Horizontal
+                };
+                
+
+                var nameLabel = new Label()
+                {
+                    HorizontalOptions = LayoutOptions.StartAndExpand
+                };
+                nameLabel.SetBinding(Label.TextProperty, "Name");
+
+                var distanceLabel = new Label()
+                {
+                    HorizontalOptions = LayoutOptions.EndAndExpand
+                };
+                distanceLabel.SetBinding(Label.TextProperty, "DistanceToUser");
+                distanceLabel.BindingContextChanged += (sender, e) =>
+                {
+                    distanceLabel.Text = $"{double.Parse(distanceLabel.Text):0.##} miles";
+                };
+
+                stackLayout.Children.Add(nameLabel);
+                stackLayout.Children.Add(distanceLabel);
+
+                return new ViewCell() {View = stackLayout};
+            });
+
+		    listView.ItemTemplate = template;
+		}
 
 		protected override async void OnAppearing()
 		{
