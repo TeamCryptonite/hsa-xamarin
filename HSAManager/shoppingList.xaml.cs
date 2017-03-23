@@ -11,5 +11,6 @@ namespace HSAManager
 		{
 			InitializeComponent();
 		}
+
 	}
 }
