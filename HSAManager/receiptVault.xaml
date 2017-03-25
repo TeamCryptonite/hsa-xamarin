@@ -11,6 +11,11 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
+                            <StackLayout.Triggers>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding Provisional}" Value="True">
+                                    <Setter Property="StackLayout.BackgroundColor" Value="Gold"></Setter>
+                                </DataTrigger>
+                            </StackLayout.Triggers>
                             <Label Text="{Binding Store.Name}"
                                    TextColor="Navy"
                                    Margin="20,10"

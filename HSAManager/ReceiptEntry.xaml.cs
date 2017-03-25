@@ -25,7 +25,6 @@ namespace HSAManager
 
 			DatePicker.MinimumDate =  new System.DateTime(2000, 1, 1);
 			DatePicker.MaximumDate = DateTime.Now;
-
         }
 
 

@@ -82,20 +82,10 @@ namespace HSAManager
 
 	    private async void StartOcrProcess(Stream image)
 	    {
-            var newReceipt = await client.Receipts.PostNewReceipt(new ReceiptDto());
-            await client.Receipts.UploadReceiptImage(newReceipt.ReceiptId, image);
-            
-            string ocrUrl = await client.Receipts.OcrReceiptImage(newReceipt.ReceiptId);
-	        Tuple<string, ReceiptDto> ocrResult = await client.Receipts.CheckOcrResults(ocrUrl);
-	        do
-	        {
-	            OcrStatus.Text = ocrResult.Item1;
-                await Task.Delay(500);
-                ocrResult = await client.Receipts.CheckOcrResults(ocrUrl);
-            } while (ocrResult.Item2 == null);
-	        OcrStatus.Text = ocrResult.Item1;
-	        await Navigation.PushAsync(new ReceiptView(ocrResult.Item2));
-	        Navigation.RemovePage(this);
+            var message = await client.Receipts.OcrNewReceiptImage(image);
+
+	        await DisplayAlert("Server Message", message, "Ok");
+	        await Navigation.PopAsync();
 	    }
 	}
 }
