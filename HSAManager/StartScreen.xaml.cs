@@ -40,13 +40,13 @@ namespace HSAManager
 			{
 				AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.ResetPasswordpolicy);
                 Application.Current.Properties["authKey"] = ar.Token;
-                Navigation.PushAsync(new Dashboard());
+                await Navigation.PushAsync(new Dashboard());
 			}
 			catch (MsalException ee)
 			{
 				if (ee.ErrorCode != "authentication_canceled")
 				{
-					DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+					await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
 				}
 			}
 		}
@@ -58,19 +58,20 @@ namespace HSAManager
 			{
 				AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.SignUpSignInpolicy);
                 Application.Current.Properties["authKey"] = ar.Token;
-                Navigation.PushAsync(new Dashboard());
+                await Navigation.PushAsync(new Dashboard());
 			}
 			catch (MsalException ee)
 			{
+				
 				if (ee.Message != null && ee.Message.Contains("AADB2C90118"))
 				{
 					OnForgotPassword();
 				}
 
-				if (ee.ErrorCode != "authentication_canceled")
-				{
-					DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
-				}
+				//if (ee.ErrorCode != "authentication_canceled")
+				//{
+				//	await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+				//}
 			}
 		}
 	}

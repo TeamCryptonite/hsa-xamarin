@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp.Portable;
 using RestSharp.Portable.HttpClient;
 
-namespace HSAManager
+namespace HSAManager.Helpers.BizzaroHelpers
 {
     public class BizzaroReceipts : AbstractBizzaroActions
     {

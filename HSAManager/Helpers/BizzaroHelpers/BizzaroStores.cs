@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using HsaServiceDtos;
 using RestSharp.Portable;
 
-namespace HSAManager
+namespace HSAManager.Helpers.BizzaroHelpers
 {
     public class BizzaroStores : AbstractBizzaroActions
     {
@@ -14,21 +14,24 @@ namespace HSAManager
         public BizzaroStores(string baseUrl) : base(baseUrl)
         {
         }
-        public Paginator<StoreDto> GetListOfStores(string query = null, int? productId = null, int? radius = null,
-            double? userLat = null, double? userLong = null)
+        public Paginator<StoreDto> GetListOfStores(string query = null, int? productId = null, int? radius = null
+            , LocationDto userLocation = null)
         {
             var request = new RestRequest("stores", Method.GET);
             if (!string.IsNullOrWhiteSpace(query))
                 request.AddOrUpdateQueryParameter("query", query);
             if(productId.HasValue)
                 request.AddOrUpdateQueryParameter("productid", productId);
-            if (radius.HasValue && userLat.HasValue && userLong.HasValue)
+            if (userLocation != null)
+            {
+                request.AddOrUpdateQueryParameter("userLat", userLocation.Latitude);
+                request.AddOrUpdateQueryParameter("userLong", userLocation.Longitude);
+            }
+
+            if (radius.HasValue && userLocation != null)
             {
                 request.AddOrUpdateQueryParameter("radius", radius);
-                request.AddOrUpdateQueryParameter("userlat", userLat);
-                request.AddOrUpdateQueryParameter("userlong", userLong);
-            } else if (radius.HasValue || userLat.HasValue || userLong.HasValue)
-                throw new Exception("Store location query must include radius, userLat, and userLong.");
+            }
 
             return new Paginator<StoreDto>(this, request);
         }

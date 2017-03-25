@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using RestSharp.Portable;
 
-namespace HSAManager
+namespace HSAManager.Helpers.BizzaroHelpers
 {
     public class Paginator<T>
     {

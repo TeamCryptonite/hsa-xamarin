@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HSAManager.products"
+             x:Class="HSAManager.productsInStores"
              Title="Products">
     <StackLayout>
-        <SearchBar x:Name="product" TextChanged="searchChanged" />
         <ListView x:Name="listView" ItemSelected="Handle_ItemSelected">
-            <ListView.ItemTemplate>
+            <!--<ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand">
-							</Label>
-                            <!-- isHSA? -->
+                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"></Label>
+                            <Label Text="{Binding DistanceToUser}" HorizontalOptions = "EndAndExpand"></Label>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
+            </ListView.ItemTemplate>-->
         </ListView>
     </StackLayout>
 
 </ContentPage>
-
-

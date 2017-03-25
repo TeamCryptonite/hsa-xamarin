@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using HsaServiceDtos;
+using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
 
 //using HsaServiceDtos;
