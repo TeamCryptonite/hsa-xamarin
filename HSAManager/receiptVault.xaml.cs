@@ -104,7 +104,10 @@ namespace HSAManager
         //public async void Handle_Tapped(object sender, System.EventArgs e)
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            Navigation.PushAsync(new ReceiptView((ReceiptDto)e.SelectedItem));
+            if (((ReceiptDto) e.SelectedItem).Provisional)
+                Navigation.PushAsync(new ReceiptEditing((ReceiptDto) e.SelectedItem));
+            else
+                Navigation.PushAsync(new ReceiptView((ReceiptDto)e.SelectedItem));
         }
     }
 }
