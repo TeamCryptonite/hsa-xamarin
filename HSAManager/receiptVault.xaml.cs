@@ -100,6 +100,35 @@ namespace HSAManager
         //{
         //	await Navigation.PushAsync(new data());
 
-        //}
+        //public async void Handle_Tapped(object sender, System.EventArgs e)
+        private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var selectedReceiptDto = e.SelectedItem as ReceiptDto;
+            if (selectedReceiptDto == null)
+            {
+                await DisplayAlert("Receipt Alert", "Selected Receipt does not have valid data.", "OK");
+                return;
+            }
+
+            if (!selectedReceiptDto.Provisional && !selectedReceiptDto.WaitingForOcr)
+            {
+                await Navigation.PushAsync(new ReceiptView((ReceiptDto) e.SelectedItem));
+            }
+            else if (selectedReceiptDto.Provisional)
+            {
+                await Navigation.PushAsync(new ReceiptEditing((ReceiptDto) e.SelectedItem));
+            }
+            else if (selectedReceiptDto.WaitingForOcr)
+            {
+                await DisplayAlert("OCR Running",
+                    "Cannot open selected receipt because the server is still running OCR on it! Check back later!",
+                    "OK");
+            }
+            else
+            {
+                await DisplayAlert("Receipt Alert",
+                    "Selected Receipt has invalid flags. Check with system administrator.", "OK");
+            }
+        }
     }
 }

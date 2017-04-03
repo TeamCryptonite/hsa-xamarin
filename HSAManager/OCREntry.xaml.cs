@@ -1,16 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using HsaServiceDtos;
+using Xamarin.Forms;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 
 namespace HSAManager
 {
-    public partial class OCREntry : ContentPage
-    {
-        public OCREntry()
-        {
-            InitializeComponent();
-        }
+	public partial class OCREntry : ContentPage
+	{
+        private BizzaroClient client = new BizzaroClient();
+
+		public OCREntry()
+		{
+			InitializeComponent();
+		}
 
         private async void TakePhotoButton_OnClicked(object sender, EventArgs e)
         {
@@ -31,13 +40,25 @@ namespace HSAManager
                 return;
             PathLabel.Text = file.AlbumPath;
 
-            MainImage.Source = ImageSource.FromStream(() =>
-            {
-                var stream = file.GetStream();
-                file.Dispose();
-                return stream;
-            });
-        }
+			MainImage.Source = ImageSource.FromStream(() =>
+			{
+				var stream = file.GetStream();
+				return stream;
+			});
+
+            // Debug Testing
+            //var client = new HttpClient();
+
+            //var streamFromUrl =
+            //    await client.GetStreamAsync(
+            //        "http://i1.wp.com/savewithcouponing.files.wordpress.com/2012/07/walmart-receipt-7-4-12.jpg?w=720");
+
+            StartOcrProcess(file.GetStream());
+
+            // Dispose of file
+            file.Dispose();
+		    
+		}
 
         private async void PickPhotoButton_OnClicked(object sender, EventArgs e)
         {
@@ -51,13 +72,22 @@ namespace HSAManager
             if (file == null)
                 return;
 
-            PathLabel.Text = "Photo Path" + file.Path;
-            MainImage.Source = ImageSource.FromStream(() =>
-            {
-                var stream = file.GetStream();
-                file.Dispose();
-                return stream;
-            });
-        }
-    }
+			PathLabel.Text = "Photo Path" + file.Path;
+			MainImage.Source = ImageSource.FromStream(() =>
+			{
+				var stream = file.GetStream();
+				file.Dispose();
+				return stream;
+			});
+             
+		}
+
+	    private async void StartOcrProcess(Stream image)
+	    {
+            var message = await client.Receipts.OcrNewReceiptImage(image);
+
+	        await DisplayAlert("Server Message", message, "Ok");
+	        await Navigation.PopAsync();
+	    }
+	}
 }

@@ -92,6 +92,9 @@
     <Compile Include="products.xaml.cs">
       <DependentUpon>products.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReceiptView.xaml.cs">
+      <DependentUpon>ReceiptView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="shoppingList.xaml.cs">
       <DependentUpon>shoppingList.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReceiptView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

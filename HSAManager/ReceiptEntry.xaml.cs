@@ -24,8 +24,8 @@ namespace HSAManager
             addItemInfo.ItemsSource = lineItemNames;
             StoreSuggestionsListView.ItemsSource = storeSuggestionsCollection;
 
-            DatePicker.MinimumDate = new DateTime(2000, 1, 1);
-            DatePicker.MaximumDate = DateTime.Now;
+			DatePicker.MinimumDate =  new System.DateTime(2000, 1, 1);
+			DatePicker.MaximumDate = DateTime.Now;
         }
 
 
