@@ -7,8 +7,9 @@ namespace HsaServiceDtos
     {
         public ReceiptDto()
         {
-            this.LineItems = new List<LineItemDto>();
+            LineItems = new List<LineItemDto>();
         }
+
         public int ReceiptId { get; set; }
         public StoreDto Store { get; set; }
         public DateTime? DateTime { get; set; }

@@ -8,14 +8,15 @@ namespace HSAManager
     public partial class ReceiptEntry : ContentPage
     {
         private readonly ObservableCollection<LineItemDto> lineItemNames = new ObservableCollection<LineItemDto>();
-        private readonly ReceiptDto thisReceipt = new ReceiptDto();
-
-        private BizzaroClient client = new BizzaroClient();
-
-        public LineItemDto lineItemDto = new LineItemDto();
 
         private readonly ObservableCollection<StoreDto> storeSuggestionsCollection =
             new ObservableCollection<StoreDto>();
+
+        private readonly ReceiptDto thisReceipt = new ReceiptDto();
+
+        private readonly BizzaroClient client = new BizzaroClient();
+
+        public LineItemDto lineItemDto = new LineItemDto();
 
         public ReceiptEntry()
         {
@@ -104,13 +105,10 @@ namespace HSAManager
 
         private async void Store_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            
             var stores = await client.Stores.GetListOfStores(e.NewTextValue).Next();
             storeSuggestionsCollection.Clear();
             foreach (var store in stores)
-            {
                 storeSuggestionsCollection.Add(store);
-            }
         }
 
         private void Store_OnUnfocused(object sender, FocusEventArgs e)
@@ -121,13 +119,12 @@ namespace HSAManager
 
         private void Store_OnFocused(object sender, FocusEventArgs e)
         {
-            
             StoreSuggestionsListView.IsVisible = true;
         }
 
         private void StoreSuggestionsListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            thisReceipt.Store = (StoreDto)e.SelectedItem;
+            thisReceipt.Store = (StoreDto) e.SelectedItem;
             store.Text = thisReceipt.Store.Name;
         }
     }

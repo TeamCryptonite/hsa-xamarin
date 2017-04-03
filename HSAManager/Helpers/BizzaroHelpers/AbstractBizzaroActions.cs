@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Net;
 using System.Threading.Tasks;
+using HsaServiceDtos;
 using RestSharp.Portable;
 using RestSharp.Portable.HttpClient;
-using HsaServiceDtos;
 using Xamarin.Forms;
 
 // ReSharper disable once CheckNamespace
+
 namespace HSAManager.Helpers.BizzaroHelpers
 {
     public abstract class AbstractBizzaroActions
@@ -16,7 +16,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
 
         protected AbstractBizzaroActions(string baseUrl = "https://bizzaro.azurewebsites.net/api")
         {
-            this.authToken = Application.Current.Properties["authKey"].ToString();
+            authToken = Application.Current.Properties["authKey"].ToString();
             client = new RestClient(baseUrl) {IgnoreResponseStatusCode = true};
         }
 
@@ -37,7 +37,8 @@ namespace HSAManager.Helpers.BizzaroHelpers
             var response = await client.Execute<T>(request);
 
             if (!response.IsSuccess)
-                throw new Exception("Could not process HTTP call. " + response.StatusDescription + ". " + response.Content);
+                throw new Exception("Could not process HTTP call. " + response.StatusDescription + ". " +
+                                    response.Content);
 
             return response.Data;
         }

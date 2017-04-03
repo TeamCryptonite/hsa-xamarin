@@ -59,7 +59,11 @@ namespace HSAManager
             }
         }
 
-        protected async void searchChanged(object sender, TextChangedEventArgs e)
+        protected override void OnAppearing()
+        {
+        }
+
+        protected void searchChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
@@ -92,9 +96,9 @@ namespace HSAManager
             }
         }
 
-        //}
-        //	await Navigation.PushAsync(new data());
+        //public async void Handle_Tapped(object sender, System.EventArgs e)
         //{
+        //	await Navigation.PushAsync(new data());
 
         //public async void Handle_Tapped(object sender, System.EventArgs e)
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

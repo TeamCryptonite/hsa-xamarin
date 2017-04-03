@@ -7,8 +7,13 @@ namespace HSAManager.Helpers.BizzaroHelpers
 {
     public class BizzaroProducts : AbstractBizzaroActions
     {
-        public BizzaroProducts() { }
-        public BizzaroProducts(string baseUrl) : base(baseUrl) { }
+        public BizzaroProducts()
+        {
+        }
+
+        public BizzaroProducts(string baseUrl) : base(baseUrl)
+        {
+        }
 
         public Paginator<ProductDto> GetListOfProducts(string query = null)
         {
@@ -40,7 +45,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
             var request = new RestRequest("products/{id}", Method.PATCH);
             request.AddUrlSegment("id", productId);
 
-            StatusOnlyDto status = await CallBizzaro(request, updatedProduct);
+            var status = await CallBizzaro(request, updatedProduct);
 
             return status;
         }

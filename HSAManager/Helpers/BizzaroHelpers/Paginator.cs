@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using RestSharp.Portable;
 
@@ -9,10 +7,10 @@ namespace HSAManager.Helpers.BizzaroHelpers
 {
     public class Paginator<T>
     {
-        private AbstractBizzaroActions BizzaroAction;
         private readonly int PageTake;
         private readonly IRestRequest Request;
         private readonly int SkipBy;
+        private readonly AbstractBizzaroActions BizzaroAction;
         private int NextSkip;
         private bool ReachedEnd;
 

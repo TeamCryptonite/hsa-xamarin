@@ -4,14 +4,13 @@
              x:Class="HSAManager.products"
              Title="Products">
     <StackLayout>
-        <SearchBar x:Name="product" TextChanged="searchChanged" />
-        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected">
+        <SearchBar x:Name="productSearch" TextChanged="searchChanged" />
+        <ListView x:Name="listView" ItemSelected="ListView_OnItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand">
-							</Label>
+                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
                             <!-- isHSA? -->
                         </StackLayout>
                     </ViewCell>
@@ -21,5 +20,3 @@
     </StackLayout>
 
 </ContentPage>
-
-

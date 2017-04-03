@@ -45,7 +45,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
             var request = new RestRequest("shoppinglists/{id}", Method.PATCH);
             request.AddUrlSegment("id", shoppinglistId);
 
-            StatusOnlyDto status = await CallBizzaro(request, updatedShoppingList);
+            var status = await CallBizzaro(request, updatedShoppingList);
 
             return status;
         }
@@ -71,7 +71,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
             ShoppingListItemDto updatedShoppingListItem)
         {
             if (updatedShoppingListItem.ShoppingListItemId < 1)
-                return new StatusOnlyDto() {StatusMessage = "ShoppingListItem must include an ID"};
+                return new StatusOnlyDto {StatusMessage = "ShoppingListItem must include an ID"};
             var request =
                 new RestRequest(
                     $"shoppinglists/{shoppingListId}/shoppinglistitems/{updatedShoppingListItem.ShoppingListItemId}",

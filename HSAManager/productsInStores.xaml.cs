@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using HsaServiceDtos;
 using System.Threading;
-using Xamarin.Forms;
+using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
+using Xamarin.Forms;
 
 namespace HSAManager
 {
@@ -26,13 +24,13 @@ namespace HSAManager
 			StoresCollection = new ObservableCollection<StoreDto>();
 			listView.ItemsSource = StoresCollection;
 
-			listView.ItemAppearing += (sender, e) =>
-			{
-				if (StoresCollection.Count == 0) return;
-				if (((StoreDto)e.Item).StoreId == StoresCollection[StoresCollection.Count - 1].StoreId)
-					try
-					{
-						AddNewStores();
+            listView.ItemAppearing += (sender, e) =>
+            {
+                if (StoresCollection.Count == 0) return;
+                if (((StoreDto) e.Item).StoreId == StoresCollection[StoresCollection.Count - 1].StoreId)
+                    try
+                    {
+                        AddNewStores();
                     }
                     catch (Exception ex)
                     {
@@ -60,41 +58,34 @@ namespace HSAManager
             // Set up listview
             var template = new DataTemplate(() =>
             {
-                var stackLayout = new StackLayout()
+                var stackLayout = new StackLayout
                 {
                     Orientation = StackOrientation.Horizontal
                 };
-                
 
-                var nameLabel = new Label()
+
+                var nameLabel = new Label
                 {
                     HorizontalOptions = LayoutOptions.StartAndExpand
                 };
                 nameLabel.SetBinding(Label.TextProperty, "Name");
 
-                var distanceLabel = new Label()
+                var distanceLabel = new Label
                 {
                     HorizontalOptions = LayoutOptions.EndAndExpand
                 };
                 distanceLabel.SetBinding(Label.TextProperty, "DistanceToUser");
-                distanceLabel.BindingContextChanged += (sender, e) =>
-                {
-                    distanceLabel.Text = $"{double.Parse(distanceLabel.Text):0.##} miles";
-                };
+                distanceLabel.BindingContextChanged +=
+                    (sender, e) => { distanceLabel.Text = $"{double.Parse(distanceLabel.Text):0.##} miles"; };
 
                 stackLayout.Children.Add(nameLabel);
                 stackLayout.Children.Add(distanceLabel);
 
-                return new ViewCell() {View = stackLayout};
+                return new ViewCell {View = stackLayout};
             });
 
-		    listView.ItemTemplate = template;
-		}
-
-		protected override async void OnAppearing()
-		{
-			
-		}
+            listView.ItemTemplate = template;
+        }
 
 		protected async void AddNewStores()
 		{
@@ -102,16 +93,20 @@ namespace HSAManager
 			var storesToAddDto = await StoresPaginator.Next();
 			foreach (var storeDto in storesToAddDto)
 			{
-				//var storeCopy = new store(storeDto.Name, 1.1, storeDto.StoreId);
 				StoresCollection.Add(storeDto);
 			}
-		}
+            if (StoresCollection.Count == 0)
+            {
+                await DisplayAlert("Uh, Oh!", "No Stores with this product were found in your area...", "OK"); //add try increasing your radius when we allow that to be a thing.
+                await Navigation.PopAsync(true);
+            }
+        }
 
-		public void Handle_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-		{
-			//var p = e.SelectedItem as ProductDto;
-			//int pid = p.ProductId;
-			//Navigation.PushAsync(new productsInStores(pid));
-		}
-	}
+        public void Handle_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            //var p = e.SelectedItem as ProductDto;
+            //int pid = p.ProductId;
+            //Navigation.PushAsync(new productsInStores(pid));
+        }
+    }
 }

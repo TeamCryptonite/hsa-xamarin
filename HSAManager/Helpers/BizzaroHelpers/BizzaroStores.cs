@@ -14,13 +14,14 @@ namespace HSAManager.Helpers.BizzaroHelpers
         public BizzaroStores(string baseUrl) : base(baseUrl)
         {
         }
+
         public Paginator<StoreDto> GetListOfStores(string query = null, int? productId = null, int? radius = null
             , LocationDto userLocation = null)
         {
             var request = new RestRequest("stores", Method.GET);
             if (!string.IsNullOrWhiteSpace(query))
                 request.AddOrUpdateQueryParameter("query", query);
-            if(productId.HasValue)
+            if (productId.HasValue)
                 request.AddOrUpdateQueryParameter("productid", productId);
             if (userLocation != null)
             {
@@ -29,9 +30,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
             }
 
             if (radius.HasValue && userLocation != null)
-            {
                 request.AddOrUpdateQueryParameter("radius", radius);
-            }
 
             return new Paginator<StoreDto>(this, request);
         }
@@ -58,7 +57,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
             var request = new RestRequest("stores/{id}", Method.PATCH);
             request.AddUrlSegment("id", storeId);
 
-            StatusOnlyDto status = await CallBizzaro(request, updatedStore);
+            var status = await CallBizzaro(request, updatedStore);
 
             return status;
         }
