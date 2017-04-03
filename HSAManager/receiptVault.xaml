@@ -15,6 +15,9 @@
                                 <DataTrigger TargetType="StackLayout" Binding="{Binding Provisional}" Value="True">
                                     <Setter Property="StackLayout.BackgroundColor" Value="Gold"></Setter>
                                 </DataTrigger>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding WaitingForOcr}" Value="True">
+                                    <Setter Property="StackLayout.BackgroundColor" Value="Red"></Setter>
+                                </DataTrigger>
                             </StackLayout.Triggers>
                             <Label Text="{Binding Store.Name}"
                                    TextColor="Navy"

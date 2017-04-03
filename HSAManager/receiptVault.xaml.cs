@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
@@ -15,8 +14,8 @@ namespace HSAManager
     {
         private const string DefaultSearchTerm = "RECEIPT";
         private readonly Dictionary<string, ObservableCollection<ReceiptDto>> cachedSearchResults;
-        private Dictionary<string, Paginator<ReceiptDto>> cachedPaginators;
-        private BizzaroClient client;
+        private readonly Dictionary<string, Paginator<ReceiptDto>> cachedPaginators;
+        private readonly BizzaroClient client;
         //public ObservableCollection<ReceiptDto> receipts;
         //private Paginator<ReceiptDto> ReceiptsPaginator;
 
@@ -30,7 +29,7 @@ namespace HSAManager
             cachedSearchResults[DefaultSearchTerm] = new ObservableCollection<ReceiptDto>();
 
             cachedPaginators = new Dictionary<string, Paginator<ReceiptDto>>();
-            
+
             // Set listView settings
             listView.ItemsSource = cachedSearchResults[DefaultSearchTerm];
 
@@ -38,13 +37,9 @@ namespace HSAManager
             {
                 string searchTerm;
                 if (string.IsNullOrWhiteSpace(receiptVaultSearch.Text))
-                {
                     searchTerm = DefaultSearchTerm;
-                }
                 else
-                {
                     searchTerm = receiptVaultSearch.Text;
-                }
                 if (cachedSearchResults[searchTerm].Count == 0)
                     return;
                 if (((ReceiptDto) e.Item).ReceiptId ==
@@ -102,12 +97,34 @@ namespace HSAManager
         //{
 
         //public async void Handle_Tapped(object sender, System.EventArgs e)
-        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (((ReceiptDto) e.SelectedItem).Provisional)
-                Navigation.PushAsync(new ReceiptEditing((ReceiptDto) e.SelectedItem));
+            var selectedReceiptDto = e.SelectedItem as ReceiptDto;
+            if (selectedReceiptDto == null)
+            {
+                await DisplayAlert("Receipt Alert", "Selected Receipt does not have valid data.", "OK");
+                return;
+            }
+
+            if (!selectedReceiptDto.Provisional && !selectedReceiptDto.WaitingForOcr)
+            {
+                await Navigation.PushAsync(new ReceiptView((ReceiptDto) e.SelectedItem));
+            }
+            else if (selectedReceiptDto.Provisional)
+            {
+                await Navigation.PushAsync(new ReceiptEditing((ReceiptDto) e.SelectedItem));
+            }
+            else if (selectedReceiptDto.WaitingForOcr)
+            {
+                await DisplayAlert("OCR Running",
+                    "Cannot open selected receipt because the server is still running OCR on it! Check back later!",
+                    "OK");
+            }
             else
-                Navigation.PushAsync(new ReceiptView((ReceiptDto)e.SelectedItem));
+            {
+                await DisplayAlert("Receipt Alert",
+                    "Selected Receipt has invalid flags. Check with system administrator.", "OK");
+            }
         }
     }
 }

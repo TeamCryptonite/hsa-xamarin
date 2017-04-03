@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HsaServiceDtos;
 using Xamarin.Forms;
@@ -19,14 +20,17 @@ namespace HSAManager
         {
             InitializeComponent();
             this.receipt = receipt;
+            if(receipt.LineItems != null)
+                receipt.LineItems = new List<LineItemDto>();
             LineItemListView.ItemsSource = receipt.LineItems;
             StoreSuggestionsListView.ItemsSource = storeSuggestionsCollection;
 
             DatePicker.MinimumDate = new System.DateTime(2000, 1, 1);
             DatePicker.MaximumDate = DateTime.Now;
-            DatePicker.Date = receipt.DateTime.HasValue ? receipt.DateTime.Value : DateTime.Now;
+            DatePicker.Date = receipt.DateTime ?? DateTime.Now;
 
-            store.Text = receipt.Store.Name;
+            store.Text = receipt.Store?.Name ;
+            
         }
 
 
