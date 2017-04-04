@@ -42,6 +42,7 @@ namespace HSAManager
             if (item.Text != "")
             {
                 lineItemDto.Product.Name = item.Text;
+				addItemInfo.IsVisible = true;
             }
             else
             {
