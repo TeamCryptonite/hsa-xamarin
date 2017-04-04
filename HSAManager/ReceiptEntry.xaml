@@ -8,7 +8,7 @@
             <StackLayout>
                 <Button Text="Add image" Clicked="getBlob" />
                 <Label Text="Store" HorizontalTextAlignment="Center" />
-                <Entry x:Name="store" Text="" Margin="2,0,2,0" TextChanged="Store_OnTextChanged"
+                <Entry x:Name="StoreEntry" Text="" Margin="2,0,2,0" TextChanged="Store_OnTextChanged"
                        Unfocused="Store_OnUnfocused" Focused="Store_OnFocused" />
                 <ListView x:Name="StoreSuggestionsListView" ItemSelected="StoreSuggestionsListView_OnItemSelected"
                           Unfocused="Store_OnUnfocused" IsVisible="False">
