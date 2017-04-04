@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:my="clr-namespace:HSAManager;assembly=HSAManager..NETPortable,Version=v4.5,Profile=Profile7"
+             x:Class="HSAManager.ShoppingListView"
+             x:Name="ShoppingListViewPage">
+    <ScrollView>
+        <StackLayout>
+            <ListView x:Name="ShoppingListLineItemListView" ItemSelected="ShoppingListLineItemListView_OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout.Triggers>
+                                    <DataTrigger TargetType="StackLayout" Binding="{Binding Checked}" Value="True">
+                                        <Setter Property="StackLayout.BackgroundColor" Value="DarkSeaGreen" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="StackLayout" Binding="{Binding Checked}" Value="False">
+                                        <Setter Property="StackLayout.BackgroundColor" Value="PaleVioletRed"></Setter>
+                                    </DataTrigger>
+                                </StackLayout.Triggers>
+                                <Label Text="{Binding ProductName}"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="Center" Margin="15,0,0,0" />
+                                <Label Text="{Binding Quantity}" HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="Center" Margin="0,0,10,0" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

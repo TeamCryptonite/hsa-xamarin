@@ -32,7 +32,7 @@ namespace HSAManager
 
         private void Handle_SL(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new shoppingList());
+            Navigation.PushAsync(new ShoppingListLists());
         }
 
         private async void handleLogout(object sender, EventArgs e)

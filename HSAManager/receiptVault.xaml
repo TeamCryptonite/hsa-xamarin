@@ -35,8 +35,3 @@
     </StackLayout>
 
 </ContentPage>
-
-<!-- <Label.GestureRecognizers>
-									<TapGestureRecognizer Tapped="Handle_Tapped"/>
-								</Label.GestureRecognizers>
-								-->

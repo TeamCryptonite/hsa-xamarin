@@ -83,6 +83,7 @@ namespace HSAManager
 
         protected async void AddNewReceipts(string queryString)
         {
+            listView.BeginRefresh();
             Debug.WriteLine("Addding New Receipts");
             try
             {
@@ -94,6 +95,7 @@ namespace HSAManager
             {
                 await DisplayAlert("Alert", ex.Message, "OK");
             }
+            listView.EndRefresh();
         }
 
         //public async void Handle_Tapped(object sender, System.EventArgs e)
