@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using HsaServiceDtos;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,36 +22,11 @@ namespace HSAManager
         {
             if (e.SelectedItem == null)
                 return;
-            var shoppingListItem = (ShoppingListItemDto) e.SelectedItem;
-            if (shoppingListItem.Checked.HasValue == false)
-            {
-                shoppingListItem.Checked = false;
-                return;
-            }
-            switch (shoppingListItem.Checked)
-            {
-                case true:
-                    shoppingListItem.Checked = false;
-                    break;
-                case false:
-                    shoppingListItem.Checked = true;
-                    break;
-                default:
-                    shoppingListItem.Checked = false;
-                    break;
-            }
+            var shoppingListItem = (ShoppingListItemDto)e.SelectedItem;
 
 
-            ((ListView) sender).SelectedItem = null;
-            try
-            {
-                await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, shoppingListItem);
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Exception", "Could not save changes. Please try again.", "Ok");
-                setShoppingList(shoppingList.ShoppingListId);
-            }
+
+            ((ListView)sender).SelectedItem = null;
         }
 
         private async void setShoppingList(int shoppingListId)
@@ -69,6 +45,48 @@ namespace HSAManager
             }
 
             ShoppingListLineItemListView.EndRefresh();
+        }
+
+        private async void ButtonCheckmark_OnClicked(object sender, EventArgs e)
+        {
+            var button = (Xamarin.Forms.Button)sender;
+            var shoppingListItem = button.CommandParameter as ShoppingListItemDto;
+
+            if (shoppingListItem == null)
+                return;
+
+            if (shoppingListItem.Checked.HasValue == false)
+            {
+                shoppingListItem.Checked = false;
+                return;
+            }
+            switch (shoppingListItem.Checked)
+            {
+                case true:
+                    shoppingListItem.Checked = false;
+                    break;
+                case false:
+                    shoppingListItem.Checked = true;
+                    break;
+                default:
+                    shoppingListItem.Checked = false;
+                    break;
+            }
+            
+            try
+            {
+                await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, shoppingListItem);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Exception", "Could not save changes. Please try again.", "Ok");
+                setShoppingList(shoppingList.ShoppingListId);
+            }
+        }
+
+        private void ButtonEdit_OnClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

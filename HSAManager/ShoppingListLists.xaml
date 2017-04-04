@@ -7,8 +7,6 @@
 
     <ScrollView>
         <StackLayout>
-            <Label Text="&#xf209;"
-			       FontSize="40" FontFamily="FontAwesome" />
             <ListView x:Name="ShoppingListListView" ItemSelected="ShoppingListListView_OnItemSelected">
                 <ListView.ItemTemplate >
                     <DataTemplate>
