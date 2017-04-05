@@ -3,6 +3,7 @@ using System.Diagnostics;
 using HsaServiceDtos;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Collections.ObjectModel;
 
 namespace HSAManager
 {
@@ -12,10 +13,16 @@ namespace HSAManager
         private readonly BizzaroClient client = new BizzaroClient();
         private ShoppingListDto shoppingList;
 
+		private ObservableCollection<ShoppingListItemDto> shoppingListItems = new ObservableCollection<ShoppingListItemDto>();
+
         public ShoppingListView(ShoppingListDto shoppingList)
         {
             InitializeComponent();
             setShoppingList(shoppingList.ShoppingListId);
+			foreach (ShoppingListItemDto slItem in shoppingList.ShoppingListItems)
+			{
+				shoppingListItems.Add(slItem);
+			}
         }
 
         private async void ShoppingListLineItemListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -37,7 +44,7 @@ namespace HSAManager
             {
                 shoppingList = await client.ShoppingLists.GetOneShoppingList(shoppingListId);
                 Title = shoppingList.Name;
-                ShoppingListLineItemListView.ItemsSource = shoppingList.ShoppingListItems;
+                ShoppingListLineItemListView.ItemsSource = shoppingListItems;
             }
             catch (Exception ex)
             {
@@ -88,5 +95,15 @@ namespace HSAManager
         {
             throw new NotImplementedException();
         }
+
+		public async void OnDelete(object sender, EventArgs e)
+		{
+			var client = new BizzaroClient();
+			var mi = (MenuItem)sender;
+			var shoppingListItem = mi.CommandParameter as ShoppingListItemDto;
+			shoppingListItems.Remove(shoppingListItem);
+			await client.ShoppingLists.DeleteShoppingListItem(shoppingList.ShoppingListId, shoppingListItem.ShoppingListItemId);
+
+		}
     }
 }
