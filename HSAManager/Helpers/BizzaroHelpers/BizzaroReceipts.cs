@@ -55,6 +55,13 @@ namespace HSAManager.Helpers.BizzaroHelpers
             return status;
         }
 
+        public async Task<StatusOnlyDto> DeleteReceipt(int receiptId)
+        {
+            var request = new RestRequest($"receipts/{receiptId}", Method.DELETE);
+
+            return await CallBizzaro(request);
+        }
+
         public async Task<LineItemDto> AddReceiptListItem(int receiptId,
             LineItemDto newReceiptListItem)
         {
