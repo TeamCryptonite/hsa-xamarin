@@ -70,6 +70,14 @@ namespace HSAManager
             lineItemDto = new LineItemDto();
         }
 
+		public void OnDelete(object sender, EventArgs e)
+		{
+			var mi = (MenuItem)sender;
+			var lineItem = mi.CommandParameter as LineItemDto;
+			thisReceipt.LineItems.Remove(lineItem);
+			lineItemNames.Remove(lineItem);
+		}
+
         private async void submitReceipt(object sender, EventArgs e)
         {
             thisReceipt.DateTime = DatePicker.Date;
