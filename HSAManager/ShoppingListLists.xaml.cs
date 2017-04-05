@@ -2,6 +2,7 @@
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
+using System;
 
 namespace HSAManager
 {
@@ -51,5 +52,15 @@ namespace HSAManager
             ((ListView)sender).SelectedItem = null;
             await Navigation.PushAsync(new ShoppingListView((ShoppingListDto) e.SelectedItem));
         }
+
+		public async void OnDelete(object sender, EventArgs e)
+		{
+			var client = new BizzaroClient();
+			var mi = (MenuItem)sender;
+			var shoppingList = mi.CommandParameter as ShoppingListDto;
+			shoppingListCollection.Remove(shoppingList);
+			//await client.ShoppingLists.
+
+		}
     }
 }
