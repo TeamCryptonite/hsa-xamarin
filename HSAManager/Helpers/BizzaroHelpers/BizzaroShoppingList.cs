@@ -50,6 +50,13 @@ namespace HSAManager.Helpers.BizzaroHelpers
             return status;
         }
 
+        public async Task<StatusOnlyDto> DeleteShoppingList(int shoppingListId)
+        {
+            var request = new RestRequest($"shoppinglists/{shoppingListId}", Method.DELETE);
+
+            return await CallBizzaro(request);
+        }
+
         public async Task<ShoppingListItemDto> AddShoppingListItem(int shoppingListId,
             ShoppingListItemDto newShoppingListItem)
         {

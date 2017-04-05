@@ -55,6 +55,42 @@ namespace HSAManager.Helpers.BizzaroHelpers
             return status;
         }
 
+        public async Task<StatusOnlyDto> DeleteReceipt(int receiptId)
+        {
+            var request = new RestRequest($"receipts/{receiptId}", Method.DELETE);
+
+            return await CallBizzaro(request);
+        }
+
+        public async Task<LineItemDto> AddReceiptListItem(int receiptId,
+            LineItemDto newReceiptListItem)
+        {
+            var request = new RestRequest($"receipts/{receiptId}/lineitems", Method.POST);
+
+            return await CallBizzaro<LineItemDto>(request, newReceiptListItem);
+        }
+
+        public async Task<StatusOnlyDto> DeleteShoppingListItem(int receiptId, int receiptListItemId)
+        {
+            var request = new RestRequest($"receipts/{receiptId}/lineitems/{receiptListItemId}",
+                Method.DELETE);
+
+            return await CallBizzaro(request);
+        }
+
+        public async Task<StatusOnlyDto> UpdateShoppingListItem(int receiptId,
+            LineItemDto updatedLineItem)
+        {
+            if (updatedLineItem.LineItemId < 1)
+                return new StatusOnlyDto { StatusMessage = "Receipt Line Items must include an ID" };
+            var request =
+                new RestRequest(
+                    $"receipts/{receiptId}/lineitems/{updatedLineItem.LineItemId}",
+                    Method.PATCH);
+
+            return await CallBizzaro(request, updatedLineItem);
+        }
+
         public async Task<StatusOnlyDto> UploadReceiptImage(int receiptId, Stream imageStream,
             string imageExtension = "jpg")
         {
