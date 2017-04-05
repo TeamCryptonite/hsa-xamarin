@@ -21,7 +21,6 @@ namespace HSAManager
             date.Text = receipt.DateTime != null
                 ? $"{receipt.DateTime:MMMM d, yyyy}"
                 : "No Date For This Receipt";
-			//lineItems = receipt.LineItems as ObservableCollection<LineItemDto>;
 			foreach (LineItemDto lineItem in receipt.LineItems)
 			{
 				lineItems.Add(lineItem);
@@ -36,7 +35,7 @@ namespace HSAManager
 			var lineItem = mi.CommandParameter as LineItemDto;
 			receipt.LineItems.Remove(lineItem);
 			lineItems.Remove(lineItem);
-			await client.Receipts.UpdateReceipt(receipt.ReceiptId,receipt);
+			await client.Receipts.DeleteShoppingListItem(receipt.ReceiptId,lineItem.LineItemId);
 		}
     }
 }
