@@ -59,7 +59,7 @@ namespace HSAManager
 			var mi = (MenuItem)sender;
 			var shoppingList = mi.CommandParameter as ShoppingListDto;
 			shoppingListCollection.Remove(shoppingList);
-			//await client.ShoppingLists.
+			await client.ShoppingLists.DeleteShoppingList(shoppingList.ShoppingListId);
 
 		}
     }
