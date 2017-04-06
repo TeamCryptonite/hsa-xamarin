@@ -26,6 +26,8 @@ namespace HSAManager
 
 			DatePicker.MinimumDate =  new System.DateTime(2000, 1, 1);
 			DatePicker.MaximumDate = DateTime.Now;
+
+            changeStoreSuggestionsCollection("");
         }
 
 
@@ -40,6 +42,7 @@ namespace HSAManager
             if (item.Text != "")
             {
                 lineItemDto.Product.Name = item.Text;
+				addItemInfo.IsVisible = true;
             }
             else
             {
@@ -74,12 +77,12 @@ namespace HSAManager
         {
             thisReceipt.DateTime = DatePicker.Date;
 
-            if (store.Text != "")
+            if (StoreEntry.Text != "")
             {
                 if (thisReceipt.Store == null)
                 {
                     thisReceipt.Store = new StoreDto();
-                    thisReceipt.Store.Name = store.Text;
+                    thisReceipt.Store.Name = StoreEntry.Text;
                 }
                 if (Application.Current.Properties.ContainsKey("authKey"))
                 {
@@ -105,15 +108,12 @@ namespace HSAManager
 
         private async void Store_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var stores = await client.Stores.GetListOfStores(e.NewTextValue).Next();
-            storeSuggestionsCollection.Clear();
-            foreach (var store in stores)
-                storeSuggestionsCollection.Add(store);
+            changeStoreSuggestionsCollection(e.NewTextValue);
         }
 
         private void Store_OnUnfocused(object sender, FocusEventArgs e)
         {
-            if (!store.IsFocused || !StoreSuggestionsListView.IsFocused)
+            if (!StoreEntry.IsFocused || !StoreSuggestionsListView.IsFocused)
                 StoreSuggestionsListView.IsVisible = false;
         }
 
@@ -125,7 +125,15 @@ namespace HSAManager
         private void StoreSuggestionsListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             thisReceipt.Store = (StoreDto) e.SelectedItem;
-            store.Text = thisReceipt.Store.Name;
+            StoreEntry.Text = thisReceipt.Store.Name;
+        }
+
+        private async void changeStoreSuggestionsCollection(string searchQuery)
+        {
+            var stores = await client.Stores.GetListOfStores(searchQuery).Next();
+            storeSuggestionsCollection.Clear();
+            foreach (var store in stores)
+                storeSuggestionsCollection.Add(store);
         }
     }
 }

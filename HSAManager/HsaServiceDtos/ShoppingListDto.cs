@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace HsaServiceDtos
 {
@@ -7,7 +8,7 @@ namespace HsaServiceDtos
     {
         public ShoppingListDto()
         {
-            ShoppingListItems = new List<ShoppingListItemDto>();
+            ShoppingListItems = new ObservableCollection<ShoppingListItemDto>();
         }
 
         public int ShoppingListId { get; set; }
@@ -15,6 +16,6 @@ namespace HsaServiceDtos
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime? DateTime { get; set; }
-        public ICollection<ShoppingListItemDto> ShoppingListItems { get; set; }
+        public ObservableCollection<ShoppingListItemDto> ShoppingListItems { get; set; }
     }
 }

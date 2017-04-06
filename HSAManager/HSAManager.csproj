@@ -40,7 +40,7 @@
     <EmbeddedResource Include="products.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="shoppingList.xaml">
+    <EmbeddedResource Include="ShoppingListLists.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="StartScreen.xaml">
@@ -95,8 +95,11 @@
     <Compile Include="ReceiptView.xaml.cs">
       <DependentUpon>ReceiptView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="shoppingList.xaml.cs">
-      <DependentUpon>shoppingList.xaml</DependentUpon>
+    <Compile Include="ShoppingListLists.xaml.cs">
+      <DependentUpon>ShoppingListLists.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingListView.xaml.cs">
+      <DependentUpon>ShoppingListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartScreen.xaml.cs">
       <DependentUpon>StartScreen.xaml</DependentUpon>
@@ -172,6 +175,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ReceiptView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ShoppingListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

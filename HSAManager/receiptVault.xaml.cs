@@ -83,6 +83,7 @@ namespace HSAManager
 
         protected async void AddNewReceipts(string queryString)
         {
+            listView.BeginRefresh();
             Debug.WriteLine("Addding New Receipts");
             try
             {
@@ -94,6 +95,7 @@ namespace HSAManager
             {
                 await DisplayAlert("Alert", ex.Message, "OK");
             }
+            listView.EndRefresh();
         }
 
         //public async void Handle_Tapped(object sender, System.EventArgs e)
@@ -130,5 +132,14 @@ namespace HSAManager
                     "Selected Receipt has invalid flags. Check with system administrator.", "OK");
             }
         }
+		public async void OnDelete(object sender, EventArgs e)
+		{
+			//var client = new BizzaroClient();
+			//var mi = (MenuItem)sender;
+			//var shoppingListItem = mi.CommandParameter as ShoppingListItemDto;
+			//shoppingListItems.Remove(shoppingListItem);
+			//await client.ShoppingLists.DeleteShoppingListItem(shoppingList.ShoppingListId, shoppingListItem.ShoppingListItemId);
+
+		}
     }
 }

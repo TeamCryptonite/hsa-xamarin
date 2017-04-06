@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HSAManager.receiptVault"
@@ -10,6 +10,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+						<ViewCell.ContextActions>
+							<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+						</ViewCell.ContextActions>
                         <StackLayout Orientation="Horizontal">
                             <StackLayout.Triggers>
                                 <DataTrigger TargetType="StackLayout" Binding="{Binding Provisional}" Value="True">
@@ -35,8 +38,3 @@
     </StackLayout>
 
 </ContentPage>
-
-<!-- <Label.GestureRecognizers>
-									<TapGestureRecognizer Tapped="Handle_Tapped"/>
-								</Label.GestureRecognizers>
-								-->
