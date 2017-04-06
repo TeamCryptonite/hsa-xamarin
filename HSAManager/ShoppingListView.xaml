@@ -29,11 +29,16 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding ProductName}"
+                                <Entry Text="{Binding ProductName}" Placeholder="{Binding ShoppingListItemId}"
                                        HorizontalOptions="Start"
-                                       VerticalOptions="Center" Margin="15,0,0,0" />
-                                <Label Grid.Column="1" Text="{Binding Quantity}" HorizontalOptions="Center"
-                                       VerticalOptions="Center" Margin="0,0,10,0" />
+                                       VerticalOptions="Center" Margin="15,0,0,0" Unfocused="Entry_Name_Unfocused"/>
+                                <!--<Label Grid.Column="0" Text="{Binding ProductName}"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Center" Margin="15,0,0,0" />-->
+                                <Entry Grid.Column="1" Text="{Binding Quantity}" Placeholder="{Binding ShoppingListItemId}" HorizontalOptions="Center"
+                                       VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Entry_Quantity_Unfocused"/>
+                                <!--<Label Grid.Column="1" Text="{Binding Quantity}" HorizontalOptions="Center"
+                                       VerticalOptions="Center" Margin="0,0,10,0" />-->
                                 <Button Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center"
                                         Margin="0,0,50,0" FontFamily="FontAwesome" FontSize="25"
                                         CommandParameter="{Binding .}" Clicked="ButtonCheckmark_OnClicked" BackgroundColor="White">

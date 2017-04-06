@@ -15,10 +15,13 @@
 								<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
 							</ViewCell.ContextActions>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Name}"
+                                <Entry Text="{Binding Name}"
+                                       TextColor="Navy"
+                                       HorizontalOptions="StartAndExpand"/>
+                                <!--<Label Text="{Binding Name}"
                                        TextColor="Navy"
                                        Margin="20,10"
-                                       HorizontalOptions="StartAndExpand" />
+                                       HorizontalOptions="StartAndExpand" />-->
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

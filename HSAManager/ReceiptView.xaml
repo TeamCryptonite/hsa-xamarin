@@ -16,11 +16,16 @@
 								<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
 							</ViewCell.ContextActions>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Product.Name}"
+                                <Entry Text="{Binding Product.Name}"
                                        HorizontalOptions="StartAndExpand"
-                                       VerticalOptions="Center" Margin="15,0,0,0" />
-                                <Label Text="{Binding Price}" HorizontalOptions="EndAndExpand"
-                                       VerticalOptions="Center" Margin="0,0,10,0" />
+                                       VerticalOptions="Center" Margin="15,0,0,0"/>
+                                <!--<Label Text="{Binding Product.Name}"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="Center" Margin="15,0,0,0" />-->
+                                <Entry Text="{Binding Price}" HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="Center" Margin="0,0,10,0"/>
+                                <!--<Label Text="{Binding Price}" HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="Center" Margin="0,0,10,0" />-->
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

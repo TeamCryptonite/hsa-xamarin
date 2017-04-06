@@ -91,11 +91,6 @@ namespace HSAManager
             }
         }
 
-        private void ButtonEdit_OnClicked(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
 		public async void OnDelete(object sender, EventArgs e)
 		{
 			var client = new BizzaroClient();
@@ -105,5 +100,36 @@ namespace HSAManager
 			await client.ShoppingLists.DeleteShoppingListItem(shoppingList.ShoppingListId, shoppingListItem.ShoppingListItemId);
 
 		}
+
+        private async void Entry_Name_Unfocused(object sender, FocusEventArgs e)
+        {
+            var client = new BizzaroClient();
+            var entry = (Xamarin.Forms.Entry)sender;
+            var itemId = Int32.Parse(entry.Placeholder);
+            foreach(ShoppingListItemDto item in shoppingListItems)
+            {
+                if(item.ShoppingListItemId.Equals(itemId))
+                {
+                    item.ProductName = entry.Text;
+                    await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, item);
+                }
+            }
+
+        }
+
+        private async void Entry_Quantity_Unfocused(object sender, FocusEventArgs e)
+        {
+            var client = new BizzaroClient();
+            var entry = (Xamarin.Forms.Entry)sender;
+            var itemId = Int32.Parse(entry.Placeholder);
+            foreach (ShoppingListItemDto item in shoppingListItems)
+            {
+                if (item.ShoppingListItemId.Equals(itemId))
+                {
+                    item.Quantity = Int32.Parse(entry.Text);
+                    await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, item);
+                }
+            }
+        }
     }
 }
