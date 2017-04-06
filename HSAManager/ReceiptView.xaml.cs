@@ -1,6 +1,8 @@
 ﻿using HsaServiceDtos;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System;
+using System.Collections.ObjectModel;
 
 namespace HSAManager
 {
@@ -8,6 +10,8 @@ namespace HSAManager
     public partial class ReceiptView : ContentPage
     {
         private readonly ReceiptDto receipt;
+
+		private ObservableCollection<LineItemDto> lineItems = new ObservableCollection<LineItemDto>();
 
         public ReceiptView(ReceiptDto receiptInput)
         {
@@ -17,7 +21,21 @@ namespace HSAManager
             date.Text = receipt.DateTime != null
                 ? $"{receipt.DateTime:MMMM d, yyyy}"
                 : "No Date For This Receipt";
-            LineItemListView.ItemsSource = receipt.LineItems;
+			foreach (LineItemDto lineItem in receipt.LineItems)
+			{
+				lineItems.Add(lineItem);
+			}
+			LineItemListView.ItemsSource = lineItems;
         }
+
+		public async void OnDelete(object sender, EventArgs e)
+		{
+			var client = new BizzaroClient();
+			var mi = (MenuItem)sender;
+			var lineItem = mi.CommandParameter as LineItemDto;
+			receipt.LineItems.Remove(lineItem);
+			lineItems.Remove(lineItem);
+			await client.Receipts.DeleteShoppingListItem(receipt.ReceiptId,lineItem.LineItemId);
+		}
     }
 }
