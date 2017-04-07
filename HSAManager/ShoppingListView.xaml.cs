@@ -105,31 +105,32 @@ namespace HSAManager
         {
             var client = new BizzaroClient();
             var entry = (Xamarin.Forms.Entry)sender;
-            var itemId = Int32.Parse(entry.Placeholder);
-            foreach(ShoppingListItemDto item in shoppingListItems)
-            {
-                if(item.ShoppingListItemId.Equals(itemId))
-                {
-                    item.ProductName = entry.Text;
-                    await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, item);
-                }
-            }
-
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var shoppingListItem = bindingContext.BindingContext as ShoppingListItemDto;
+            shoppingListItem.ProductName = entry.Text;
+            await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, shoppingListItem);
         }
 
         private async void Entry_Quantity_Unfocused(object sender, FocusEventArgs e)
         {
             var client = new BizzaroClient();
             var entry = (Xamarin.Forms.Entry)sender;
-            var itemId = Int32.Parse(entry.Placeholder);
-            foreach (ShoppingListItemDto item in shoppingListItems)
-            {
-                if (item.ShoppingListItemId.Equals(itemId))
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var shoppingListItem = bindingContext.BindingContext as ShoppingListItemDto;
+            if (entry.Text != null && entry.Text != "") {
+                try
                 {
-                    item.Quantity = Int32.Parse(entry.Text);
-                    await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, item);
+                    shoppingListItem.Quantity = int.Parse(entry.Text.ToString());
+                    await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, shoppingListItem);
                 }
+                catch (Exception ex)
+                {
+                    entry.Text = "";
+                    await DisplayAlert("Oops", "Please enter a valid whole number.", "Okay");
+                }
+                //shoppingListItem.Quantity = int.Parse(entry.Text.ToString());
             }
+            //await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, shoppingListItem);
         }
     }
 }
