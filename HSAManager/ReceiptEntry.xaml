@@ -58,14 +58,14 @@
                                 <Grid>
                                     <Entry WidthRequest="180" Grid.Column="0" Text="{Binding Product.Name}"
                                            HorizontalOptions="StartAndExpand"
-                                           VerticalOptions="Center" Margin="15,0,0,0" />
+                                           VerticalOptions="Center" Margin="15,0,0,0" Unfocused="Name_Entry_Unfocused"/>
                                     <!--<Label Grid.Column="0" Text="{Binding Product.Name}"
                                            HorizontalOptions="StartAndExpand"
                                            VerticalOptions="Center" Margin="15,0,0,0" />-->
                                     <!--<Label Grid.Column="1" Text="{Binding Price}" HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center" Margin="0,0,10,0" />-->
                                     <Entry WidthRequest="180" Grid.Column="1" Text="{Binding Price}" HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="Center" Margin="0,0,10,0"/>
+                                           VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Price_Entry_Unfocused"/>
                                 </Grid>
 
                             </ViewCell>

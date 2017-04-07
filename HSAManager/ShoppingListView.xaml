@@ -31,12 +31,12 @@
                                 </Grid.ColumnDefinitions>
                                 <Entry Text="{Binding ProductName}"
                                        HorizontalOptions="Start"
-                                       VerticalOptions="Center" Margin="15,0,0,0"  Unfocused="Entry_Name_Unfocused" PlaceholderColor="White"/>
+                                       VerticalOptions="Center" Margin="15,0,0,0"  Unfocused="Entry_Name_Unfocused"/>
                                 <!--<Label Grid.Column="0" Text="{Binding ProductName}"
                                        HorizontalOptions="Start"
                                        VerticalOptions="Center" Margin="15,0,0,0" />-->
                                 <Entry Grid.Column="1" Text="{Binding Quantity}" HorizontalOptions="Center"
-                                       VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Entry_Quantity_Unfocused" PlaceholderColor="White"/>
+                                       VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Entry_Quantity_Unfocused"/>
                                 <!--<Label Grid.Column="1" Text="{Binding Quantity}" HorizontalOptions="Center"
                                        VerticalOptions="Center" Margin="0,0,10,0" />-->
                                 <Button Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center"

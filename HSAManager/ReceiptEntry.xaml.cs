@@ -92,6 +92,14 @@ namespace HSAManager
                     thisReceipt.Store = new StoreDto();
                     thisReceipt.Store.Name = StoreEntry.Text;
                 }
+                foreach (LineItemDto lineItem in lineItemNames)
+                {
+                    if (lineItem.Product.Name == "")
+                    {
+                        await DisplayAlert("Alert", "Please make sure you have a name for every item.", "OK");
+                        return;
+                    }
+                }
                 if (Application.Current.Properties.ContainsKey("authKey"))
                 {
                     var authKey = Application.Current.Properties["authKey"].ToString();
@@ -142,6 +150,37 @@ namespace HSAManager
             storeSuggestionsCollection.Clear();
             foreach (var store in stores)
                 storeSuggestionsCollection.Add(store);
+        }
+
+        private void Name_Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var entry = (Xamarin.Forms.Entry)sender;
+            var name = entry.Text;
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var lineItem = bindingContext.BindingContext as LineItemDto;
+            lineItem.Product.Name = name;
+        }
+
+        private void Price_Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var entry = (Xamarin.Forms.Entry)sender;
+            var price = entry.Text;
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var lineItem = bindingContext.BindingContext as LineItemDto;
+            try
+            {
+                if(price != "")
+                {
+                    lineItem.Price = Convert.ToDecimal(price);
+                } else
+                {
+                    lineItem.Price = 0;
+                }
+            } catch (Exception ex)
+            {
+                entry.Text = "";
+                DisplayAlert("Oops", "Please enter a valid price. Ex: 1.00, 5.35, 2, etc.", "OK");
+            }
         }
     }
 }

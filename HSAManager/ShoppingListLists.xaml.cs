@@ -62,5 +62,15 @@ namespace HSAManager
 			await client.ShoppingLists.DeleteShoppingList(shoppingList.ShoppingListId);
 
 		}
+
+        private async void Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var client = new BizzaroClient();
+            var entry = (Xamarin.Forms.Entry)sender;
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent;
+            var shoppingList = bindingContext.BindingContext as ShoppingListDto;
+            shoppingList.Name = entry.Text;
+            await client.ShoppingLists.UpdateShoppingList(shoppingList.ShoppingListId, shoppingList);
+        }
     }
 }

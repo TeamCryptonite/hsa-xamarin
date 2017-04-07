@@ -17,7 +17,7 @@
                             <StackLayout Orientation="Horizontal">
                                 <Entry Text="{Binding Name}"
                                        TextColor="Navy"
-                                       HorizontalOptions="StartAndExpand"/>
+                                       HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused"/>
                                 <!--<Label Text="{Binding Name}"
                                        TextColor="Navy"
                                        Margin="20,10"

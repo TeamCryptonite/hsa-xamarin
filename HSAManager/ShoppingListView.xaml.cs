@@ -128,9 +128,7 @@ namespace HSAManager
                     entry.Text = "";
                     await DisplayAlert("Oops", "Please enter a valid whole number.", "Okay");
                 }
-                //shoppingListItem.Quantity = int.Parse(entry.Text.ToString());
             }
-            //await client.ShoppingLists.UpdateShoppingListItem(shoppingList.ShoppingListId, shoppingListItem);
         }
     }
 }
