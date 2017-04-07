@@ -20,11 +20,6 @@ namespace HSAManager
             Navigation.PushAsync(new data());
         }
 
-        private void Handle_Clicked_Management(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new balanceManagement());
-        }
-
         private void Handle_Clicked_Products(object sender, EventArgs e)
         {
             Navigation.PushAsync(new products());

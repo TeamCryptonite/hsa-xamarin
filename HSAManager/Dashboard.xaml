@@ -13,8 +13,6 @@
                         BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
                 <Button Text="Charts" Clicked="Handle_Clicked_Charts" Margin="40,40,40,0" BorderRadius="5"
                         BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
-                <Button Text="HSA Management" Clicked="Handle_Clicked_Management" Margin="40,40,40,0" BorderRadius="5"
-                        BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
                 <Button Text="Products" Clicked="Handle_Clicked_Products" Margin="40,40,40,0" BorderRadius="5"
                         BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
                 <Button Text="Shopping List" Clicked="Handle_SL" Margin="40,40,40,0" BorderRadius="5"

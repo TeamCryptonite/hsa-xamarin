@@ -18,12 +18,12 @@
                             <StackLayout Orientation="Horizontal">
                                 <Entry Text="{Binding Product.Name}"
                                        HorizontalOptions="StartAndExpand"
-                                       VerticalOptions="Center" Margin="15,0,0,0"/>
+                                       VerticalOptions="Center" Margin="15,0,0,0" Unfocused="Name_Entry_Unfocused"/>
                                 <!--<Label Text="{Binding Product.Name}"
                                        HorizontalOptions="StartAndExpand"
                                        VerticalOptions="Center" Margin="15,0,0,0" />-->
                                 <Entry Text="{Binding Price}" HorizontalOptions="EndAndExpand"
-                                       VerticalOptions="Center" Margin="0,0,10,0"/>
+                                       VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Price_Entry_Unfocused"/>
                                 <!--<Label Text="{Binding Price}" HorizontalOptions="EndAndExpand"
                                        VerticalOptions="Center" Margin="0,0,10,0" />-->
                             </StackLayout>

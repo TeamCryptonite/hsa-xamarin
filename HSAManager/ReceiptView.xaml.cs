@@ -35,7 +35,44 @@ namespace HSAManager
 			var lineItem = mi.CommandParameter as LineItemDto;
 			receipt.LineItems.Remove(lineItem);
 			lineItems.Remove(lineItem);
-			await client.Receipts.DeleteShoppingListItem(receipt.ReceiptId,lineItem.LineItemId);
+			await client.Receipts.DeleteReceiptListItem(receipt.ReceiptId,lineItem.LineItemId);
 		}
+
+        private async void Name_Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var client = new BizzaroClient();
+            var entry = (Xamarin.Forms.Entry)sender;
+            var name = entry.Text;
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var lineItem = bindingContext.BindingContext as LineItemDto;
+            lineItem.Product.Name = name;
+            await client.Receipts.UpdateReceiptListItem(receipt.ReceiptId, lineItem);
+        }
+
+        private async void Price_Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var client = new BizzaroClient();
+            var entry = (Xamarin.Forms.Entry)sender;
+            var price = entry.Text;
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var lineItem = bindingContext.BindingContext as LineItemDto;
+            try
+            {
+                if (price != "")
+                {
+                    lineItem.Price = Convert.ToDecimal(price);
+                    await client.Receipts.UpdateReceiptListItem(receipt.ReceiptId, lineItem);
+                }
+                else
+                {
+                    lineItem.Price = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                entry.Text = "";
+                await DisplayAlert("Oops", "Please enter a valid price. Ex: 1.00, 5.35, 2, etc.", "OK");
+            }
+        }
     }
 }
