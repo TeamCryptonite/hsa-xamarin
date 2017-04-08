@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Plugin.Geolocator;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
+
 
 namespace HSAManager
 {
@@ -15,8 +17,11 @@ namespace HSAManager
 		public ObservableCollection<StoreDto> StoresCollection;
 		private Paginator<StoreDto> StoresPaginator;
 	    private int storeId;
+		private double latitude;
+		private double longtitude;
 
-		public productsInStores(int storeId )
+
+		public productsInStores(int storeId, double latitude, double longitude)
 		{
 			InitializeComponent();
 
@@ -40,11 +45,11 @@ namespace HSAManager
 
             client = new BizzaroClient();
 
-            // Using a default location for now. Will need to pull in user location later.
-            StoresPaginator = client.Stores.GetListOfStores(productId:storeId, userLocation:new LocationDto()
+			// Using a default location for now. Will need to pull in user location later.
+			StoresPaginator = client.Stores.GetListOfStores(productId:storeId, userLocation:new LocationDto()
             {
-                Latitude = 61.211805,
-                Longitude = -149.800000
+				Latitude = latitude,
+				Longitude = longitude
             });
             try
             {
