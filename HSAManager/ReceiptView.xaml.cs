@@ -82,22 +82,8 @@ namespace HSAManager
 			var entry = (Xamarin.Forms.Entry)sender;
 			receipt.Store.Name = entry.Text;
 			receipt.Store.StoreId = 0;
+
 			await client.Receipts.UpdateReceipt(receipt.ReceiptId, receipt);
 		}
-
-		protected override void OnDisappearing()
-		{
-			Navigation.PopToRootAsync();
-			Navigation.PushAsync(new receiptVault());
-			//foreach (Page page in Navigation.NavigationStack)
-			//{
-			//	if (page typeof(HSAManager.receiptVault)){
-					
-			//	}
-			//}
-			//Navigation.InsertPageBefore
-			//Navigation.PushAsync(new receiptVault());
-		}
-			
     }
 }

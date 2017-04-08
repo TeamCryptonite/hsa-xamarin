@@ -14,15 +14,17 @@ namespace HSAManager
     {
         private const string DefaultSearchTerm = "RECEIPT";
         private readonly Dictionary<string, ObservableCollection<ReceiptDto>> cachedSearchResults;
-        private readonly Dictionary<string, Paginator<ReceiptDto>> cachedPaginators;
+        private Dictionary<string, Paginator<ReceiptDto>> cachedPaginators;
         private readonly BizzaroClient client;
+		private bool hasLoaded;
         //public ObservableCollection<ReceiptDto> receipts;
         //private Paginator<ReceiptDto> ReceiptsPaginator;
 
         public receiptVault()
         {
             InitializeComponent();
-
+			hasLoaded = false;
+			System.Diagnostics.Debug.WriteLine("Constructor");
             // Initialize class properties
             //receipts = new ObservableCollection<ReceiptDto>();
             cachedSearchResults = new Dictionary<string, ObservableCollection<ReceiptDto>>();
@@ -59,8 +61,16 @@ namespace HSAManager
             }
         }
 
-        protected override void OnAppearing()
-        {
+		protected override void OnAppearing()
+		{
+			/*if (hasLoaded)
+			{
+				var client = new BizzaroClient();
+				cachedPaginators[DefaultSearchTerm] = client.Receipts.GetListOfReceipts();
+			System.Diagnostics.Debug.WriteLine("OnAppearing INSIDE IF");
+			}
+			hasLoaded = true;
+			System.Diagnostics.Debug.WriteLine("OnAppearing");*/
         }
 
         protected void searchChanged(object sender, TextChangedEventArgs e)
