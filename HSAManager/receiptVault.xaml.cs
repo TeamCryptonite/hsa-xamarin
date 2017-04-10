@@ -71,6 +71,7 @@ namespace HSAManager
 			}
 			hasLoaded = true;
 			System.Diagnostics.Debug.WriteLine("OnAppearing");*/
+
         }
 
         protected void searchChanged(object sender, TextChangedEventArgs e)

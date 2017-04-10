@@ -130,5 +130,15 @@ namespace HSAManager
                 }
             }
         }
+
+		private async void addNewItem()
+		{
+			var client = new BizzaroClient();
+			var newItem = new ShoppingListItemDto();
+			newItem.ProductName = newItemName.Text;
+			newItem.Quantity = int.Parse(newItemQuantity.Text);
+			shoppingListItems.Add(newItem);
+			await client.ShoppingLists.AddShoppingListItem(shoppingList.ShoppingListId, newItem);
+		}
     }
 }

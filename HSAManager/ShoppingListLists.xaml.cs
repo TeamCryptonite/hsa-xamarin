@@ -69,8 +69,16 @@ namespace HSAManager
 			var entry = (Xamarin.Forms.Entry)sender;
 			var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent;
 			var shoppingList = bindingContext.BindingContext as ShoppingListDto;
+
+			if (shoppingList == null)
+				return;
+
 			shoppingList.Name = entry.Text;
 			await client.ShoppingLists.UpdateShoppingList(shoppingList.ShoppingListId, shoppingList);
+
+			//var newShoppingList = bindingContext.BindingContext as ShoppingListDto;
+			//shoppingListCollection.Add(newShoppingList);
+
 		}
 	
 
@@ -81,6 +89,23 @@ namespace HSAManager
 				shoppingListPaginator = client.ShoppingLists.GetListOfShoppingLists();
 			}
 			loaded = false;
+		}
+
+		private async void addNewShoppingList(Object sender, EventArgs e)
+		{
+			var client = new BizzaroClient();
+			var newShoppingList = new ShoppingListDto();
+			newShoppingList.Name = newShoppingListName.Text;
+			try
+			{
+				shoppingListCollection.Add(newShoppingList);
+				await client.ShoppingLists.PostNewShoppingList(newShoppingList);
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Error", ex.Message, "OK");
+			}
+			newShoppingListName.Text = "";
 		}
 	}
 }
