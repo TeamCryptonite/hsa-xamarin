@@ -20,7 +20,7 @@ namespace HSAManager
         {
             InitializeComponent();
             this.receipt = receipt;
-            if(receipt.LineItems != null)
+            if(receipt.LineItems == null)
                 receipt.LineItems = new List<LineItemDto>();
             LineItemListView.ItemsSource = receipt.LineItems;
             StoreSuggestionsListView.ItemsSource = storeSuggestionsCollection;
