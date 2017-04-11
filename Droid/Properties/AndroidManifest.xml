@@ -3,5 +3,5 @@
 	<uses-sdk />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.CAMERA" />
-	<application android:label="HSA-Manager"></application>
+	<application android:label="HSA-Manager" android:icon="@drawable/icon"></application>
 </manifest>
