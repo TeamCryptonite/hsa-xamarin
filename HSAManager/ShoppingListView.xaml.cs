@@ -117,6 +117,10 @@ namespace HSAManager
             var entry = (Xamarin.Forms.Entry)sender;
             var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
             var shoppingListItem = bindingContext.BindingContext as ShoppingListItemDto;
+
+			if (shoppingListItem == null)
+				return;
+			
             if (entry.Text != null && entry.Text != "") {
                 try
                 {
@@ -126,7 +130,7 @@ namespace HSAManager
                 catch (Exception ex)
                 {
                     entry.Text = "";
-                    await DisplayAlert("Oops", "Please enter a valid whole number.", "Okay");
+                    await DisplayAlert("Improper Format", "Please enter a valid whole number.", "Ok");
                 }
             }
         }
@@ -136,9 +140,17 @@ namespace HSAManager
 			var client = new BizzaroClient();
 			var newItem = new ShoppingListItemDto();
 			newItem.ProductName = newItemName.Text;
-			newItem.Quantity = int.Parse(newItemQuantity.Text);
-			shoppingListItems.Add(newItem);
-			await client.ShoppingLists.AddShoppingListItem(shoppingList.ShoppingListId, newItem);
+			newItem.Checked = false;
+			try
+			{
+				newItem.Quantity = int.Parse(newItemQuantity.Text);
+				shoppingListItems.Add(newItem);
+				await client.ShoppingLists.AddShoppingListItem(shoppingList.ShoppingListId, newItem);
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Improper Formant", "Please enter a whole number as the quantity.", "OK");
+			}
 		}
     }
 }
