@@ -17,6 +17,7 @@ namespace HSAManager
         {
             InitializeComponent();
             receipt = receiptInput;
+			receiptImage.Source = receipt.ImageUrl;
             store.Text = receipt.Store != null ? receipt.Store?.Name : "No Store";
             date.Text = receipt.DateTime != null
                 ? $"{receipt.DateTime:MMMM d, yyyy}"

@@ -4,9 +4,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HSAManager.ReceiptView"
              Title="Receipt">
-    <ScrollView>
+	<ScrollView>
         <StackLayout>
             <!--<Label x:Name="store" Text="" Margin="2,0,2,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="24" />-->
+			<Image x:Name="receiptImage"></Image>
 			<Entry x:Name="store" Text="" Margin="2,0,2,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="24" Unfocused="Store_Entry_Unfocused"/>
             <Label x:Name="date" Margin="0,5,0,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="18" />
             <ListView x:Name="LineItemListView">
