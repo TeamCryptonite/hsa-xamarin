@@ -26,6 +26,8 @@ namespace HSAManager
 
 			DatePicker.MinimumDate =  new System.DateTime(2000, 1, 1);
 			DatePicker.MaximumDate = DateTime.Now;
+
+            changeStoreSuggestionsCollection("");
         }
 
 
@@ -40,6 +42,7 @@ namespace HSAManager
             if (item.Text != "")
             {
                 lineItemDto.Product.Name = item.Text;
+				addItemInfo.IsVisible = true;
             }
             else
             {
@@ -70,16 +73,32 @@ namespace HSAManager
             lineItemDto = new LineItemDto();
         }
 
+		public void OnDelete(object sender, EventArgs e)
+		{
+			var mi = (MenuItem)sender;
+			var lineItem = mi.CommandParameter as LineItemDto;
+			thisReceipt.LineItems.Remove(lineItem);
+			lineItemNames.Remove(lineItem);
+		}
+
         private async void submitReceipt(object sender, EventArgs e)
         {
             thisReceipt.DateTime = DatePicker.Date;
 
-            if (store.Text != "")
+            if (StoreEntry.Text != "")
             {
                 if (thisReceipt.Store == null)
                 {
                     thisReceipt.Store = new StoreDto();
-                    thisReceipt.Store.Name = store.Text;
+                    thisReceipt.Store.Name = StoreEntry.Text;
+                }
+                foreach (LineItemDto lineItem in lineItemNames)
+                {
+                    if (lineItem.Product.Name == "")
+                    {
+                        await DisplayAlert("Alert", "Please make sure you have a name for every item.", "OK");
+                        return;
+                    }
                 }
                 if (Application.Current.Properties.ContainsKey("authKey"))
                 {
@@ -105,15 +124,12 @@ namespace HSAManager
 
         private async void Store_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var stores = await client.Stores.GetListOfStores(e.NewTextValue).Next();
-            storeSuggestionsCollection.Clear();
-            foreach (var store in stores)
-                storeSuggestionsCollection.Add(store);
+            changeStoreSuggestionsCollection(e.NewTextValue);
         }
 
         private void Store_OnUnfocused(object sender, FocusEventArgs e)
         {
-            if (!store.IsFocused || !StoreSuggestionsListView.IsFocused)
+            if (!StoreEntry.IsFocused || !StoreSuggestionsListView.IsFocused)
                 StoreSuggestionsListView.IsVisible = false;
         }
 
@@ -125,7 +141,46 @@ namespace HSAManager
         private void StoreSuggestionsListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             thisReceipt.Store = (StoreDto) e.SelectedItem;
-            store.Text = thisReceipt.Store.Name;
+            StoreEntry.Text = thisReceipt.Store.Name;
+        }
+
+        private async void changeStoreSuggestionsCollection(string searchQuery)
+        {
+            var stores = await client.Stores.GetListOfStores(searchQuery).Next();
+            storeSuggestionsCollection.Clear();
+            foreach (var store in stores)
+                storeSuggestionsCollection.Add(store);
+        }
+
+        private void Name_Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var entry = (Xamarin.Forms.Entry)sender;
+            var name = entry.Text;
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var lineItem = bindingContext.BindingContext as LineItemDto;
+            lineItem.Product.Name = name;
+        }
+
+        private void Price_Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var entry = (Xamarin.Forms.Entry)sender;
+            var price = entry.Text;
+            var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent.Parent;
+            var lineItem = bindingContext.BindingContext as LineItemDto;
+            try
+            {
+                if(price != "")
+                {
+                    lineItem.Price = Convert.ToDecimal(price);
+                } else
+                {
+                    lineItem.Price = 0;
+                }
+            } catch (Exception ex)
+            {
+                entry.Text = "";
+                DisplayAlert("Oops", "Please enter a valid price. Ex: 1.00, 5.35, 2, etc.", "OK");
+            }
         }
     }
 }

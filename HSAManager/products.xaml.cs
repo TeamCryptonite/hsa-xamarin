@@ -5,6 +5,7 @@ using System.Diagnostics;
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
+using Plugin.Geolocator;
 
 namespace HSAManager
 {
@@ -90,9 +91,13 @@ namespace HSAManager
             }
         }
 
-        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            Navigation.PushAsync(new productsInStores(((ProductDto) e.SelectedItem).ProductId));
+			var locator = CrossGeolocator.Current;
+			locator.DesiredAccuracy = 50;
+
+			var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+			await Navigation.PushAsync(new productsInStores(((ProductDto) e.SelectedItem).ProductId,position.Latitude,position.Longitude));
         }
     }
 }

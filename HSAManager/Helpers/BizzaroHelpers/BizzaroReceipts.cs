@@ -70,7 +70,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
             return await CallBizzaro<LineItemDto>(request, newReceiptListItem);
         }
 
-        public async Task<StatusOnlyDto> DeleteShoppingListItem(int receiptId, int receiptListItemId)
+        public async Task<StatusOnlyDto> DeleteReceiptListItem(int receiptId, int receiptListItemId)
         {
             var request = new RestRequest($"receipts/{receiptId}/lineitems/{receiptListItemId}",
                 Method.DELETE);
@@ -78,7 +78,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
             return await CallBizzaro(request);
         }
 
-        public async Task<StatusOnlyDto> UpdateShoppingListItem(int receiptId,
+        public async Task<StatusOnlyDto> UpdateReceiptListItem(int receiptId,
             LineItemDto updatedLineItem)
         {
             if (updatedLineItem.LineItemId < 1)

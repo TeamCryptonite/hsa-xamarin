@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:my="clr-namespace:HSAManager;assembly=HSAManager..NETPortable,Version=v4.5,Profile=Profile7"
+             x:Class="HSAManager.ShoppingListView"
+             x:Name="ShoppingListViewPage">
+    <StackLayout>
+	    <ScrollView>
+	        <StackLayout>
+	            <ListView x:Name="ShoppingListLineItemListView" ItemSelected="ShoppingListLineItemListView_OnItemSelected">
+	                <ListView.ItemTemplate>
+	                    <DataTemplate>
+	                        <ViewCell>
+								<ViewCell.ContextActions>
+									<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+								</ViewCell.ContextActions>
+	                            <Grid x:Name="ViewGrid">
+	                                <!--<StackLayout.Triggers>
+	                                    <DataTrigger TargetType="StackLayout" Binding="{Binding Checked}" Value="True">
+	                                        <Setter Property="StackLayout.BackgroundColor" Value="DarkSeaGreen" />
+	                                    </DataTrigger>
+	                                    <DataTrigger TargetType="StackLayout" Binding="{Binding Checked}" Value="False">
+	                                        <Setter Property="StackLayout.BackgroundColor" Value="PaleVioletRed"></Setter>
+	                                    </DataTrigger>
+	                                </StackLayout.Triggers>-->
+	                                <Grid.ColumnDefinitions>
+	                                    <ColumnDefinition Width="*" />
+	                                    <ColumnDefinition Width="*" />
+	                                    <ColumnDefinition Width="*" />
+	                                </Grid.ColumnDefinitions>
+	                                <Entry Text="{Binding ProductName}"
+	                                       HorizontalOptions="Start"
+	                                       VerticalOptions="Center" Margin="15,0,0,0"  Unfocused="Entry_Name_Unfocused"/>
+	                                <!--<Label Grid.Column="0" Text="{Binding ProductName}"
+	                                       HorizontalOptions="Start"
+	                                       VerticalOptions="Center" Margin="15,0,0,0" />-->
+	                                <Entry Grid.Column="1" Text="{Binding Quantity}" HorizontalOptions="Center"
+	                                       VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Entry_Quantity_Unfocused"/>
+	                                <!--<Label Grid.Column="1" Text="{Binding Quantity}" HorizontalOptions="Center"
+	                                       VerticalOptions="Center" Margin="0,0,10,0" />-->
+	                                <Button Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center"
+	                                        Margin="0,0,50,0" FontFamily="FontAwesome" FontSize="25"
+	                                        CommandParameter="{Binding .}" Clicked="ButtonCheckmark_OnClicked" BackgroundColor="White">
+	                                    <Button.Triggers>
+	                                        <DataTrigger TargetType="Button" Binding="{Binding Checked}" Value="False">
+	                                            <Setter Property="Button.Text" Value="&#xf10c;" />
+	                                        </DataTrigger>
+	                                        <DataTrigger TargetType="Button" Binding="{Binding Checked}" Value="True">
+	                                            <Setter Property="Button.Text" Value="&#xf05d;" />
+	                                        </DataTrigger>
+	                                    </Button.Triggers>
+	                                </Button>
+	                            </Grid>
+	                        </ViewCell>
+	                    </DataTemplate>
+	                </ListView.ItemTemplate>
+	            </ListView>
+	        </StackLayout>
+	    </ScrollView>
+		<StackLayout Orientation="Horizontal">
+			<Entry x:Name="newItemName" Placeholder="Product"/>
+			<Entry x:Name="newItemQuantity" Placeholder="Quantity"/>
+			<Button Text="Add" Clicked="addNewItem"/>
+		</StackLayout>
+	</StackLayout>
+</ContentPage>

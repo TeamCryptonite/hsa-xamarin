@@ -46,5 +46,11 @@
 	<string>For Use of Photos.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>For Use of Camera.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>fontawesome.ttf</string>
+	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To locate stores near you</string>
 </dict>
 </plist>
