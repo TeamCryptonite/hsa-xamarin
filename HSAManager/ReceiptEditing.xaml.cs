@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using HsaServiceDtos;
 using Xamarin.Forms;
 
@@ -18,19 +19,26 @@ namespace HSAManager
 
         public ReceiptEditing(ReceiptDto receipt)
         {
-            InitializeComponent();
-            this.receipt = receipt;
-            if(receipt.LineItems == null)
-                receipt.LineItems = new List<LineItemDto>();
-            LineItemListView.ItemsSource = receipt.LineItems;
-            StoreSuggestionsListView.ItemsSource = storeSuggestionsCollection;
+            try
+            {
+                InitializeComponent();
+                this.receipt = receipt;
+                if (receipt.LineItems == null)
+                    receipt.LineItems = new List<LineItemDto>();
+                LineItemListView.ItemsSource = receipt.LineItems;
+                StoreSuggestionsListView.ItemsSource = storeSuggestionsCollection;
 
-            DatePicker.MinimumDate = new System.DateTime(2000, 1, 1);
-            DatePicker.MaximumDate = DateTime.Now;
-            DatePicker.Date = receipt.DateTime ?? DateTime.Now;
+                DatePicker.MinimumDate = new System.DateTime(2000, 1, 1);
+                DatePicker.MaximumDate = DateTime.Now;
+                DatePicker.Date = receipt.DateTime ?? DateTime.Now;
 
-            store.Text = receipt.Store?.Name ;
-            
+                store.Text = receipt.Store?.Name;
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Fail", ex.Message, "OK");
+                Navigation.RemovePage(this);
+            }
         }
 
 
