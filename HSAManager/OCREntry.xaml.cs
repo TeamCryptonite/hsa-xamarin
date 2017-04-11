@@ -38,20 +38,6 @@ namespace HSAManager
                 });
             if (file == null)
                 return;
-            PathLabel.Text = file.AlbumPath;
-
-			MainImage.Source = ImageSource.FromStream(() =>
-			{
-				var stream = file.GetStream();
-				return stream;
-			});
-
-            // Debug Testing
-            //var client = new HttpClient();
-
-            //var streamFromUrl =
-            //    await client.GetStreamAsync(
-            //        "http://i1.wp.com/savewithcouponing.files.wordpress.com/2012/07/walmart-receipt-7-4-12.jpg?w=720");
 
             StartOcrProcess(file.GetStream());
 
@@ -72,21 +58,21 @@ namespace HSAManager
             if (file == null)
                 return;
 
-			PathLabel.Text = "Photo Path" + file.Path;
-			MainImage.Source = ImageSource.FromStream(() =>
-			{
-				var stream = file.GetStream();
-				file.Dispose();
-				return stream;
-			});
-             
-		}
+            StartOcrProcess(file.GetStream());
+
+            // Dispose of file
+            file.Dispose();
+
+        }
 
 	    private async void StartOcrProcess(Stream image)
 	    {
-            var message = await client.Receipts.OcrNewReceiptImage(image);
+            var status = await client.Receipts.OcrNewReceiptImage(image);
 
-	        await DisplayAlert("Server Message", message, "Ok");
+	        if (status.StatusMessage != "Success")
+	        {
+	            await DisplayAlert("Server Message", status.StatusMessage, "Ok");
+	        }
 	        await Navigation.PopAsync();
 	    }
 	}
