@@ -67,6 +67,7 @@ namespace HSAManager
 
 	    private async void StartOcrProcess(Stream image)
 	    {
+	        OcrActivityIndicator.IsRunning = true;
             var status = await client.Receipts.OcrNewReceiptImage(image);
 
 	        if (status.StatusMessage != "Success")
