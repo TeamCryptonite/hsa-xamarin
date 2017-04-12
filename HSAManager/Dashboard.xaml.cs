@@ -32,7 +32,7 @@ namespace HSAManager
 
         private async void handleLogout(object sender, EventArgs e)
         {
-            var answer = await DisplayAlert("Question?", "You will be logged out", "Ok", "Cancel");
+            var answer = await DisplayAlert("Logout", "You will be logged out", "Ok", "Cancel");
             if (answer)
             {
                 App.PCApplication.UserTokenCache.Clear(App.PCApplication.ClientId);

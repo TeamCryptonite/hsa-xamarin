@@ -3,15 +3,13 @@
 	<ContentPage.Content>
 		<ScrollView x:Name="ScrollView" Orientation="Vertical">
             <StackLayout x:Name="StackLayout">
-                <Button Text="Take a Photo"
-					Clicked="TakePhotoButton_OnClicked"/>
-                <Button Text="Pick a Photo"
-					Clicked="PickPhotoButton_OnClicked"/>
+                <Button Text="Take a Photo" Clicked="TakePhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"/>
+                <Button Text="Pick a Photo" Clicked="PickPhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"/>
                 <Image x:Name="MainImage"/>
                 <Label x:Name="PathLabel"/>
                 <Label x:Name="OcrStatus"></Label>
 
-                <ListView x:Name="ListView">
+                <!--<ListView x:Name="ListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -28,7 +26,7 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </ListView>-->
             </StackLayout>
         </ScrollView>
 	</ContentPage.Content>
