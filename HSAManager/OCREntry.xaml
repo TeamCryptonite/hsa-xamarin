@@ -5,7 +5,7 @@
             <StackLayout x:Name="StackLayout">
                 <Button Text="Take a Photo" Clicked="TakePhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"/>
                 <Button Text="Pick a Photo" Clicked="PickPhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"/>
-                <Image x:Name="MainImage"/>
+                <!--<Image x:Name="MainImage"/>
                 <Label x:Name="PathLabel"/>
                 <Label x:Name="OcrStatus"></Label>
 
@@ -26,7 +26,8 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </ListView>-->
+				<ActivityIndicator x:Name="OcrActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
             </StackLayout>
         </ScrollView>
 	</ContentPage.Content>
