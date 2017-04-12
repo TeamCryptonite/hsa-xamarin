@@ -24,7 +24,6 @@ namespace HSAManager
                     App.SignUpSignInpolicy, false);
                 Application.Current.Properties["authKey"] = ar.Token;
                 await Navigation.PushAsync(new Dashboard());
-				Navigation.RemovePage(this);
             }
             catch
             {
@@ -41,7 +40,6 @@ namespace HSAManager
                     null, App.Authority, App.ResetPasswordpolicy);
                 Application.Current.Properties["authKey"] = ar.Token;
                 await Navigation.PushAsync(new Dashboard());
-				Navigation.RemovePage(this);
             }
             catch (MsalException ee)
             {
@@ -59,7 +57,6 @@ namespace HSAManager
                     null, App.Authority, App.SignUpSignInpolicy);
                 Application.Current.Properties["authKey"] = ar.Token;
                 await Navigation.PushAsync(new Dashboard());
-				Navigation.RemovePage(this);
             }
             catch (MsalException ee)
             {
