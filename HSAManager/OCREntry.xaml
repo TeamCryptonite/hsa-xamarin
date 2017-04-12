@@ -7,7 +7,7 @@
 					Clicked="TakePhotoButton_OnClicked"/>
                 <Button Text="Pick a Photo"
 					Clicked="PickPhotoButton_OnClicked"/>
-                <Image x:Name="MainImage"/>
+                <!--<Image x:Name="MainImage"/>
                 <Label x:Name="PathLabel"/>
                 <Label x:Name="OcrStatus"></Label>
 
@@ -28,7 +28,8 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </ListView>-->
+                <ActivityIndicator x:Name="OcrActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
             </StackLayout>
         </ScrollView>
 	</ContentPage.Content>
