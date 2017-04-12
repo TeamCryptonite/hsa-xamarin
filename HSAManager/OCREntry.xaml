@@ -9,7 +9,7 @@
                 <Label x:Name="PathLabel"/>
                 <Label x:Name="OcrStatus"></Label>
 
-                <!--<ListView x:Name="ListView">
+                <ListView x:Name="ListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -26,7 +26,7 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>-->
+                </ListView>
             </StackLayout>
         </ScrollView>
 	</ContentPage.Content>
