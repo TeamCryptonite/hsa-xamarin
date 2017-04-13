@@ -59,7 +59,7 @@
 	        </StackLayout>
 	    </ScrollView>
 		<StackLayout Orientation="Horizontal">
-			<Entry x:Name="newItemName" Placeholder="Product"/>
+			<Entry x:Name="newItemName" Placeholder="Product" Margin="10,0,0,0"/>
 			<Entry x:Name="newItemQuantity" Placeholder="Quantity"/>
 			<Button Text="Add" Clicked="addNewItem"/>
 		</StackLayout>

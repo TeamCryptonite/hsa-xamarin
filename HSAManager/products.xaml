@@ -10,7 +10,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" Margin="20,10,0,0"/>
                             <!-- isHSA? -->
                         </StackLayout>
                     </ViewCell>

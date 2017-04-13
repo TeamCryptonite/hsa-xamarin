@@ -16,7 +16,7 @@
 							</ViewCell.ContextActions>
                             <StackLayout Orientation="Horizontal">
                                 <Entry Text="{Binding Name}"
-                                       HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused"/>
+                                       HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="15,5"/>
                                 <!--<Label Text="{Binding Name}"
                                        TextColor="Navy"
                                        Margin="20,10"
@@ -29,8 +29,8 @@
         </StackLayout>
     </ScrollView>
 		<StackLayout Orientation="Horizontal">
-			<Entry x:Name="newShoppingListName" Text="" Placeholder="Shopping List Name" TextColor="Navy" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused"/>
-			<Button Text="Add" Clicked="addNewShoppingList"/>
+			<Entry x:Name="newShoppingListName" Text="" Placeholder="Shopping List Name" TextColor="Navy" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="15,0,0,10"/>
+			<Button Text="Add" Clicked="addNewShoppingList" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" Margin="0,0,15,10" WidthRequest="100"/>
 		</StackLayout>
 	</StackLayout>
 </ContentPage>

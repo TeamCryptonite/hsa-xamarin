@@ -3,30 +3,8 @@
 	<ContentPage.Content>
 		<ScrollView x:Name="ScrollView" Orientation="Vertical">
             <StackLayout x:Name="StackLayout">
-                <Button Text="Take a Photo" Clicked="TakePhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"/>
-                <Button Text="Pick a Photo" Clicked="PickPhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"/>
-                <!--<Image x:Name="MainImage"/>
-                <Label x:Name="PathLabel"/>
-                <Label x:Name="OcrStatus"></Label>
-
-                <ListView x:Name="ListView">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Product.Name}"
-                                   TextColor="Navy"
-                                   Margin="20,10"
-                                   HorizontalOptions="CenterAndExpand" />
-                                    <Label Text="{Binding Price}"
-                                   TextColor="Navy"
-                                   Margin="20,10"
-                                   HorizontalOptions="CenterAndExpand" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->
+                <Button Text="Take a Photo" Clicked="TakePhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" Margin="40,70,40,0"/>
+                <Button Text="Pick a Photo" Clicked="PickPhotoButton_OnClicked" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" Margin="40,70,40,0"/>
 				<ActivityIndicator x:Name="OcrActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
             </StackLayout>
         </ScrollView>
