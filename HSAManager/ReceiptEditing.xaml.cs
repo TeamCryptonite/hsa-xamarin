@@ -139,8 +139,11 @@ namespace HSAManager
 
         private void StoreSuggestionsListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItem == null)
+                return;
             receipt.Store = (StoreDto)e.SelectedItem;
             store.Text = receipt.Store.Name;
+            StoreSuggestionsListView.SelectedItem = null;
         }
     }
 }

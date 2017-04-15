@@ -116,6 +116,9 @@ namespace HSAManager
         //public async void Handle_Tapped(object sender, System.EventArgs e)
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItem == null)
+                return;
+
             var selectedReceiptDto = e.SelectedItem as ReceiptDto;
             if (selectedReceiptDto == null)
             {
@@ -142,6 +145,8 @@ namespace HSAManager
                 await DisplayAlert("Receipt Alert",
                     "Selected Receipt has invalid flags. Check with system administrator.", "OK");
             }
+
+            listView.SelectedItem = null;
         }
 		public async void OnDelete(object sender, EventArgs e)
 		{

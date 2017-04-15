@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace HsaServiceDtos
 {
@@ -7,7 +8,7 @@ namespace HsaServiceDtos
     {
         public ReceiptDto()
         {
-            LineItems = new List<LineItemDto>();
+            LineItems = new ObservableCollection<LineItemDto>();
         }
 
         public int ReceiptId { get; set; }
