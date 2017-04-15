@@ -1,109 +1,129 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
-using System;
 
 namespace HSAManager
 {
-	public partial class ShoppingListLists : ContentPage
-	{
-		private readonly BizzaroClient client = new BizzaroClient();
+    public partial class ShoppingListLists : ContentPage
+    {
+        private readonly BizzaroClient client = new BizzaroClient();
 
-		private readonly ObservableCollection<ShoppingListDto> shoppingListCollection =
-			new ObservableCollection<ShoppingListDto>();
+        private readonly ObservableCollection<ShoppingListDto> shoppingListCollection =
+            new ObservableCollection<ShoppingListDto>();
 
-		private Paginator<ShoppingListDto> shoppingListPaginator;
-		private bool loaded = true;
-		public ShoppingListLists()
-		{
-			InitializeComponent();
+        private bool loaded = true;
 
-			ShoppingListListView.ItemsSource = shoppingListCollection;
+        private readonly Paginator<ShoppingListDto> shoppingListPaginator;
 
-			// Get paginator of shopping lists
-			shoppingListPaginator = client.ShoppingLists.GetListOfShoppingLists();
-			// Get first set of shopping lists
-			GetNextPageOfShoppingLists();
+        public ShoppingListLists()
+        {
+            InitializeComponent();
 
-			//Set up loading next page of shopping lists
-			ShoppingListListView.ItemAppearing += (sender, e) =>
-			{
-				if (shoppingListCollection.Count == 0)
-					return;
-				if (((ShoppingListDto)e.Item).ShoppingListId ==
-					shoppingListCollection[shoppingListCollection.Count - 1].ShoppingListId)
-					GetNextPageOfShoppingLists();
-			};
-		}
+            ShoppingListListView.ItemsSource = shoppingListCollection;
 
-		private async void GetNextPageOfShoppingLists()
-		{
-			ShoppingListListView.BeginRefresh();
-			foreach (var shoppingList in await shoppingListPaginator.Next())
-				shoppingListCollection.Add(shoppingList);
-			ShoppingListListView.EndRefresh();
-		}
+            // Get paginator of shopping lists
+            shoppingListPaginator = client.ShoppingLists.GetListOfShoppingLists();
+            // Get first set of shopping lists
+            GetNextPageOfShoppingLists();
 
-		private async void ShoppingListListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-		{
-			if (e.SelectedItem == null)
-				return;
-			((ListView)sender).SelectedItem = null;
-			await Navigation.PushAsync(new ShoppingListView((ShoppingListDto)e.SelectedItem));
-		}
+            //Set up loading next page of shopping lists
+            ShoppingListListView.ItemAppearing += (sender, e) =>
+            {
+                if (shoppingListCollection.Count == 0)
+                    return;
+                if (((ShoppingListDto) e.Item).ShoppingListId ==
+                    shoppingListCollection[shoppingListCollection.Count - 1].ShoppingListId)
+                    GetNextPageOfShoppingLists();
+            };
+        }
 
-		public async void OnDelete(object sender, EventArgs e)
-		{
-			var mi = (MenuItem)sender;
-			var shoppingList = mi.CommandParameter as ShoppingListDto;
-			shoppingListCollection.Remove(shoppingList);
-			await client.ShoppingLists.DeleteShoppingList(shoppingList.ShoppingListId);
+        private async void GetNextPageOfShoppingLists()
+        {
+            ShoppingListListView.BeginRefresh();
+            try { 
+            foreach (var shoppingList in await shoppingListPaginator.Next())
+                shoppingListCollection.Add(shoppingList);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+            ShoppingListListView.EndRefresh();
+        }
 
-		}
+        private async void ShoppingListListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+            ((ListView) sender).SelectedItem = null;
+            await Navigation.PushAsync(new ShoppingListView((ShoppingListDto) e.SelectedItem));
+        }
 
-		private async void Entry_Unfocused(object sender, FocusEventArgs e)
-		{
-			var entry = (Xamarin.Forms.Entry)sender;
-			var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent;
-			var shoppingList = bindingContext.BindingContext as ShoppingListDto;
+        public async void OnDelete(object sender, EventArgs e)
+        {
+            var mi = (MenuItem) sender;
+            var shoppingList = mi.CommandParameter as ShoppingListDto;
+            shoppingListCollection.Remove(shoppingList);
+            try
+            {
+                await client.ShoppingLists.DeleteShoppingList(shoppingList.ShoppingListId);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
 
-			if (shoppingList == null)
-				return;
+        private async void Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var entry = (Entry) sender;
+            var bindingContext = (BindableObject) entry.Parent;
+            var shoppingList = bindingContext.BindingContext as ShoppingListDto;
 
-			shoppingList.Name = entry.Text;
-			await client.ShoppingLists.UpdateShoppingList(shoppingList.ShoppingListId, shoppingList);
+            if (shoppingList == null)
+                return;
 
-			//var newShoppingList = bindingContext.BindingContext as ShoppingListDto;
-			//shoppingListCollection.Add(newShoppingList);
+            shoppingList.Name = entry.Text;
+            try
+            {
+                await client.ShoppingLists.UpdateShoppingList(shoppingList.ShoppingListId, shoppingList);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
 
-		}
-	
+            //var newShoppingList = bindingContext.BindingContext as ShoppingListDto;
+            //shoppingListCollection.Add(newShoppingList);
+        }
+
         //Removed by Pearse....what was this for?
-		//protected override void OnAppearing()
-		//{
-		//	if (!loaded){
-		//		var client = new BizzaroClient();
-		//		shoppingListPaginator = client.ShoppingLists.GetListOfShoppingLists();
-		//	}
-		//	loaded = false;
-		//}
+        //protected override void OnAppearing()
+        //{
+        //	if (!loaded){
+        //		var client = new BizzaroClient();
+        //		shoppingListPaginator = client.ShoppingLists.GetListOfShoppingLists();
+        //	}
+        //	loaded = false;
+        //}
 
-		private async void addNewShoppingList(Object sender, EventArgs e)
-		{
-			var client = new BizzaroClient();
-			var newShoppingList = new ShoppingListDto();
-			newShoppingList.Name = newShoppingListName.Text;
-			try
-			{
-				shoppingListCollection.Add(newShoppingList);
-				await client.ShoppingLists.PostNewShoppingList(newShoppingList);
-			}
-			catch (Exception ex)
-			{
-				await DisplayAlert("Error", ex.Message, "OK");
-			}
-			newShoppingListName.Text = "";
-		}
-	}
+        private async void addNewShoppingList(object sender, EventArgs e)
+        {
+            var newShoppingList = new ShoppingListDto();
+            newShoppingList.Name = newShoppingListName.Text;
+            ShoppingListListView.BeginRefresh();
+            try
+            {
+                shoppingListCollection.Add(await client.ShoppingLists.PostNewShoppingList(newShoppingList));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+            ShoppingListListView.EndRefresh();
+            newShoppingListName.Text = "";
+        }
+    }
 }
