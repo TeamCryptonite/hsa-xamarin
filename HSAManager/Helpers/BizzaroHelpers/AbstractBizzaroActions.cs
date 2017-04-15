@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HsaServiceDtos;
+using Newtonsoft.Json.Linq;
 using RestSharp.Portable;
 using RestSharp.Portable.HttpClient;
 using Xamarin.Forms;
@@ -33,7 +34,7 @@ namespace HSAManager.Helpers.BizzaroHelpers
         public async Task<T> CallBizzaro<T>(IRestRequest request, object bodyData = null)
         {
             AddHeadersToRequest(request, bodyData);
-
+            
             var response = await client.Execute<T>(request);
 
             if (!response.IsSuccess)
@@ -42,6 +43,8 @@ namespace HSAManager.Helpers.BizzaroHelpers
 
             return response.Data;
         }
+
+       
 
         public async Task<StatusOnlyDto> CallBizzaro(IRestRequest request, object bodyData = null)
         {
@@ -56,6 +59,21 @@ namespace HSAManager.Helpers.BizzaroHelpers
                 statusReturn.StatusMessage = "Success";
 
             return statusReturn;
+        }
+
+        public async Task<JArray> CallBizzaroJArray(IRestRequest request, object bodyData = null)
+        {
+            AddHeadersToRequest(request, bodyData);
+
+            var response = await client.Execute(request);
+
+            if (!response.IsSuccess)
+                throw new Exception("Could not process HTTP call. " + response.StatusDescription + ". " +
+                                    response.Content);
+
+            return JArray.Parse(response.Content);
+
+            //return statusReturn;
         }
     }
 }

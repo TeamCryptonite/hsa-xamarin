@@ -17,7 +17,7 @@ namespace HSAManager
 
         private void Handle_Clicked_Charts(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new data());
+            Navigation.PushAsync(new Charts());
         }
 
         private void Handle_Clicked_Products(object sender, EventArgs e)

@@ -69,8 +69,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Charts.xaml.cs">
+      <DependentUpon>Charts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\BizzaroHelpers\AbstractBizzaroActions.cs" />
     <Compile Include="Helpers\BizzaroHelpers\BizzaroClient.cs" />
+    <Compile Include="Helpers\BizzaroHelpers\BizzaroAggregate.cs" />
     <Compile Include="Helpers\BizzaroHelpers\BizzaroShoppingList.cs" />
     <Compile Include="Helpers\BizzaroHelpers\BizzaroProducts.cs" />
     <Compile Include="Helpers\BizzaroHelpers\BizzaroReceipts.cs" />
@@ -187,6 +191,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ShoppingListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Charts.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
