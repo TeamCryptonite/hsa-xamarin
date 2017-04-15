@@ -55,7 +55,6 @@ namespace HSAManager
 
 		public async void OnDelete(object sender, EventArgs e)
 		{
-			var client = new BizzaroClient();
 			var mi = (MenuItem)sender;
 			var shoppingList = mi.CommandParameter as ShoppingListDto;
 			shoppingListCollection.Remove(shoppingList);
@@ -65,7 +64,6 @@ namespace HSAManager
 
 		private async void Entry_Unfocused(object sender, FocusEventArgs e)
 		{
-			var client = new BizzaroClient();
 			var entry = (Xamarin.Forms.Entry)sender;
 			var bindingContext = (Xamarin.Forms.BindableObject)entry.Parent;
 			var shoppingList = bindingContext.BindingContext as ShoppingListDto;
@@ -81,15 +79,15 @@ namespace HSAManager
 
 		}
 	
-
-		protected override void OnAppearing()
-		{
-			if (!loaded){
-				var client = new BizzaroClient();
-				shoppingListPaginator = client.ShoppingLists.GetListOfShoppingLists();
-			}
-			loaded = false;
-		}
+        //Removed by Pearse....what was this for?
+		//protected override void OnAppearing()
+		//{
+		//	if (!loaded){
+		//		var client = new BizzaroClient();
+		//		shoppingListPaginator = client.ShoppingLists.GetListOfShoppingLists();
+		//	}
+		//	loaded = false;
+		//}
 
 		private async void addNewShoppingList(Object sender, EventArgs e)
 		{
