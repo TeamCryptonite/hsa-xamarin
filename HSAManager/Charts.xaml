@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSAManager.Charts"
+             Title="Spending Over Time Trends">
+    <StackLayout Orientation="Vertical">
+        <ActivityIndicator x:Name="ActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
+        <WebView x:Name="ChartBrowser" VerticalOptions="StartAndExpand" WidthRequest="1000" HeightRequest="1000"></WebView>
+    </StackLayout>
+</ContentPage>
