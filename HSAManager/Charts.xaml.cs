@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.ComponentModel;
+using HSAManager.Helpers.BizzaroHelpers;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HSAManager
@@ -8,23 +11,35 @@ namespace HSAManager
     {
         private readonly BizzaroClient client = new BizzaroClient();
 
+        private DateTime oldStartDate;
+        private DateTime oldEndDate;
+
         public Charts()
         {
             InitializeComponent();
 
             CreateChartHtml();
 
-            //ChartBrowser.Source = "https://developer.xamarin.com/guides/xamarin-forms/user-interface/webview/";
+            StartDate.Date = DateTime.Now.AddMonths(-6);
+            StartDate.MinimumDate = DateTime.Parse("01/01/2000");
+            StartDate.MaximumDate = DateTime.Now;
+            oldStartDate = StartDate.Date;
+
+            EndDate.Date = DateTime.Now;
+            EndDate.MinimumDate = DateTime.Parse("01/01/2000");
+            EndDate.MaximumDate = DateTime.Now;
+            oldEndDate = EndDate.Date;
         }
 
-        private async void CreateChartHtml()
+        private async void CreateChartHtml(DateTime? startDate = null, DateTime? endDate = null, BizzaroAggregate.TimePeriod? timePeriod = null)
         {
             ActivityIndicator.IsVisible = true;
             ActivityIndicator.IsRunning = true;
             var htmlSource = new HtmlWebViewSource();
 
-            var csJsonData = await client.Aggregate.GetSpendingOverTime();
-            var htmlString = @"<!DOCTYPE html>
+            var csJsonData = await client.Aggregate.GetSpendingOverTime(startDate, endDate, timePeriod);
+            var htmlString = @"
+<!DOCTYPE html>
 <html lang=""en"">
 
 <head>
@@ -77,6 +92,15 @@ namespace HSAManager
 
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;
+        }
+
+        private void Date_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (StartDate.Date.Equals(oldStartDate) && EndDate.Date.Equals(oldEndDate))
+                return;
+            oldStartDate = StartDate.Date;
+            oldEndDate = EndDate.Date;
+            CreateChartHtml(StartDate.Date, EndDate.Date);
         }
     }
 }
