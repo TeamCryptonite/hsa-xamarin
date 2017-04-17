@@ -4,16 +4,16 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
-using Xamarin.Forms;
 using Plugin.Geolocator;
+using Xamarin.Forms;
 
 namespace HSAManager
 {
     public partial class products : ContentPage
     {
         private const string DefaultSearchTerm = "PRODUCT";
-        private readonly Dictionary<string, ObservableCollection<ProductDto>> cachedSearchResults;
         private readonly Dictionary<string, Paginator<ProductDto>> cachedPaginators;
+        private readonly Dictionary<string, ObservableCollection<ProductDto>> cachedSearchResults;
         private readonly BizzaroClient client;
 
         public products()
@@ -93,11 +93,25 @@ namespace HSAManager
 
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-			var locator = CrossGeolocator.Current;
-			locator.DesiredAccuracy = 50;
+            try
+            {
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 50;
 
-			var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
-			await Navigation.PushAsync(new productsInStores(((ProductDto) e.SelectedItem).ProductId,position.Latitude,position.Longitude));
+                if (!locator.IsGeolocationEnabled)
+                {
+                    await DisplayAlert("Location Error", "Location Permissions Not Set", "OK");
+                    return;
+                }
+
+                var position = await locator.GetPositionAsync(10000);
+                await Navigation.PushAsync(new productsInStores(((ProductDto) e.SelectedItem).ProductId,
+                    position.Latitude, position.Longitude));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Location Error", ex.Message, "OK");
+            }
         }
     }
 }

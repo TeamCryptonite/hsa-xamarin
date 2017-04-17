@@ -98,7 +98,14 @@ namespace HSAManager
 			var storesToAddDto = await StoresPaginator.Next();
 			foreach (var storeDto in storesToAddDto)
 			{
-				StoresCollection.Add(storeDto);
+			    try
+			    {
+			        StoresCollection.Add(storeDto);
+			    }
+			    catch (Exception ex)
+			    {
+			        await DisplayAlert("Database Error", ex.Message, "OK");
+			    }
 			}
             if (StoresCollection.Count == 0)
             {
