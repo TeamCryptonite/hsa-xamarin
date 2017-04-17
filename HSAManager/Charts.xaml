@@ -5,6 +5,14 @@
              Title="Spending Over Time Trends">
     <StackLayout Orientation="Vertical">
         <ActivityIndicator x:Name="ActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
+        <StackLayout Orientation="Horizontal">
+            <DatePicker x:Name="StartDate" VerticalOptions="StartAndExpand" PropertyChanged="Date_OnPropertyChanged">
+                <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
+            </DatePicker>
+            <DatePicker x:Name="EndDate" VerticalOptions="StartAndExpand" PropertyChanged="Date_OnPropertyChanged">
+                <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
+            </DatePicker>
+        </StackLayout>
         <WebView x:Name="ChartBrowser" VerticalOptions="StartAndExpand" WidthRequest="1000" HeightRequest="1000"></WebView>
     </StackLayout>
 </ContentPage>
