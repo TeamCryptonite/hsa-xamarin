@@ -17,7 +17,8 @@ namespace HSAManager
         {
             InitializeComponent();
             receipt = receiptInput;
-			receiptImage.Source = ImageSource.FromUri(new Uri(receipt.ImageUrl));
+            if(!string.IsNullOrWhiteSpace(receipt.ImageUrl))
+                receiptImage.Source = ImageSource.FromUri(new Uri(receipt.ImageUrl));
 			//receiptImage.Source = "https://memorycrystal.blob.core.windows.net/userreceipts/781f540b13bd49779d35c8d9ae37ec2frec.jpg";
             store.Text = receipt.Store != null ? receipt.Store?.Name : "No Store";
             date.Text = receipt.DateTime != null
