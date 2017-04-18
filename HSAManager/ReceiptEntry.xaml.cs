@@ -50,7 +50,7 @@ namespace HSAManager
 				return;
 			}
 			file = await CrossMedia.Current.PickPhotoAsync();
-			imageName.Source = ImageSource.FromFile(file.ToString());
+			imageName.Source = ImageSource.FromFile(file.Path);
 
 			if (file == null)
 				return;
