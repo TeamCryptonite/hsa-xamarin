@@ -43,13 +43,17 @@ namespace HSAManager
 
         private async void addImage(object sender, EventArgs e)
         {
-           await CrossMedia.Current.Initialize();
-			if (!CrossMedia.Current.IsPickPhotoSupported)
+        	await CrossMedia.Current.Initialize();
+			if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
 			{
-				await DisplayAlert("Oops", "Pick photo is not supported !", "OK");
+				await DisplayAlert("No Camera", ":(No camera available.", "OK");
 				return;
 			}
-			file = await CrossMedia.Current.PickPhotoAsync();
+			file = await CrossMedia.Current.TakePhotoAsync(
+				new StoreCameraMediaOptions
+				{
+					SaveToAlbum = true
+				});
 			imageName.Source = ImageSource.FromFile(file.Path);
 
 			if (file == null)
