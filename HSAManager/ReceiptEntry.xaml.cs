@@ -1,7 +1,14 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using HsaServiceDtos;
 using Xamarin.Forms;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System.Collections.ObjectModel;
 
 namespace HSAManager
 {
@@ -18,6 +25,9 @@ namespace HSAManager
 
         public LineItemDto lineItemDto = new LineItemDto();
 
+		private MediaFile file;
+
+
         public ReceiptEntry()
         {
             InitializeComponent();
@@ -31,9 +41,21 @@ namespace HSAManager
         }
 
 
-        private void getBlob(object sender, EventArgs e)
+        private async void addImage(object sender, EventArgs e)
         {
-            // get image file type and retrieve blob
+           await CrossMedia.Current.Initialize();
+			if (!CrossMedia.Current.IsPickPhotoSupported)
+			{
+				await DisplayAlert("Oops", "Pick photo is not supported !", "OK");
+				return;
+			}
+			file = await CrossMedia.Current.PickPhotoAsync();
+			if (file == null)
+				return;
+
+
+			// Dispose of file
+			//file.Dispose();
         }
 
         private void addItem(object sender, EventArgs e)
@@ -107,6 +129,8 @@ namespace HSAManager
                     try
                     {
                         var tester = await client.Receipts.PostNewReceipt(thisReceipt);
+						await client.Receipts.UploadReceiptImage(tester.ReceiptId, file.GetStream());
+						file.Dispose();
                         await DisplayAlert("Success", "Receipt has been submitted!", "OK");
                         await Navigation.PopAsync(true);
                     }
