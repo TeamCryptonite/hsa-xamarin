@@ -7,7 +7,8 @@
         <ScrollView x:Name="ScrollView">
             <StackLayout>
                 <Button Text="Add image" Clicked="addImage" Margin="40,15,40,10" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" />
-                <Label Text="Store" HorizontalTextAlignment="Center" />
+                <Image x:Name="imageName"/>
+				<Label Text="Store" HorizontalTextAlignment="Center" />
                 <Entry x:Name="StoreEntry" Text="" Margin="10,0,10,0" TextChanged="Store_OnTextChanged"
                        Unfocused="Store_OnUnfocused" Focused="Store_OnFocused" Placeholder="Name" />
 				<StackLayout HeightRequest="200">

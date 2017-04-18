@@ -50,12 +50,11 @@ namespace HSAManager
 				return;
 			}
 			file = await CrossMedia.Current.PickPhotoAsync();
+			imageName.Source = ImageSource.FromFile(file.ToString());
+
 			if (file == null)
 				return;
 
-
-			// Dispose of file
-			//file.Dispose();
         }
 
         private void addItem(object sender, EventArgs e)
@@ -129,8 +128,11 @@ namespace HSAManager
                     try
                     {
                         var tester = await client.Receipts.PostNewReceipt(thisReceipt);
-						await client.Receipts.UploadReceiptImage(tester.ReceiptId, file.GetStream());
-						file.Dispose();
+						if (file != null)
+						{
+							await client.Receipts.UploadReceiptImage(tester.ReceiptId, file.GetStream());
+							file.Dispose();
+						}
                         await DisplayAlert("Success", "Receipt has been submitted!", "OK");
                         await Navigation.PopAsync(true);
                     }
