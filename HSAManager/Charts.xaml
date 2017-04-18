@@ -4,21 +4,32 @@
              x:Class="HSAManager.Charts"
              Title="Spending Over Time Trends">
     <StackLayout Orientation="Vertical">
-        <ActivityIndicator x:Name="ActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
         <StackLayout>
-			<StackLayout Margin="10,0,10,0">
-				<Label Text="Start Date" Margin="0,15,0,0" HorizontalTextAlignment="Center" />
-	            <DatePicker x:Name="StartDate" VerticalOptions="StartAndExpand" PropertyChanged="Date_OnPropertyChanged">
-	                <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
-	            </DatePicker>
-			</StackLayout>
-			<StackLayout Margin="10,0,10,0">
-				<Label Text="End Date" Margin="0,15,0,0" HorizontalTextAlignment="Center" />
-	            <DatePicker x:Name="EndDate" VerticalOptions="StartAndExpand" PropertyChanged="Date_OnPropertyChanged">
-	                <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
-	            </DatePicker>
-			</StackLayout>
+            <StackLayout Margin="10,0,10,0">
+                <Label Text="Start Date" Margin="0,15,0,0" HorizontalTextAlignment="Center" />
+                <DatePicker x:Name="StartDate" VerticalOptions="StartAndExpand" PropertyChanged="Date_OnPropertyChanged">
+                    <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
+                </DatePicker>
+            </StackLayout>
+            <StackLayout Margin="10,0,10,0">
+                <Label Text="End Date" Margin="0,15,0,0" HorizontalTextAlignment="Center" />
+                <DatePicker x:Name="EndDate" VerticalOptions="StartAndExpand" PropertyChanged="Date_OnPropertyChanged">
+                    <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
+                </DatePicker>
+            </StackLayout>
+            <StackLayout Margin="10,0,10,0">
+                <Label Text="Format" Margin="0,15,0,0" HorizontalTextAlignment="Center" />
+                <Picker x:Name="ChartFormat" VerticalOptions="StartAndExpand" SelectedIndexChanged="ChartFormat_OnSelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>Year and Month</x:String>
+                        <x:String>Year Only</x:String>
+                        <x:String>Month Only</x:String>
+                        <x:String>Year, Month, and Day</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
         </StackLayout>
+        <ActivityIndicator x:Name="ActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
         <WebView x:Name="ChartBrowser" VerticalOptions="StartAndExpand" WidthRequest="1000" HeightRequest="1000"></WebView>
     </StackLayout>
 </ContentPage>

@@ -11,14 +11,18 @@ namespace HSAManager
     {
         private readonly BizzaroClient client = new BizzaroClient();
 
-        private DateTime oldStartDate;
-        private DateTime oldEndDate;
+        private DateTime? oldStartDate = null;
+        private DateTime? oldEndDate = null;
+        private BizzaroAggregate.TimePeriod? oldTimePeriod = null;
 
         public Charts()
         {
             InitializeComponent();
 
             CreateChartHtml();
+
+            ChartFormat.SelectedIndex = 0;
+            oldTimePeriod = ConvertStringToTimePeriod((string) ChartFormat.SelectedItem);
 
             StartDate.Date = DateTime.Now.AddMonths(-6);
             StartDate.MinimumDate = DateTime.Parse("01/01/2000");
@@ -29,6 +33,8 @@ namespace HSAManager
             EndDate.MinimumDate = DateTime.Parse("01/01/2000");
             EndDate.MaximumDate = DateTime.Now;
             oldEndDate = EndDate.Date;
+
+
         }
 
         private async void CreateChartHtml(DateTime? startDate = null, DateTime? endDate = null, BizzaroAggregate.TimePeriod? timePeriod = null)
@@ -93,14 +99,58 @@ namespace HSAManager
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;
         }
+        
+        private void CreateChartFromUIValues()
+        {
+            CreateChartHtml(StartDate.Date, EndDate.Date, ConvertStringToTimePeriod((string)ChartFormat.SelectedItem));
+        }
 
         private void Date_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (oldStartDate == null || oldEndDate == null)
+                return;
             if (StartDate.Date.Equals(oldStartDate) && EndDate.Date.Equals(oldEndDate))
                 return;
             oldStartDate = StartDate.Date;
             oldEndDate = EndDate.Date;
-            CreateChartHtml(StartDate.Date, EndDate.Date);
+            CreateChartFromUIValues();
+        }
+
+        private void ChartFormat_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (oldTimePeriod == null)
+                return;
+            if (ConvertStringToTimePeriod((string) ChartFormat.SelectedItem).Equals(oldTimePeriod))
+                return;
+
+            oldTimePeriod = ConvertStringToTimePeriod((string) ChartFormat.SelectedItem);
+            CreateChartFromUIValues();
+        }
+
+        private BizzaroAggregate.TimePeriod? ConvertStringToTimePeriod(string str)
+        {
+            BizzaroAggregate.TimePeriod? timePeriod = null;
+            switch ((string)ChartFormat.SelectedItem)
+            {
+                case "Year and Month":
+                    timePeriod = BizzaroAggregate.TimePeriod.YearMonth;
+                    break;
+                case "Year Only":
+                    timePeriod = BizzaroAggregate.TimePeriod.Year;
+                    break;
+
+                case "Month Only":
+                    timePeriod = BizzaroAggregate.TimePeriod.Month;
+                    break;
+                case "Year, Month, and Day":
+                    timePeriod = BizzaroAggregate.TimePeriod.Day;
+                    break;
+                default:
+                    timePeriod = null;
+                    break;
+            }
+
+            return timePeriod;
         }
     }
 }
