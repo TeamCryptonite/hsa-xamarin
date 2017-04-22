@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using HsaServiceDtos;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
@@ -60,20 +62,7 @@ namespace HSAManager
                 AddNewReceipts(DefaultSearchTerm);
             }
         }
-
-		protected override void OnAppearing()
-		{
-			/*if (hasLoaded)
-			{
-				var client = new BizzaroClient();
-				cachedPaginators[DefaultSearchTerm] = client.Receipts.GetListOfReceipts();
-			System.Diagnostics.Debug.WriteLine("OnAppearing INSIDE IF");
-			}
-			hasLoaded = true;
-			System.Diagnostics.Debug.WriteLine("OnAppearing");*/
-
-        }
-
+        
         protected void searchChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
@@ -94,7 +83,8 @@ namespace HSAManager
 
         protected async void AddNewReceipts(string queryString)
         {
-            listView.BeginRefresh();
+            StartListViewActivityIndicator(cachedSearchResults[queryString].Count < 1 ? true : false);
+            //listView.BeginRefresh();
             Debug.WriteLine("Addding New Receipts");
             try
             {
@@ -106,14 +96,10 @@ namespace HSAManager
             {
                 await DisplayAlert("Alert", ex.Message, "OK");
             }
-            listView.EndRefresh();
+            //listView.EndRefresh();
+            StopListViewActivityIndicator();
         }
 
-        //public async void Handle_Tapped(object sender, System.EventArgs e)
-        //{
-        //	await Navigation.PushAsync(new data());
-
-        //public async void Handle_Tapped(object sender, System.EventArgs e)
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
@@ -150,12 +136,69 @@ namespace HSAManager
         }
 		public async void OnDelete(object sender, EventArgs e)
 		{
-			//var client = new BizzaroClient();
-			//var mi = (MenuItem)sender;
-			//var shoppingListItem = mi.CommandParameter as ShoppingListItemDto;
-			//shoppingListItems.Remove(shoppingListItem);
-			//await client.ShoppingLists.DeleteShoppingListItem(shoppingList.ShoppingListId, shoppingListItem.ShoppingListItemId);
+            var receiptToDelete = ((MenuItem)sender).CommandParameter as ReceiptDto;
+		    if (receiptToDelete == null)
+		    {
+		        await DisplayAlert("Error", "Receipt is not valid!", "OK");
+		        return;
+		    }
+
+            await client.Receipts.DeleteReceipt(receiptToDelete.ReceiptId);
+            RefreshEverything();
 
 		}
+
+        private void ListView_OnRefreshing(object sender, EventArgs e)
+        {
+            RefreshEverything();
+        }
+
+        private async void RefreshEverything()
+        {
+            StartListViewActivityIndicator(true);
+            cachedPaginators.Clear();
+            cachedSearchResults.Clear();
+
+            listView.ItemsSource = null;
+
+            var searchTerm = receiptVaultSearch.Text;
+
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = DefaultSearchTerm;
+                cachedSearchResults[DefaultSearchTerm] = new ObservableCollection<ReceiptDto>();
+                cachedPaginators[DefaultSearchTerm] = client.Receipts.GetListOfReceipts();
+                AddNewReceipts(DefaultSearchTerm);
+            }
+            else
+            {
+                if (!cachedSearchResults.ContainsKey(searchTerm))
+                    cachedSearchResults[searchTerm] = new ObservableCollection<ReceiptDto>();
+                if (!cachedPaginators.ContainsKey(searchTerm))
+                    cachedPaginators[searchTerm] = client.Receipts.GetListOfReceipts(searchTerm);
+
+                
+
+                if (cachedSearchResults[searchTerm].Count < 1)
+                    AddNewReceipts(searchTerm);
+            }
+            listView.ItemsSource = cachedSearchResults[searchTerm];
+            listView.EndRefresh();
+        }
+
+        private void StartListViewActivityIndicator(bool hideListView = false)
+        {
+            if (hideListView)
+                listView.IsVisible = false;
+            ListViewActivityIndicator.IsVisible = true;
+            ListViewActivityIndicator.IsRunning = true;
+        }
+
+        private void StopListViewActivityIndicator()
+        {
+            listView.IsVisible = true;
+            ListViewActivityIndicator.IsVisible = false;
+            ListViewActivityIndicator.IsRunning = false;
+        }
     }
 }

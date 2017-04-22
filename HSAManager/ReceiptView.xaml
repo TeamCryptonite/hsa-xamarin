@@ -2,37 +2,55 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              x:Class="HSAManager.ReceiptView"
              Title="Receipt">
-	<ScrollView>
-        <StackLayout>
-            <!--<Label x:Name="store" Text="" Margin="2,0,2,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="24" />-->
-			<Image x:Name="receiptImage"></Image>
-			<Entry x:Name="store" Text="" Margin="2,0,2,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="24" Unfocused="Store_Entry_Unfocused"/>
-            <Label x:Name="date" Margin="0,5,0,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="18" />
-            <ListView x:Name="LineItemListView">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-							<ViewCell.ContextActions>
-								<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-							</ViewCell.ContextActions>
-                            <StackLayout Orientation="Horizontal">
-                                <Entry Text="{Binding Product.Name}"
-                                       HorizontalOptions="StartAndExpand"
-                                       VerticalOptions="Center" Margin="15,0,0,0" Unfocused="Name_Entry_Unfocused"/>
-                                <!--<Label Text="{Binding Product.Name}"
+    <Grid x:Name="Grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <!--<Label x:Name="store" Text="" Margin="2,0,2,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="24" />-->
+        <ScrollView x:Name="ImageScrollView" VerticalOptions="StartAndExpand" Grid.Row="0" Grid.Column="0">
+            <Image x:Name="receiptImage" />
+        </ScrollView>
+        <ScrollView VerticalOptions="EndAndExpand" Grid.Row="1" Grid.Column="0">
+            <StackLayout>
+                <Entry x:Name="store" Text="" Margin="2,0,2,0" HorizontalTextAlignment="Center"
+                       HorizontalOptions="CenterAndExpand" FontSize="24" Unfocused="Store_Entry_Unfocused" />
+                <DatePicker x:Name="date" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                            Date="{x:Static system:DateTime.Now}" DateSelected="Date_OnDateSelected">
+                    <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
+                </DatePicker>
+                <!--<Label x:Name="date" Margin="0,5,0,0" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="18" />-->
+                <ListView x:Name="LineItemListView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete"
+                                              IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Text="{Binding Product.Name}"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="Center" Margin="15,0,0,0" Unfocused="Name_Entry_Unfocused" />
+                                    <!--<Label Text="{Binding Product.Name}"
                                        HorizontalOptions="StartAndExpand"
                                        VerticalOptions="Center" Margin="15,0,0,0" />-->
-                                <Entry Text="{Binding Price}" HorizontalOptions="EndAndExpand"
-                                       VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Price_Entry_Unfocused"/>
-                                <!--<Label Text="{Binding Price}" HorizontalOptions="EndAndExpand"
+                                    <Entry Text="{Binding Price}" HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center" Margin="0,0,10,0" Unfocused="Price_Entry_Unfocused" />
+                                    <!--<Label Text="{Binding Price}" HorizontalOptions="EndAndExpand"
                                        VerticalOptions="Center" Margin="0,0,10,0" />-->
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ScrollView>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

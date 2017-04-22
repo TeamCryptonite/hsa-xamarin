@@ -4,10 +4,21 @@
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              x:Class="HSAManager.ReceiptEditing">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" >
-            <ScrollView x:Name="ScrollView" VerticalOptions="StartAndExpand" IsClippedToBounds="True" >
-                <StackLayout>
-                    <Button Text="Add image" Clicked="getBlob" />
+        <Grid x:Name="Grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ScrollView Grid.Row="0" Grid.Column="0">
+                <Image x:Name="receiptImage" />
+            </ScrollView>
+            <ScrollView Grid.Row="1" Grid.Column="0">
+            <StackLayout>
+                    
                     <Label Text="Store" HorizontalTextAlignment="Center" />
                     <Entry x:Name="store" Text="" Margin="2,0,2,0" TextChanged="Store_OnTextChanged"
                            Unfocused="Store_OnUnfocused" Focused="Store_OnFocused" />
@@ -59,14 +70,15 @@
                     </ListView>
                 </StackLayout>
             </ScrollView>
-            <StackLayout Orientation="Horizontal" Padding="0,5,0,5" VerticalOptions="EndAndExpand" BackgroundColor="White">
-                <Button Text="Add Items" Clicked="addItem"  HorizontalOptions="StartAndExpand"
+            <StackLayout Orientation="Horizontal" Padding="10,5,10,5" VerticalOptions="EndAndExpand"
+                         BackgroundColor="White" Grid.Row="2" Grid.Column="0">
+                <Button Text="Add Items" Clicked="addItem" HorizontalOptions="StartAndExpand"
                         BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"
                         WidthRequest="150" />
-                <Button Text="Submit" Clicked="submitReceipt"  HorizontalOptions="EndAndExpand"
+                <Button Text="Submit" Clicked="submitReceipt" HorizontalOptions="EndAndExpand"
                         BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold"
                         WidthRequest="150" />
             </StackLayout>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

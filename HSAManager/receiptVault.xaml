@@ -6,7 +6,7 @@
 
     <StackLayout>
         <SearchBar x:Name="receiptVaultSearch" TextChanged="searchChanged" />
-        <ListView x:Name="listView" ItemSelected="ListView_OnItemSelected">
+        <ListView x:Name="listView" ItemSelected="ListView_OnItemSelected" Refreshing="ListView_OnRefreshing" IsPullToRefreshEnabled="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -33,6 +33,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <ActivityIndicator x:Name="ListViewActivityIndicator" IsVisible="False" IsRunning="False" Color="Black" VerticalOptions="StartAndExpand"></ActivityIndicator>
     </StackLayout>
 
 </ContentPage>
