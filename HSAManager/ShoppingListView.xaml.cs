@@ -135,7 +135,7 @@ namespace HSAManager
             }
         }
 
-		private async void addNewItem()
+		private async void addNewItem(object sender, EventArgs e)
 		{
 			var client = new BizzaroClient();
 			var newItem = new ShoppingListItemDto();

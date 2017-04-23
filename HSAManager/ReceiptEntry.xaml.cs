@@ -54,11 +54,13 @@ namespace HSAManager
 				{
 					SaveToAlbum = true
 				});
-			imageName.Source = ImageSource.FromFile(file.Path);
 
-			if (file == null)
-				return;
+            if (file == null)
+                return;
 
+            imageName.Source = ImageSource.FromFile(file.Path);
+            Grid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
+            ImageButton.Text = "Change Image";
         }
 
         private void addItem(object sender, EventArgs e)

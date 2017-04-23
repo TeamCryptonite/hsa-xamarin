@@ -55,9 +55,9 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
-			<Entry x:Name="newItemName" Placeholder="Product" Margin="10,0,0,0"/>
-			<Entry x:Name="newItemQuantity" Placeholder="Quantity"/>
-			<Button Text="Add" Clicked="addNewItem"/>
+			<Entry x:Name="newItemName" Placeholder="Product" Margin="0,0,0,0" HorizontalOptions="StartAndExpand"/>
+			<Entry x:Name="newItemQuantity" Placeholder="Quantity" HorizontalOptions="CenterAndExpand"/>
+            <Button Text="Add" Clicked="addNewItem" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" WidthRequest="100" HorizontalOptions="EndAndExpand"/>
 		</StackLayout>
 	</StackLayout>
 </ContentPage>

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using HsaServiceDtos;
 using Xamarin.Forms;
@@ -23,6 +25,17 @@ namespace HSAManager
             {
                 InitializeComponent();
                 this.receipt = receipt;
+                if (!string.IsNullOrWhiteSpace(receipt.ImageUrl))
+                {
+                    try
+                    {
+                        receiptImage.Source = ImageSource.FromUri(new Uri(receipt.ImageUrl));
+                    }
+                    catch (Exception ex)
+                    {
+                        receiptImage.Source = null;
+                    }
+                }
                 if (receipt.LineItems == null)
                     receipt.LineItems = new List<LineItemDto>();
                 LineItemListView.ItemsSource = receipt.LineItems;
@@ -39,12 +52,6 @@ namespace HSAManager
                 DisplayAlert("Fail", ex.Message, "OK");
                 Navigation.RemovePage(this);
             }
-        }
-
-
-        private void getBlob(object sender, EventArgs e)
-        {
-            // get image file type and retrieve blob
         }
 
         private void addItem(object sender, EventArgs e)
@@ -99,7 +106,26 @@ namespace HSAManager
                     try
                     {
                         await client.Receipts.UpdateReceipt(receipt.ReceiptId, receipt);
+                        var lineItemsToRemove = new List<LineItemDto>();
+                        var lineItemsToAdd = new List<LineItemDto>();
+                        foreach (var lineItem in receipt.LineItems)
+                        {
+                            if (lineItem.LineItemId > 0)
+                                await client.Receipts.UpdateReceiptListItem(receipt.ReceiptId, lineItem);
+
+                            else
+                            {
+                                lineItemsToAdd.Add(await client.Receipts.AddReceiptListItem(receipt.ReceiptId, lineItem));
+                                lineItemsToRemove.Remove(lineItem);
+                            }
+                        }
+                        foreach(var lineItem in lineItemsToRemove)
+                            receipt.LineItems.Remove(lineItem);
+                        foreach(var lineItem in lineItemsToAdd)
+                            receipt.LineItems.Add(lineItem);
+
                         await DisplayAlert("Success", "Receipt has been submitted!", "OK");
+                        receipt.Provisional = false;
                         await Navigation.PopAsync(true);
                     }
                     catch (Exception ex)
