@@ -9,7 +9,7 @@
 							<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
 						</ViewCell.ContextActions>
 						<StackLayout Orientation="Horizontal">
-							<Entry Text="{Binding Name}" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="15,5,0,5" />
+							<Entry Text="{Binding Name}" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="15,0,0,5" />
 						</StackLayout>
 					</ViewCell>
 				</DataTemplate>
