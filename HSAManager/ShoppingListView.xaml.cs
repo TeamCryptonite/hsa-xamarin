@@ -146,8 +146,6 @@ namespace HSAManager
 				newItem.Quantity = int.Parse(newItemQuantity.Text);
 				shoppingListItems.Add(newItem);
 				await client.ShoppingLists.AddShoppingListItem(shoppingList.ShoppingListId, newItem);
-				newItemName.Text = "";
-				newItemQuantity.Text = "";
 			}
 			catch (Exception ex)
 			{

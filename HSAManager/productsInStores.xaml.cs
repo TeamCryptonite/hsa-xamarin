@@ -111,7 +111,7 @@ namespace HSAManager
 			}
             if (StoresCollection.Count == 0)
             {
-                await DisplayAlert("Sorry", "No stores with this product were found in your area", "OK"); //add try increasing your radius when we allow that to be a thing.
+                await DisplayAlert("Uh, Oh!", "No Stores with this product were found in your area...", "OK"); //add try increasing your radius when we allow that to be a thing.
                 await Navigation.PopAsync(true);
             }
         }
