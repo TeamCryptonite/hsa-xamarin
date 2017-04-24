@@ -110,12 +110,6 @@ namespace HSAManager
 
             ChartBrowser = newChartBrowser;
 
-            ChartBrowser.Navigating += (sender, e) =>
-            {
-                Debug.WriteLine(e.Url);
-                e.Cancel = true;
-            };
-
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;
         }
