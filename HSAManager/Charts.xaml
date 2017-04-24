@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HSAManager.Charts"
              Title="Spending Over Time Trends">
-    <StackLayout Orientation="Vertical">
-        <StackLayout>
+    <ScrollView>
+        <StackLayout x:Name="MainStack" Orientation="Vertical" >
             <StackLayout Margin="10,0,10,0">
                 <Label Text="Start Date" Margin="0,15,0,0" HorizontalTextAlignment="Center" />
-                <DatePicker x:Name="StartDate" VerticalOptions="StartAndExpand" PropertyChanged="Date_OnPropertyChanged">
+                <DatePicker x:Name="StartDate" VerticalOptions="StartAndExpand"
+                            PropertyChanged="Date_OnPropertyChanged">
                     <DatePicker.Format>MMMM d, yyyy</DatePicker.Format>
                 </DatePicker>
             </StackLayout>
@@ -19,7 +21,8 @@
             </StackLayout>
             <StackLayout Margin="10,0,10,0">
                 <Label Text="Format" Margin="0,15,0,0" HorizontalTextAlignment="Center" />
-                <Picker x:Name="ChartFormat" VerticalOptions="StartAndExpand" SelectedIndexChanged="ChartFormat_OnSelectedIndexChanged">
+                <Picker x:Name="ChartFormat" VerticalOptions="StartAndExpand"
+                        SelectedIndexChanged="ChartFormat_OnSelectedIndexChanged">
                     <Picker.Items>
                         <x:String>Year and Month</x:String>
                         <x:String>Year Only</x:String>
@@ -28,8 +31,8 @@
                     </Picker.Items>
                 </Picker>
             </StackLayout>
+            <ActivityIndicator x:Name="ActivityIndicator" Color="Black" IsRunning="False" />
+            <WebView x:Name="ChartBrowser" VerticalOptions="StartAndExpand"/>
         </StackLayout>
-        <ActivityIndicator x:Name="ActivityIndicator" Color="Black" IsRunning="False"></ActivityIndicator>
-        <WebView x:Name="ChartBrowser" VerticalOptions="StartAndExpand" WidthRequest="1000" HeightRequest="1000"></WebView>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>
