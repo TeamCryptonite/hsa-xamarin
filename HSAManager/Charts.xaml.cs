@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using HSAManager.Helpers.BizzaroHelpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -41,7 +42,6 @@ namespace HSAManager
         {
             ActivityIndicator.IsVisible = true;
             ActivityIndicator.IsRunning = true;
-            var htmlSource = new HtmlWebViewSource();
 
             var csJsonData = await client.Aggregate.GetSpendingOverTime(startDate, endDate, timePeriod);
             var htmlString = @"
@@ -72,6 +72,10 @@ namespace HSAManager
             dataData.push(packet.TotalSpent);
             dataColors.push('#'+Math.floor(Math.random()*16777215).toString(16));
         }})
+
+        var graphOptions = {{
+            onClick: graphClickEvent
+        }}
         
         console.dir(dataData);
         
@@ -80,26 +84,42 @@ namespace HSAManager
             datasets: [{{
                 data: dataData,
                 backgroundColor: dataColors,
-            }}]
+            }}],
+            options: graphOptions
         }};
         var myPieChart = new Chart(ctx, {{
             type: 'pie',
             data: data
         }});
         console.dir(jsonData);
+
+        function graphClickEvent(event, array) {{
+            window.location.href = array[0];
+        }}
     </script>
 </body>
 
 </html>";
             htmlString = string.Format(htmlString, csJsonData);
-            htmlSource.Html = htmlString;
+            var htmlSource = new HtmlWebViewSource {Html = htmlString};
 
-            ChartBrowser.Source = htmlSource;
+            var newChartBrowser = new WebView {Source = htmlSource, HeightRequest = 500};
+
+            MainStack.Children.Insert(MainStack.Children.IndexOf(ChartBrowser), newChartBrowser);
+            MainStack.Children.Remove(ChartBrowser);
+
+            ChartBrowser = newChartBrowser;
+
+            ChartBrowser.Navigating += (sender, e) =>
+            {
+                Debug.WriteLine(e.Url);
+                e.Cancel = true;
+            };
 
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;
         }
-        
+
         private void CreateChartFromUIValues()
         {
             CreateChartHtml(StartDate.Date, EndDate.Date, ConvertStringToTimePeriod((string)ChartFormat.SelectedItem));

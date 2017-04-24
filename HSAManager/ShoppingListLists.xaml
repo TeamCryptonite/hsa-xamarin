@@ -9,14 +9,14 @@
 							<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
 						</ViewCell.ContextActions>
 						<StackLayout Orientation="Horizontal">
-							<Entry Text="{Binding Name}" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="15,5,0,5" />
+							<Entry Text="{Binding Name}" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="15,0,0,5" />
 						</StackLayout>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
 		<StackLayout Orientation="Horizontal" Margin="10,10,10,10">
-			<Entry x:Name="newShoppingListName" Text="" Placeholder="Shopping List Name" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="10,0,0,0" />
+			<Entry x:Name="newShoppingListName" Text="" Placeholder="Shopping List Name" TextColor="Navy" HorizontalOptions="StartAndExpand" Unfocused="Entry_Unfocused" Margin="10,0,0,0" />
 			<Button Text="Add" Clicked="addNewShoppingList" BorderRadius="5" BackgroundColor="#00b377" TextColor="White" FontAttributes="Bold" Margin="0,0,15,0" WidthRequest="100" />
 		</StackLayout>
 	</StackLayout>
