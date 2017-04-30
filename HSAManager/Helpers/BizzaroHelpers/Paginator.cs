@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RestSharp.Portable;
@@ -40,8 +42,16 @@ namespace HSAManager.Helpers.BizzaroHelpers
                 return new List<T>();
 
             Request.AddOrUpdateQueryParameter("skip", NextSkip);
+            IEnumerable<T> taskWithData;
 
-            var taskWithData = await BizzaroAction.CallBizzaro<IEnumerable<T>>(Request);
+            try
+            {
+                taskWithData = await BizzaroAction.CallBizzaro<IEnumerable<T>>(Request);
+            }
+            catch (Exception ex)
+            {
+                taskWithData = new List<T>();
+            }
             var data = taskWithData.ToList();
 
             if (!data.Any())
